@@ -1,15 +1,246 @@
-# {{ .Project.Name }}
+# apprun-cli
 
-{{ .Project.Description }}
+apprun-cli is a command line interface for AppRun β Sakura Cloud.
+
+This is an unofficial tool.
+
+See also https://manual.sakura.ad.jp/cloud/manual-sakura-apprun.html
 
 ## Usage
 
-apprun-cli
+```
+Usage: apprun-cli <command> [flags]
+
+Flags:
+  -h, --help     Show context-sensitive help.
+      --debug    Enable debug mode ($DEBUG)
+
+Commands:
+  init --name=STRING [flags]
+    Initialize files from existing application
+
+  deploy <application> [flags]
+    Deploy an application
+
+  list [flags]
+    List applications
+
+  diff <application> [flags]
+    Show diff of applications
+
+  render <application> [flags]
+    Render application
+
+  status <application> [flags]
+    Show status of applications
+
+  delete <application> [flags]
+    Delete the application
+
+  user <operation> [flags]
+    Manage apprun user
+
+Run "apprun-cli <command> --help" for more information on a command.
+```
+
+## Installation
+
+```
+$ go install github.com/fujiwara/apprun-cli@latest
+```
+
+or download from [Releases](https://github.com/fujiwara/apprun-cli/releases)
+
+
+## Configuration
+
+apprun-cli reads configuration from environment variables.
+
+- `SAKURACLOUD_ACCESS_TOKEN`
+- `SAKURACLOUD_ACCESS_TOKEN_SECRET`
+
+## Examples
+
+### List
+
+`apprun-cli list` lists all applications.
+
+```console
+$ apprun-cli list
+{
+  "created_at": "2024-12-31T14:07:36.90833+09:00",
+  "id": "ff7abff9-eacc-44ef-b92d-ab0f65fe8ed4",
+  "name": "example",
+  "public_url": "https://app-ff7abff9-eacc-44ef-b92d-ab0f65fe8ed4.ingress.apprun.sakura.ne.jp",
+  "status": "Success"
+}
+{
+  "created_at": "2024-12-31T14:27:39.918056+09:00",
+  "id": "e8e32d63-2260-4093-aef2-c277b375de4e",
+  "name": "example2",
+  "public_url": "https://app-e8e32d63-2260-4093-aef2-c277b375de4e.ingress.apprun.sakura.ne.jp",
+  "status": "Success"
+}
+```
+
+### Initialize
+
+`apprun-cli init --name=example` shows the application definition to stdout.
+
+You can save the output to a file and edit it to deploy the application.
+
+Note: The password is not set in the output.
+
+```
+Usage: apprun-cli init --name=STRING [flags]
+
+Initialize files from existing application
+Flags:
+      --name=STRING    name of the application to init
+      --jsonnet        Use jsonnet to generate files
+```
+
+```console
+$ apprun-cli init --name example
+2024/12/31 14:18:05 INFO initializing app=example
+2024/12/31 14:18:05 INFO found id=04946938-e424-463d-b6ad-9ce5e03de55d
+{
+  "components": [
+    {
+      "deploy_source": {
+        "container_registry": {
+          "image": "example.sakuracr.jp/example:latest",
+          "password": null,
+          "server": "example.sakuracr.jp",
+          "username": "apprun"
+        }
+      },
+      "env": [
+        {
+          "key": "FOO",
+          "value": "baz"
+        }
+      ],
+      "max_cpu": "1",
+      "max_memory": "2Gi",
+      "name": "example",
+      "probe": {
+        "http_get": {
+          "path": "/",
+          "port": 8080
+        }
+      }
+    }
+  ],
+  "max_scale": 2,
+  "min_scale": 0,
+  "name": "example",
+  "port": 8080,
+  "timeout_seconds": 60
+}
+```
+
+### Deploy
+
+`apprun-cli deploy app.json` deploys the application.
+
+app.json or app.jsonnet is the output of `apprun-cli init`.
+
+We recommend to use Jsonnet format to read environment variables.
+
+When the application is not found, `apprun-cli deploy` creates a new application.
+
+```jsonnet
+local must_env = std.native('must_env');
+{
+  components: [
+    {
+      deploy_source: {
+        container_registry: {
+          image: 'example.sakuracr.jp/example:latest',
+          password: must_env('REGISTRY_PASSWORD'),
+          server: 'example.sakuracr.jp',
+          username: 'apprun',
+        },
+      },
+      env: [
+        {
+          key: 'FOO',
+          value: 'bar',
+        },
+      ],
+      max_cpu: '1',
+      max_memory: '2Gi',
+      name: 'example',
+      probe: {
+        http_get: {
+          path: '/',
+          port: 8080,
+        },
+      },
+    },
+  ],
+  max_scale: 2,
+  min_scale: 0,
+  name: 'example',
+  port: 8080,
+  timeout_seconds: 60,
+}
+```
+
+### Diff
+
+`apprun-cli diff app.jsonnet` shows the difference between the current application and the definition file.
+
+```diff
+--- 0b523faa-b0de-4c26-bc42-a3ff500b9367
++++ app.jsonnet
+@@ -12,7 +12,7 @@
+       "env": [
+         {
+           "key": "FOO",
+-          "value": "bar"
++          "value": "baz"
+         }
+       ],
+       "max_cpu": "1",
+```
+
+### Render
+
+`apprun-cli render app.jsonnet` shows the rendered application.
+
+### Status
+
+`apprun-cli status app.jsonnet` shows the status of the application.
+
+```console
+{
+  "created_at": "2024-12-31T14:27:39.918056+09:00",
+  "id": "e8e32d63-2260-4093-aef2-c277b375de4e",
+  "name": "example2",
+  "public_url": "https://app-e8e32d63-2260-4093-aef2-c277b375de4e.ingress.apprun.sakura.ne.jp",
+  "status": "Success"
+}
+```
+
+### Delete
+
+`apprun-cli delete app.jsonnet` deletes the application.
+
+### User
+
+`apprun-cli user` manages the user for AppRun.
+
+Before using `apprun-cli`, you need to create a user only at once.
+
+- `apprun-cli user create` creates a new user.
+- `apprun-cli user read` confirm the user is created.
 
 ## LICENSE
 
-{{ .Project.License }}
+MIT
 
 ## Author
 
-{{ .Project.Author.Name }} <{{ .Project.Author.Email }}>
+Fujiwara Shunichiro (@fujiwara)
