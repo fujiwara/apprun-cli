@@ -46,7 +46,7 @@ Run "apprun-cli <command> --help" for more information on a command.
 ## Installation
 
 ```
-$ go install github.com/fujiwara/apprun-cli@latest
+$ go install github.com/fujiwara/apprun-cli/cmd/apprun-cli@latest
 ```
 
 or download from [Releases](https://github.com/fujiwara/apprun-cli/releases)
