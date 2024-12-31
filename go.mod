@@ -8,7 +8,7 @@ require (
 	github.com/alecthomas/kong v1.6.0
 	github.com/fatih/color v1.18.0
 	github.com/google/go-jsonnet v0.20.0
-	github.com/itchyny/gojq v0.12.8
+	github.com/itchyny/gojq v0.12.17
 	github.com/sacloud/apprun-api-go v0.2.1
 )
 
@@ -30,7 +30,7 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/hexops/gotextdiff v1.0.3 // indirect
-	github.com/itchyny/timefmt-go v0.1.3 // indirect
+	github.com/itchyny/timefmt-go v0.1.6 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
