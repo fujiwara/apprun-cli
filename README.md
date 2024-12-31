@@ -49,6 +49,8 @@ Run "apprun-cli <command> --help" for more information on a command.
 $ go install github.com/fujiwara/apprun-cli/cmd/apprun-cli@latest
 ```
 
+or `brew install fujiwara/tap/apprun-cli`
+
 or download from [Releases](https://github.com/fujiwara/apprun-cli/releases)
 
 
