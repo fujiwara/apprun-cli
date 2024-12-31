@@ -2,10 +2,13 @@ package cli
 
 import (
 	"context"
-	"fmt"
+
+	"github.com/sacloud/apprun-api-go"
 )
 
-func Run(ctx context.Context) error {
-	fmt.Println("apprun-cli!")
-	return nil
+func New(ctx context.Context) (*CLI, error) {
+	c := &CLI{
+		client: &apprun.Client{},
+	}
+	return c, nil
 }
