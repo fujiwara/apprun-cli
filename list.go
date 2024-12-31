@@ -34,7 +34,7 @@ func (c *CLI) AllApplications(ctx context.Context) func(func(*v1.HandlerListAppl
 	param := &v1.ListApplicationsParams{
 		SortField: ptr("name"),
 		SortOrder: ptr(v1.ListApplicationsParamsSortOrder(v1.HandlerListApplicationsMetaSortOrderAsc)),
-		PageSize:  ptr(1),
+		PageSize:  ptr(100),
 	}
 	var page int
 	return func(yield func(*v1.HandlerListApplicationsData, error) bool) {
