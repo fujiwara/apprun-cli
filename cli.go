@@ -10,14 +10,15 @@ import (
 )
 
 type CLI struct {
-	Init   InitOption   `cmd:"" help:"Initialize files from existing application"`
-	Deploy DeployOption `cmd:"" help:"Deploy an application"`
-	List   ListOption   `cmd:"" help:"List applications"`
-	Diff   DiffOption   `cmd:"" help:"Show diff of applications"`
-	Render RenderOption `cmd:"" help:"Render application"`
-	Status StatusOption `cmd:"" help:"Show status of applications"`
-	Delete DeleteOption `cmd:"" help:"Delete the application"`
-	User   UserOption   `cmd:"" help:"Manage apprun user"`
+	Init     InitOption     `cmd:"" help:"Initialize files from existing application"`
+	Deploy   DeployOption   `cmd:"" help:"Deploy an application"`
+	List     ListOption     `cmd:"" help:"List applications"`
+	Diff     DiffOption     `cmd:"" help:"Show diff of applications"`
+	Render   RenderOption   `cmd:"" help:"Render application"`
+	Status   StatusOption   `cmd:"" help:"Show status of applications"`
+	Delete   DeleteOption   `cmd:"" help:"Delete the application"`
+	Versions VersionsOption `cmd:"" help:"Show versions of application"`
+	User     UserOption     `cmd:"" help:"Manage apprun user"`
 
 	Debug bool `help:"Enable debug mode" env:"DEBUG"`
 
@@ -47,6 +48,8 @@ func (c *CLI) Run(ctx context.Context) error {
 		err = c.runList(ctx)
 	case "user <operation>":
 		err = c.runUser(ctx)
+	case "versions <application>":
+		err = c.runVersions(ctx)
 	default:
 		err = fmt.Errorf("unknown command: %s", k.Command())
 	}
