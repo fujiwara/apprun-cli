@@ -17,7 +17,7 @@ type CLI struct {
 	Render   RenderOption   `cmd:"" help:"Render application"`
 	Status   StatusOption   `cmd:"" help:"Show status of applications"`
 	Delete   DeleteOption   `cmd:"" help:"Delete the application"`
-	Versions VersionsOption `cmd:"" help:"Show versions of application"`
+	Versions VersionsOption `cmd:"" help:"Manage versions of application"`
 	User     UserOption     `cmd:"" help:"Manage apprun user"`
 
 	Debug bool `help:"Enable debug mode" env:"DEBUG"`
