@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/Songmu/prompter v0.5.1
-	github.com/aereal/jsondiff v0.3.0
+	github.com/aereal/jsondiff v0.4.0
 	github.com/alecthomas/kong v1.6.0
 	github.com/fatih/color v1.18.0
 	github.com/google/go-jsonnet v0.20.0
