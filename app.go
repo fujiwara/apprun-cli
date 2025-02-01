@@ -134,7 +134,7 @@ func DefaultJsonnetNativeFuncs() []*jsonnet.NativeFunction {
 }
 
 func (c *CLI) getApplicationByName(ctx context.Context, name string) (*ApplicationInfo, *Application, error) {
-	for data, err := range c.AllApplications(ctx) {
+	for data, err := range c.allApplications(ctx) {
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to list applications: %s", err)
 		}

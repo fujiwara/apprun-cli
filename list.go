@@ -14,7 +14,7 @@ type ListOption struct {
 }
 
 func (c *CLI) runList(ctx context.Context) error {
-	for data, err := range c.AllApplications(ctx) {
+	for data, err := range c.allApplications(ctx) {
 		if err != nil {
 			return fmt.Errorf("failed to list applications: %s", err)
 		}
@@ -29,7 +29,7 @@ func (c *CLI) runList(ctx context.Context) error {
 
 var ErrNotFound = fmt.Errorf("not found")
 
-func (c *CLI) AllApplications(ctx context.Context) func(func(*v1.HandlerListApplicationsData, error) bool) {
+func (c *CLI) allApplications(ctx context.Context) func(func(*v1.HandlerListApplicationsData, error) bool) {
 	op := apprun.NewApplicationOp(c.client)
 	param := &v1.ListApplicationsParams{
 		SortField: ptr("name"),

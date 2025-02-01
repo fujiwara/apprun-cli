@@ -7,6 +7,7 @@ require (
 	github.com/aereal/jsondiff v0.4.0
 	github.com/alecthomas/kong v1.7.0
 	github.com/fatih/color v1.18.0
+	github.com/google/go-cmp v0.6.0
 	github.com/google/go-jsonnet v0.20.0
 	github.com/itchyny/gojq v0.12.17
 	github.com/sacloud/apprun-api-go v0.2.1
