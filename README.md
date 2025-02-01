@@ -37,6 +37,9 @@ Commands:
   delete <application> [flags]
     Delete the application
 
+  versions <application> [flags]
+    Manage versions of the application
+
   user <operation> [flags]
     Manage apprun user
 
@@ -229,6 +232,25 @@ local must_env = std.native('must_env');
 ### Delete
 
 `apprun-cli delete app.jsonnet` deletes the application.
+
+### Versions
+
+`apprun-cli versions app.jsonnet` manages the versions of the application.
+
+```
+Flags:
+      --id=STRING    Show the detailed information of the specified version id
+      --delete       Delete the specified version id
+      --force        Force delete without confirmation
+```
+
+If no flags are specified, it shows the list of versions.
+
+`--id` shows the detailed information of the specified version id.
+
+`--delete` deletes the specified version id. Requires `--id` flag.
+
+`--force` forces delete without confirmation. default is false.
 
 ### User
 
