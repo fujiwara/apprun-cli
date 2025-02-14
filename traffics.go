@@ -4,15 +4,22 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"time"
 
 	"github.com/sacloud/apprun-api-go"
 	v1 "github.com/sacloud/apprun-api-go/apis/v1"
+	progressbar "github.com/schollz/progressbar/v3"
 )
 
 type TrafficPercentageByVersion map[string]int
 
+const TrafficShiftDefaultPeriod = time.Minute
+
 type TrafficsOption struct {
-	Versions TrafficPercentageByVersion `help:"Traffic percentage for each version" mapsep:","`
+	Set     TrafficPercentageByVersion `help:"Set traffic percentage for each version" mapsep:","`
+	ShiftTo string                     `help:"Shift all traffic to the specified version"`
+	Rate    int                        `help:"Shift rate percentage(per minute)" default:"100"`
+	Period  time.Duration              `help:"Shift period" default:"1m"`
 }
 
 func (c *CLI) runTraffics(ctx context.Context) error {
@@ -26,8 +33,12 @@ func (c *CLI) runTraffics(ctx context.Context) error {
 		return err
 	}
 
-	if len(opt.Versions) > 0 {
-		return c.updateTraffics(ctx, v(info.Id), opt.Versions)
+	if len(opt.Set) > 0 {
+		return c.updateTraffics(ctx, v(info.Id), opt.Set)
+	}
+
+	if opt.ShiftTo != "" {
+		return c.shiftTraffics(ctx, v(info.Id), opt.ShiftTo, opt.Rate, opt.Period)
 	}
 
 	for tr, err := range c.AllTraffics(ctx, v(info.Id)) {
@@ -76,5 +87,93 @@ func (c *CLI) updateTraffics(ctx context.Context, appId string, versions Traffic
 		return fmt.Errorf("failed to update traffics: %w", err)
 	}
 	fmt.Println(toJSONIndent(res))
+	return nil
+}
+
+func (c *CLI) shiftTraffics(ctx context.Context, appId string, versionName string, rate int, period time.Duration) error {
+	if rate <= 0 || rate > 100 {
+		return fmt.Errorf("rate must be between 1 and 100")
+	}
+
+	op := apprun.NewTrafficOp(c.client)
+	res, err := op.List(ctx, appId)
+	if err != nil {
+		return err
+	}
+	if len(*res.Data) > 1 {
+		return fmt.Errorf("traffic shifting is not supported for multiple versions")
+	}
+	data := *res.Data
+	currentVersionName := ""
+	if v(data[0].IsLatestVersion) {
+		slog.Debug("finding latest version")
+		vop := apprun.NewVersionOp(c.client)
+		param := &v1.ListApplicationVersionsParams{
+			SortOrder: ptr(v1.ListApplicationVersionsParamsSortOrder(v1.ListApplicationVersionsParamsSortOrderDesc)),
+			PageSize:  ptr(1),
+		}
+		res, err := vop.List(ctx, appId, param)
+		if err != nil {
+			return fmt.Errorf("failed to list versions: %w", err)
+		}
+		if len(*res.Data) == 0 {
+			return fmt.Errorf("no versions found")
+		}
+		currentVersionName = v((*res.Data)[0].Name)
+	} else {
+		currentVersionName = v(data[0].VersionName)
+	}
+	slog.Debug("current traffics", "version", currentVersionName)
+	if currentVersionName == versionName {
+		slog.Info("already accepts all traffics", "version", versionName)
+		return nil
+	}
+
+	slog.Info("shifting traffics", "app", appId, "from", currentVersionName, "to", versionName, "rate", rate, "per", period)
+
+	bar := progressbar.NewOptions(100,
+		progressbar.OptionSetDescription("Traffic shifted"),
+		progressbar.OptionSetWidth(20),
+	)
+	shiftedRate := 0
+	ticker := time.NewTicker(period)
+
+	for {
+		shiftedRate += rate
+		if shiftedRate >= 100 {
+			shiftedRate = 100
+		}
+		b := v1.PutTrafficsBody{
+			{
+				VersionName: ptr(versionName),
+				Percent:     ptr(shiftedRate),
+			},
+		}
+		if shiftedRate < 100 {
+			// Percent == 0 is not allowed...
+			b = append(b, v1.Traffic{
+				VersionName: ptr(currentVersionName),
+				Percent:     ptr(100 - shiftedRate),
+			})
+		}
+		slog.Debug("updating traffics", "traffics", toJSON(b))
+		res, err := op.Update(ctx, appId, &b)
+		if err != nil {
+			return fmt.Errorf("failed to update traffics: %w", err)
+		}
+		slog.Debug("traffics updated", "traffics", toJSON(res))
+		bar.Set(shiftedRate)
+		if shiftedRate >= 100 {
+			break
+		}
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-ticker.C:
+		}
+	}
+	bar.Finish()
+	slog.Info("traffics shifted completely", "app", appId, "from", currentVersionName, "to", versionName)
+
 	return nil
 }
