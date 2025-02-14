@@ -270,7 +270,7 @@ Flags:
       --shift-to=STRING        Shift all traffic to the specified version
       --rate=100               Shift rate percentage(per minute)
       --period=1m              Shift period
-      --rollback-on-failure    Rollback to the previous version if failed to shift
+      --[no-]rollback-on-failure    Rollback to the previous version if failed to shift
 ```
 
 If no flags are specified, it shows the current list of traffics.
@@ -295,7 +295,7 @@ The sum of the traffic percentage must be 100.
 
 `--period` specifies the shift period. default is 1m.
 
-`--rollback-on-failure` rolls back to the previous version if failed to shift. default is false.
+`--rollback-on-failure` rolls back to the previous version if failed to shift. default is true. If you want to disable it, specify `--no-rollback-on-failure`.
 
 For example, the following command shifts all traffic to the specified version with 10% rate per 30 seconds.
 
