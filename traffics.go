@@ -184,12 +184,16 @@ func (c *CLI) shiftTraffics(ctx context.Context, appId string, versionName strin
 		}
 		sleep := time.NewTimer(period)
 		select {
-		case <-sleep.C:
-			return nil
 		case <-ctx.Done():
+			if err := ctx.Err(); err != nil {
+				slog.Warn("context cancelled", "error", err)
+			}
 			return nil
+		case <-sleep.C:
+			// do nothing, next loop
 		}
 	}
+	completed = true
 	bar.Finish()
 	slog.Info("traffics shifted completely", "app", appId, "from", currentVersionName, "to", versionName)
 
