@@ -18,6 +18,7 @@ type CLI struct {
 	Status   StatusOption   `cmd:"" help:"Show status of applications"`
 	Delete   DeleteOption   `cmd:"" help:"Delete the application"`
 	Versions VersionsOption `cmd:"" help:"Manage versions of application"`
+	Traffics TrafficsOption `cmd:"" help:"Manage traffics of application"`
 	User     UserOption     `cmd:"" help:"Manage apprun user"`
 
 	Debug bool `help:"Enable debug mode" env:"DEBUG"`
@@ -50,6 +51,8 @@ func (c *CLI) Run(ctx context.Context) error {
 		err = c.runUser(ctx)
 	case "versions <application>":
 		err = c.runVersions(ctx)
+	case "traffics <application>":
+		err = c.runTraffics(ctx)
 	default:
 		err = fmt.Errorf("unknown command: %s", k.Command())
 	}
