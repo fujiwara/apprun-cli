@@ -12,13 +12,12 @@ import (
 type TrafficPercentageByVersion map[string]int
 
 type TrafficsOption struct {
-	Application string                     `arg:"" name:"application" help:"Name of the definition file to use"`
-	Versions    TrafficPercentageByVersion `help:"Traffic percentage for each version" mapsep:","`
+	Versions TrafficPercentageByVersion `help:"Traffic percentage for each version" mapsep:","`
 }
 
 func (c *CLI) runTraffics(ctx context.Context) error {
 	opt := c.Traffics
-	app, err := LoadApplication(ctx, opt.Application)
+	app, err := LoadApplication(ctx, c.Application)
 	if err != nil {
 		return err
 	}

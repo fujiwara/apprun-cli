@@ -84,6 +84,10 @@ func ptr[T any](v T) *T {
 }
 
 func LoadApplication(ctx context.Context, name string) (*Application, error) {
+	if name == "" {
+		return nil, fmt.Errorf("application name is required. use --app flag or set APPRUN_CLI_APP environment variable")
+	}
+	slog.Info("loading application", "file", name)
 	vm := jsonnet.MakeVM()
 	nativeFuncs := DefaultJsonnetNativeFuncs()
 	for _, f := range nativeFuncs {

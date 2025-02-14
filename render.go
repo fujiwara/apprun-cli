@@ -7,13 +7,12 @@ import (
 )
 
 type RenderOption struct {
-	Application string `arg:"" help:"Name of the definition file to render" required:""`
 	Jsonnet     bool   `help:"Format as Jsonnet to render files"`
 }
 
 func (c *CLI) runRender(ctx context.Context) error {
 	opt := c.Render
-	app, err := LoadApplication(ctx, opt.Application)
+	app, err := LoadApplication(ctx, c.Application)
 	if err != nil {
 		return fmt.Errorf("failed to load application: %w", err)
 	}

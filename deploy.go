@@ -9,13 +9,12 @@ import (
 )
 
 type DeployOption struct {
-	Application string `arg:"" help:"Name of the definition file to deploy" required:""`
-	AllTraffic  bool   `help:"Shift all traffic for the deployed version (default:true)" default:"true" negatable:""`
+	AllTraffic bool `help:"Shift all traffic for the deployed version (default:true)" default:"true" negatable:""`
 }
 
 func (c *CLI) runDeploy(ctx context.Context) error {
 	opt := c.Deploy
-	app, err := LoadApplication(ctx, opt.Application)
+	app, err := LoadApplication(ctx, c.Application)
 	if err != nil {
 		return err
 	}
