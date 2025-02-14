@@ -13,7 +13,7 @@ type TrafficPercentageByVersion map[string]int
 
 type TrafficsOption struct {
 	Application string                     `arg:"" name:"application" help:"Name of the definition file to use"`
-	Versions    TrafficPercentageByVersion `help:"Traffic percentage for each version"`
+	Versions    TrafficPercentageByVersion `help:"Traffic percentage for each version" mapsep:","`
 }
 
 func (c *CLI) runTraffics(ctx context.Context) error {
