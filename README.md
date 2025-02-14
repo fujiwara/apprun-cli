@@ -266,10 +266,11 @@ If no flags are specified, it shows the list of versions.
 
 ```
 Flags:
-      --set=KEY=VALUE,...    Set traffic percentage for each version
-      --shift-to=STRING      Shift all traffic to the specified version
-      --rate=100             Shift rate percentage(per minute)
-      --period=1m            Shift period
+      --set=KEY=VALUE,...      Set traffic percentage for each version
+      --shift-to=STRING        Shift all traffic to the specified version
+      --rate=100               Shift rate percentage(per minute)
+      --period=1m              Shift period
+      --rollback-on-failure    Rollback to the previous version if failed to shift
 ```
 
 If no flags are specified, it shows the current list of traffics.
@@ -293,6 +294,8 @@ The sum of the traffic percentage must be 100.
 `--rate` specifies the shift rate percentage per minute. default is 100 (immediate).
 
 `--period` specifies the shift period. default is 1m.
+
+`--rollback-on-failure` rolls back to the previous version if failed to shift. default is false.
 
 For example, the following command shifts all traffic to the specified version with 10% rate per 30 seconds.
 

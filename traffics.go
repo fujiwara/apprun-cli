@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"os"
 	"time"
 
 	"github.com/sacloud/apprun-api-go"
@@ -16,10 +17,11 @@ type TrafficPercentageByVersion map[string]int
 const TrafficShiftDefaultPeriod = time.Minute
 
 type TrafficsOption struct {
-	Set     TrafficPercentageByVersion `help:"Set traffic percentage for each version" mapsep:","`
-	ShiftTo string                     `help:"Shift all traffic to the specified version"`
-	Rate    int                        `help:"Shift rate percentage(per minute)" default:"100"`
-	Period  time.Duration              `help:"Shift period" default:"1m"`
+	Set               TrafficPercentageByVersion `help:"Set traffic percentage for each version" mapsep:","`
+	ShiftTo           string                     `help:"Shift all traffic to the specified version"`
+	Rate              int                        `help:"Shift rate percentage(per minute)" default:"100"`
+	Period            time.Duration              `help:"Shift period" default:"1m"`
+	RollbackOnFailure bool                       `help:"Rollback to the previous version if failed to shift"`
 }
 
 func (c *CLI) runTraffics(ctx context.Context) error {
@@ -129,6 +131,22 @@ func (c *CLI) shiftTraffics(ctx context.Context, appId string, versionName strin
 		return nil
 	}
 
+	var completed bool
+	defer func() {
+		slog.Debug("returning", "completed", completed)
+		if !completed && c.Traffics.RollbackOnFailure {
+			slog.Info("rolling back traffics", "app", appId, "from", versionName, "to", currentVersionName)
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+			defer cancel()
+			if err := c.updateTraffics(ctx, appId, TrafficPercentageByVersion{
+				currentVersionName: 100,
+			}); err != nil {
+				slog.Error("failed to rollback traffics", "app", appId, "from", versionName, "to", currentVersionName, "error", err)
+				os.Exit(1)
+			}
+		}
+	}()
+
 	slog.Info("shifting traffics", "app", appId, "from", currentVersionName, "to", versionName, "rate", rate, "per", period)
 
 	bar := progressbar.NewOptions(100,
@@ -136,8 +154,6 @@ func (c *CLI) shiftTraffics(ctx context.Context, appId string, versionName strin
 		progressbar.OptionSetWidth(20),
 	)
 	shiftedRate := 0
-	ticker := time.NewTicker(period)
-
 	for {
 		shiftedRate += rate
 		if shiftedRate >= 100 {
@@ -166,10 +182,12 @@ func (c *CLI) shiftTraffics(ctx context.Context, appId string, versionName strin
 		if shiftedRate >= 100 {
 			break
 		}
+		sleep := time.NewTimer(period)
 		select {
+		case <-sleep.C:
+			return nil
 		case <-ctx.Done():
 			return nil
-		case <-ticker.C:
 		}
 	}
 	bar.Finish()
