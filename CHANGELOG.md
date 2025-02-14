@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.2.0](https://github.com/fujiwara/apprun-cli/compare/v0.1.0...v0.2.0) - 2025-02-14
+- Add traffics --shift-to, --rate, and --period option by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/13
+
 ## [v0.1.0](https://github.com/fujiwara/apprun-cli/compare/v0.0.2...v0.1.0) - 2025-02-14
 - Add traffic management by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/9
 - update readme for traffics by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/10
