@@ -11,6 +11,8 @@ require (
 	github.com/google/go-jsonnet v0.20.0
 	github.com/itchyny/gojq v0.12.17
 	github.com/sacloud/apprun-api-go v0.2.1
+	github.com/schollz/progressbar/v3 v3.18.0
+	golang.org/x/sys v0.29.0
 )
 
 require (
@@ -37,10 +39,12 @@ require (
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/mitchellh/colorstring v0.0.0-20190213212951-d06e56a500db // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/oapi-codegen/runtime v1.1.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
+	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/sacloud/api-client-go v0.2.10 // indirect
 	github.com/sacloud/go-http v0.1.8 // indirect
 	github.com/sacloud/packages-go v0.0.10 // indirect
@@ -50,8 +54,7 @@ require (
 	golang.org/x/arch v0.8.0 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
-	golang.org/x/sys v0.25.0 // indirect
-	golang.org/x/term v0.20.0 // indirect
+	golang.org/x/term v0.28.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
 	google.golang.org/protobuf v1.34.1 // indirect
 	gopkg.in/yaml.v2 v2.2.7 // indirect

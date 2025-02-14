@@ -266,12 +266,16 @@ If no flags are specified, it shows the list of versions.
 
 ```
 Flags:
-      --versions=KEY=VALUE,...    Traffic percentage for each version
+      --set=KEY=VALUE,...      Set traffic percentage for each version
+      --shift-to=STRING        Shift all traffic to the specified version
+      --rate=100               Shift rate percentage(per minute)
+      --period=1m              Shift period
+      --rollback-on-failure    Rollback to the previous version if failed to shift
 ```
 
 If no flags are specified, it shows the current list of traffics.
 
-`--versions` sets the traffic percentage for each version.
+`--set` sets the traffic percentage for each version.
 
 The value is a comma-separated list of `version_name=percentage`.
 The version name is shown in the list of `versions` command.
@@ -279,11 +283,28 @@ The version name is shown in the list of `versions` command.
 For example, the following command sets the traffic to 50% for each version.
 
 ```console
-$ apprun-cli traffics app.jsonnet \
-  --versions app-0b523faa-b0de-4c26-bc42-a3ff500b9367=50,app-ff7abff9-eacc-44ef-b92d-ab0f65fe8ed4=50
+$ apprun-cli traffics \
+  --set app-0b523faa-b0de-4c26-bc42-a3ff500b9367=50,app-ff7abff9-eacc-44ef-b92d-ab0f65fe8ed4=50
 ```
 
 The sum of the traffic percentage must be 100.
+
+`--shift-to` shifts all traffic to the specified version from the current version.
+
+`--rate` specifies the shift rate percentage per minute. default is 100 (immediate).
+
+`--period` specifies the shift period. default is 1m.
+
+`--rollback-on-failure` rolls back to the previous version if failed to shift. default is false.
+
+For example, the following command shifts all traffic to the specified version with 10% rate per 30 seconds.
+
+```console
+$ apprun-cli traffics \
+  --shift-to app-0b523faa-b0de-4c26-bc42-a3ff500b9367 \
+  --rate 10 \
+  --period 30s
+```
 
 ### User
 

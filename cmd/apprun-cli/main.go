@@ -4,12 +4,15 @@ import (
 	"context"
 	"log/slog"
 	"os"
+	"os/signal"
 
 	cli "github.com/fujiwara/apprun-cli"
+	"golang.org/x/sys/unix"
 )
 
 func main() {
-	ctx := context.TODO()
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, unix.SIGTERM)
+	defer stop()
 	if err := run(ctx); err != nil {
 		slog.Error("error", "err", err)
 		os.Exit(1)
