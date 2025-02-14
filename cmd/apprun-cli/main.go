@@ -7,11 +7,10 @@ import (
 	"os/signal"
 
 	cli "github.com/fujiwara/apprun-cli"
-	"golang.org/x/sys/unix"
 )
 
 func main() {
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, unix.SIGTERM)
+	ctx, stop := signal.NotifyContext(context.Background(), signals()...)
 	defer stop()
 	if err := run(ctx); err != nil {
 		slog.Error("error", "err", err)

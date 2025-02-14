@@ -1,8 +1,5 @@
 .PHONY: clean test
 
-apprun-cli: go.* *.go
-	go build -o $@ cmd/apprun-cli/main.go
-
 clean:
 	rm -rf apprun-cli dist/
 
