@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.2.1](https://github.com/fujiwara/apprun-cli/compare/v0.2.0...v0.2.1) - 2025-02-14
+- fix build for windows by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/15
+
 ## [v0.2.0](https://github.com/fujiwara/apprun-cli/compare/v0.1.0...v0.2.0) - 2025-02-14
 - Add traffics --shift-to, --rate, and --period option by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/13
 
