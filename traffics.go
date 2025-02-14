@@ -21,7 +21,7 @@ type TrafficsOption struct {
 	ShiftTo           string                     `help:"Shift all traffic to the specified version"`
 	Rate              int                        `help:"Shift rate percentage(per minute)" default:"100"`
 	Period            time.Duration              `help:"Shift period" default:"1m"`
-	RollbackOnFailure bool                       `help:"Rollback to the previous version if failed to shift"`
+	RollbackOnFailure bool                       `help:"Rollback to the previous version if failed to shift" default:"true" negatable:""`
 }
 
 func (c *CLI) runTraffics(ctx context.Context) error {
