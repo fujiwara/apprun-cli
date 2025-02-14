@@ -10,9 +10,11 @@ import (
 )
 
 type CLI struct {
-	Init     InitOption     `cmd:"" help:"Initialize files from existing application"`
+	List ListOption `cmd:"" help:"List applications"`
+
+	Init InitOption `cmd:"" help:"Initialize files from existing application"`
+
 	Deploy   DeployOption   `cmd:"" help:"Deploy an application"`
-	List     ListOption     `cmd:"" help:"List applications"`
 	Diff     DiffOption     `cmd:"" help:"Show diff of applications"`
 	Render   RenderOption   `cmd:"" help:"Render application"`
 	Status   StatusOption   `cmd:"" help:"Show status of applications"`
@@ -34,6 +36,8 @@ func (c *CLI) Run(ctx context.Context) error {
 		slog.SetLogLoggerLevel(slog.LevelDebug)
 	}
 	switch k.Command() {
+	case "list":
+		err = c.runList(ctx)
 	case "init":
 		err = c.runInit(ctx)
 	case "deploy":
@@ -46,8 +50,6 @@ func (c *CLI) Run(ctx context.Context) error {
 		err = c.runStatus(ctx)
 	case "delete":
 		err = c.runDelete(ctx)
-	case "list":
-		err = c.runList(ctx)
 	case "user":
 		err = c.runUser(ctx)
 	case "versions":
