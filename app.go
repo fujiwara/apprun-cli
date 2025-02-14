@@ -29,7 +29,7 @@ func fromV1Application(v *v1.Application) *Application {
 	return &app
 }
 
-func toUpdateV1Application(app *Application) *v1.PatchApplicationBody {
+func toUpdateV1Application(app *Application, allTraffic bool) *v1.PatchApplicationBody {
 	b, err := json.Marshal(app)
 	if err != nil {
 		panic(err)
@@ -38,7 +38,7 @@ func toUpdateV1Application(app *Application) *v1.PatchApplicationBody {
 	if err := json.Unmarshal(b, &v); err != nil {
 		panic(err)
 	}
-	v.AllTrafficAvailable = ptr(true) // TODO: configurable
+	v.AllTrafficAvailable = ptr(allTraffic)
 	slog.Debug("toUpdateV1Application", "body", toJSON(v))
 	return &v
 }
