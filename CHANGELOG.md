@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.2.2](https://github.com/fujiwara/apprun-cli/compare/v0.2.1...v0.2.2) - 2025-02-14
+- traffics --rollback-on-failure by default by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/17
+
 ## [v0.2.1](https://github.com/fujiwara/apprun-cli/compare/v0.2.0...v0.2.1) - 2025-02-14
 - fix build for windows by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/15
 
