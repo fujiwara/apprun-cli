@@ -6,12 +6,10 @@ import (
 )
 
 type StatusOption struct {
-	Application string `arg:"" help:"Name of the definition file to status" required:""`
 }
 
 func (c *CLI) runStatus(ctx context.Context) error {
-	opt := c.Status
-	app, err := LoadApplication(ctx, opt.Application)
+	app, err := LoadApplication(ctx, c.Application)
 	if err != nil {
 		return fmt.Errorf("failed to load application: %w", err)
 	}

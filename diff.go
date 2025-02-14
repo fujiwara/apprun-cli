@@ -14,13 +14,12 @@ import (
 const DiffIgnoreDefault = ".components[].deploy_source.container_registry.password"
 
 type DiffOption struct {
-	Application string   `arg:"" help:"Name of the definition file to diff" required:""`
 	Ignore      []string `help:"JQ queries to ignore specific fields"`
 }
 
 func (c *CLI) runDiff(ctx context.Context) error {
 	opt := c.Diff
-	local, err := LoadApplication(ctx, opt.Application)
+	local, err := LoadApplication(ctx, c.Application)
 	if err != nil {
 		return err
 	}
@@ -29,7 +28,7 @@ func (c *CLI) runDiff(ctx context.Context) error {
 		return err
 	}
 	id := v(info.Id)
-	slog.Info("comparing", "local", opt.Application, "remote", id)
+	slog.Info("comparing", "local", c.Application, "remote", id)
 
 	opts := []jsondiff.Option{}
 	ignores := []string{}
@@ -44,7 +43,7 @@ func (c *CLI) runDiff(ctx context.Context) error {
 
 	if diff, err := jsondiff.Diff(
 		&jsondiff.Input{Name: id, X: toMap(remote)},
-		&jsondiff.Input{Name: opt.Application, X: toMap(local)},
+		&jsondiff.Input{Name: c.Application, X: toMap(local)},
 		opts...,
 	); err != nil {
 		return fmt.Errorf("failed to diff: %w", err)

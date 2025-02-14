@@ -21,7 +21,8 @@ type CLI struct {
 	Traffics TrafficsOption `cmd:"" help:"Manage traffics of application"`
 	User     UserOption     `cmd:"" help:"Manage apprun user"`
 
-	Debug bool `help:"Enable debug mode" env:"DEBUG"`
+	Debug       bool   `help:"Enable debug mode" env:"DEBUG"`
+	Application string `name:"app" help:"Name of the application definition file" env:"APPRUN_CLI_APP"`
 
 	client *apprun.Client
 }
@@ -35,23 +36,23 @@ func (c *CLI) Run(ctx context.Context) error {
 	switch k.Command() {
 	case "init":
 		err = c.runInit(ctx)
-	case "deploy <application>":
+	case "deploy":
 		err = c.runDeploy(ctx)
-	case "diff <application>":
+	case "diff":
 		err = c.runDiff(ctx)
-	case "render <application>":
+	case "render":
 		err = c.runRender(ctx)
-	case "status <application>":
+	case "status":
 		err = c.runStatus(ctx)
-	case "delete <application>":
+	case "delete":
 		err = c.runDelete(ctx)
 	case "list":
 		err = c.runList(ctx)
-	case "user <operation>":
+	case "user":
 		err = c.runUser(ctx)
-	case "versions <application>":
+	case "versions":
 		err = c.runVersions(ctx)
-	case "traffics <application>":
+	case "traffics":
 		err = c.runTraffics(ctx)
 	default:
 		err = fmt.Errorf("unknown command: %s", k.Command())

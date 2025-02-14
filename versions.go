@@ -11,7 +11,6 @@ import (
 )
 
 type VersionsOption struct {
-	Application string `arg:"" name:"application" help:"Name of the definition file to use"`
 	ID          string `help:"Show the detailed information of the specified version id"`
 	Delete      bool   `help:"Delete the specified version id"`
 	Force       bool   `help:"Force delete without confirmation"`
@@ -19,7 +18,7 @@ type VersionsOption struct {
 
 func (c *CLI) runVersions(ctx context.Context) error {
 	opt := c.Versions
-	app, err := LoadApplication(ctx, opt.Application)
+	app, err := LoadApplication(ctx, c.Application)
 	if err != nil {
 		return err
 	}

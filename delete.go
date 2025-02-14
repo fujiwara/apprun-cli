@@ -10,13 +10,12 @@ import (
 )
 
 type DeleteOption struct {
-	Application string `arg:"" help:"Name of the definition file to status" required:""`
 	Force       bool   `help:"Force delete without confirmation"`
 }
 
 func (c *CLI) runDelete(ctx context.Context) error {
 	opt := c.Delete
-	app, err := LoadApplication(ctx, opt.Application)
+	app, err := LoadApplication(ctx, c.Application)
 	if err != nil {
 		return fmt.Errorf("failed to load application: %w", err)
 	}

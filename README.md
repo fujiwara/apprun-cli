@@ -12,35 +12,36 @@ See also https://manual.sakura.ad.jp/cloud/manual-sakura-apprun.html
 Usage: apprun-cli <command> [flags]
 
 Flags:
-  -h, --help     Show context-sensitive help.
-      --debug    Enable debug mode ($DEBUG)
+  -h, --help          Show context-sensitive help.
+      --debug         Enable debug mode ($DEBUG)
+      --app=STRING    Name of the application definition file ($APPRUN_CLI_APP)
 
 Commands:
   init --name=STRING [flags]
     Initialize files from existing application
 
-  deploy <application> [flags]
+  deploy [flags]
     Deploy an application
 
   list [flags]
     List applications
 
-  diff <application> [flags]
+  diff [flags]
     Show diff of applications
 
-  render <application> [flags]
+  render [flags]
     Render application
 
-  status <application> [flags]
+  status [flags]
     Show status of applications
 
-  delete <application> [flags]
+  delete [flags]
     Delete the application
 
-  versions <application> [flags]
-    Manage versions of the application
+  versions [flags]
+    Manage versions of application
 
-  traffics <application> [flags]
+  traffics [flags]
     Manage traffics of application
 
   user <operation> [flags]
@@ -148,11 +149,15 @@ $ apprun-cli init --name example
 }
 ```
 
-### Deploy
+### Manage the application
 
-`apprun-cli deploy app.json` deploys the application.
+You can manage the application with the following commands.
 
-app.json or app.jsonnet is the output of `apprun-cli init`.
+The following commands require the application definition file specified by `--app` flag or `APPRUN_CLI_APP` environment variable.
+
+#### Deploy
+
+`apprun-cli deploy` deploys the application.
 
 We recommend to use Jsonnet format to read environment variables.
 
@@ -196,9 +201,9 @@ local must_env = std.native('must_env');
 }
 ```
 
-### Diff
+#### Diff
 
-`apprun-cli diff app.jsonnet` shows the difference between the current application and the definition file.
+`apprun-cli diff` shows the difference between the current application and the definition file.
 
 ```diff
 --- 0b523faa-b0de-4c26-bc42-a3ff500b9367
@@ -214,13 +219,13 @@ local must_env = std.native('must_env');
        "max_cpu": "1",
 ```
 
-### Render
+#### Render
 
-`apprun-cli render app.jsonnet` shows the rendered application.
+`apprun-cli render` shows the rendered application.
 
-### Status
+#### Status
 
-`apprun-cli status app.jsonnet` shows the status of the application.
+`apprun-cli status` shows the status of the application.
 
 ```console
 {
@@ -232,11 +237,11 @@ local must_env = std.native('must_env');
 }
 ```
 
-### Delete
+#### Delete
 
 `apprun-cli delete app.jsonnet` deletes the application.
 
-### Versions
+#### Versions
 
 `apprun-cli versions app.jsonnet` manages the versions of the application.
 
