@@ -40,6 +40,9 @@ Commands:
   versions <application> [flags]
     Manage versions of the application
 
+  traffics <application> [flags]
+    Manage traffics of application
+
   user <operation> [flags]
     Manage apprun user
 
@@ -251,6 +254,31 @@ If no flags are specified, it shows the list of versions.
 `--delete` deletes the specified version id. Requires `--id` flag.
 
 `--force` forces delete without confirmation. default is false.
+
+### Traffics
+
+`apprun-cli traffics app.jsonnet` manages the traffics of the application.
+
+```
+Flags:
+      --versions=KEY=VALUE,...    Traffic percentage for each version
+```
+
+If no flags are specified, it shows the current list of traffics.
+
+`--versions` sets the traffic percentage for each version.
+
+The value is a comma-separated list of `version_name=percentage`.
+The version name is shown in the list of `versions` command.
+
+For example, the following command sets the traffic to 50% for each version.
+
+```console
+$ apprun-cli traffics app.jsonnet \
+  --versions app-0b523faa-b0de-4c26-bc42-a3ff500b9367=50,app-ff7abff9-eacc-44ef-b92d-ab0f65fe8ed4=50
+```
+
+The sum of the traffic percentage must be 100.
 
 ### User
 
