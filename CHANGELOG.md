@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.2.3](https://github.com/fujiwara/apprun-cli/compare/v0.2.2...v0.2.3) - 2025-02-15
+- chore(goreleaser): fix build error by @suzuki-shunsuke in https://github.com/fujiwara/apprun-cli/pull/19
+
 ## [v0.2.2](https://github.com/fujiwara/apprun-cli/compare/v0.2.1...v0.2.2) - 2025-02-14
 - traffics --rollback-on-failure by default by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/17
 
