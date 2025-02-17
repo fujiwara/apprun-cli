@@ -18,7 +18,7 @@ Flags:
 
 Commands:
   init --name=STRING [flags]
-    Initialize files from existing application
+    Initialize files from the existing application
 
   deploy [flags]
     Deploy an application
@@ -239,11 +239,11 @@ local must_env = std.native('must_env');
 
 #### Delete
 
-`apprun-cli delete app.jsonnet` deletes the application.
+`apprun-cli delete` deletes the application.
 
 #### Versions
 
-`apprun-cli versions app.jsonnet` manages the versions of the application.
+`apprun-cli versions` manages the versions of the application.
 
 ```
 Flags:
@@ -260,9 +260,9 @@ If no flags are specified, it shows the list of versions.
 
 `--force` forces delete without confirmation. default is false.
 
-### Traffics
+#### Traffics
 
-`apprun-cli traffics app.jsonnet` manages the traffics of the application.
+`apprun-cli traffics` manages the traffics of the application.
 
 ```
 Flags:
@@ -291,13 +291,13 @@ The sum of the traffic percentage must be 100.
 
 `--shift-to` shifts all traffic to the specified version from the current version.
 
-`--rate` specifies the shift rate percentage per minute. default is 100 (immediate).
+`--rate` specifies the shift rate percentage per minute. The default is 100 (immediate).
 
-`--period` specifies the shift period. default is 1m.
+`--period` specifies the shift period. The default is 1m.
 
-`--rollback-on-failure` rolls back to the previous version if failed to shift. default is true. If you want to disable it, specify `--no-rollback-on-failure`.
+`--rollback-on-failure` rolls back to the previous version if failed to shift. The default is true. If you want to disable it, specify `--no-rollback-on-failure`.
 
-For example, the following command shifts all traffic to the specified version with 10% rate per 30 seconds.
+For example, the following command shifts all traffic to the specified version with a 10% rate per 30 seconds.
 
 ```console
 $ apprun-cli traffics \
@@ -313,7 +313,7 @@ $ apprun-cli traffics \
 Before using `apprun-cli`, you need to create a user only at once.
 
 - `apprun-cli user create` creates a new user.
-- `apprun-cli user read` confirm the user is created.
+- `apprun-cli user read` confirms the user is created.
 
 ## LICENSE
 
