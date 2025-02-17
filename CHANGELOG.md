@@ -1,5 +1,7 @@
 # Changelog
 
+## [v0.2.4](https://github.com/fujiwara/apprun-cli/compare/v0.2.3...v0.2.4) - 2025-02-17
+
 ## [v0.2.3](https://github.com/fujiwara/apprun-cli/compare/v0.2.2...v0.2.3) - 2025-02-15
 - chore(goreleaser): fix build error by @suzuki-shunsuke in https://github.com/fujiwara/apprun-cli/pull/19
 
