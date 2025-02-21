@@ -14,15 +14,16 @@ jobs:
           - runner: ubuntu-24.04
           - runner: ubuntu-24.04-arm
           - runner: macos-latest
+        branch: [main, actions-test]
     name: test action
     runs-on: ${{ matrix.env.runner }}
     steps:
-      - uses: fujiwara/apprun-cli@actions-test
+      - uses: fujiwara/apprun-cli@${{ matrix.branch }}
         with:
           version: v0.3.0
       - run: |
           apprun-cli --version 2>&1 | fgrep v0.3.0
-      - uses: fujiwara/apprun-cli@actions-test
+      - uses: fujiwara/apprun-cli@${{ matrix.branch }}
         with:
           version-file: .test-apprun-cli-version
       - run: |
