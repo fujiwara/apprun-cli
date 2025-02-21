@@ -63,6 +63,26 @@ or `brew install fujiwara/tap/apprun-cli`
 or download from [Releases](https://github.com/fujiwara/apprun-cli/releases)
 
 
+### GitHub Actions
+
+Action fujiwara/apprun-cli installs apprun-cli binary into /usr/local/bin. This action runs install only.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fujiwara/apprun-cli@v0
+        with:
+          version: v0.3.0
+          # version-file: .apprun-cli-version
+      - run: |
+          apprun-cli deploy --app app.jsonnet
+Note:
+
+- `version` is not required, but it is recommended that the version be specified.
+- `version-file` can also specify the version by using the file containing the version without the `v` prefix (for example, `0.3.0`).
+
 ## Configuration
 
 apprun-cli reads configuration from environment variables.
