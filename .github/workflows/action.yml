@@ -1,0 +1,29 @@
+name: test action
+on:
+  push:
+    branches:
+      - main
+      - actions-test
+  workflow_dispatch:
+
+jobs:
+  install:
+    strategy:
+      matrix:
+        env:
+          - runner: ubuntu-24.04
+          - runner: ubuntu-24.04-arm
+          - runner: macos-latest
+    name: test action
+    runs-on: ${{ matrix.env.runner }}
+    steps:
+      - uses: fujiwara/apprun-cli@actions-test
+        with:
+          version: v0.3.0
+      - run: |
+          apprun-cli --version 2>&1 | fgrep v0.3.0
+      - uses: fujiwara/apprun-cli@actions-test
+        with:
+          version-file: .test-apprun-cli-version
+      - run: |
+          apprun-cli --version 2>&1 | fgrep v0.3.0
