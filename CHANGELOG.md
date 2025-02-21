@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.1](https://github.com/fujiwara/apprun-cli/compare/v0.3.0...v0.3.1) - 2025-02-21
+- update Actions test by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/25
+
 ## [v0.3.0](https://github.com/fujiwara/apprun-cli/compare/v0.2.3...v0.3.0) - 2025-02-21
 - Add --tfstate option. by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/22
 - Show version by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/23
