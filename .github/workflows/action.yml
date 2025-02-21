@@ -19,24 +19,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # main branch
       - uses: fujiwara/apprun-cli@main
         with:
-          version: v0.3.0
+          version: v0.3.1
       - run: |
-          apprun-cli --version 2>&1 | fgrep v0.3.0
+          apprun-cli --version 2>&1 | fgrep v0.3.1
+          rm -f `which apprun-cli`
+
       - uses: fujiwara/apprun-cli@main
         with:
           version-file: .test-apprun-cli-version
       - run: |
-          apprun-cli --version 2>&1 | fgrep v0.3.0
+          apprun-cli --version 2>&1 | fgrep v0.3.1
+          rm -f `which apprun-cli`
+
+      # actions-test branch
+      - uses: fujiwara/apprun-cli@actions-test
+        with:
+          version: v0.3.1
+      - run: |
+          apprun-cli --version 2>&1 | fgrep v0.3.1
+          rm -f `which apprun-cli`
 
       - uses: fujiwara/apprun-cli@actions-test
         with:
-          version: v0.3.0
-      - run: |
-          apprun-cli --version 2>&1 | fgrep v0.3.0
-      - uses: fujiwara/apprun-cli@actions-test
-        with:
           version-file: .test-apprun-cli-version
       - run: |
-          apprun-cli --version 2>&1 | fgrep v0.3.0
+          apprun-cli --version 2>&1 | fgrep v0.3.1
+          rm -f `which apprun-cli`
