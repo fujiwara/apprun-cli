@@ -1,5 +1,7 @@
 # Changelog
 
+## [v0.3.2](https://github.com/fujiwara/apprun-cli/compare/v0.3.1...v0.3.2) - 2025-02-21
+
 ## [v0.3.1](https://github.com/fujiwara/apprun-cli/compare/v0.3.0...v0.3.1) - 2025-02-21
 - update Actions test by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/25
 
