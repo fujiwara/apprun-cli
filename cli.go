@@ -6,6 +6,7 @@ import (
 	"log/slog"
 
 	"github.com/alecthomas/kong"
+	"github.com/google/go-jsonnet"
 	"github.com/sacloud/apprun-api-go"
 )
 
@@ -25,8 +26,10 @@ type CLI struct {
 
 	Debug       bool   `help:"Enable debug mode" env:"DEBUG"`
 	Application string `name:"app" help:"Name of the application definition file" env:"APPRUN_CLI_APP"`
+	TFState     string `name:"tfstate" help:"URL to terraform.tfstate" env:"APPRUN_CLI_TFSTATE"`
 
 	client *apprun.Client
+	vm     *jsonnet.VM
 }
 
 func (c *CLI) Run(ctx context.Context) error {
@@ -35,6 +38,10 @@ func (c *CLI) Run(ctx context.Context) error {
 	if c.Debug {
 		slog.SetLogLoggerLevel(slog.LevelDebug)
 	}
+	if err := c.setupVM(ctx); err != nil {
+		return err
+	}
+
 	switch k.Command() {
 	case "list":
 		err = c.runList(ctx)

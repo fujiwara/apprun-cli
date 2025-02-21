@@ -15,7 +15,7 @@ type DeleteOption struct {
 
 func (c *CLI) runDelete(ctx context.Context) error {
 	opt := c.Delete
-	app, err := LoadApplication(ctx, c.Application)
+	app, err := c.LoadApplication(ctx, c.Application)
 	if err != nil {
 		return fmt.Errorf("failed to load application: %w", err)
 	}

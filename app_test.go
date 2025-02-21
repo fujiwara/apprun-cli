@@ -24,10 +24,10 @@ var testApplication = &cli.Application{
 			Name: "test",
 			DeploySource: v1.PostApplicationBodyComponentDeploySource{
 				ContainerRegistry: &v1.PostApplicationBodyComponentDeploySourceContainerRegistry{
-					Username: ptr("user"),
+					Username: ptr("apprun"),
 					Password: ptr("password"),
-					Server:   ptr("registry.example.com"),
-					Image:    "debian:latest",
+					Server:   ptr("example.sakuracr.jp"),
+					Image:    "example.sakuracr.jp/debian:latest",
 				},
 			},
 			Env: &[]v1.PostApplicationBodyComponentEnv{
@@ -54,16 +54,29 @@ var testApplication = &cli.Application{
 	},
 }
 
+func newCLI(t *testing.T, ctx context.Context) *cli.CLI {
+	c, err := cli.New(ctx)
+	if err != nil {
+		t.Fatalf("cli.New() = %v, want nil", err)
+	}
+	c.TFState = "testdata/terraform.tfstate"
+	if err := c.SetupVM(ctx); err != nil {
+		t.Fatalf("c.SetupVM() = %v, want nil", err)
+	}
+	return c
+}
+
 func TestLoadApplication(t *testing.T) {
 	ctx := context.Background() // TODO: use t.Context() after Go 1.24
 	t.Setenv("REGISTRY_PASSWORD", "password")
 	for _, p := range []string{"testdata/app.json", "testdata/app.jsonnet"} {
-		app, err := cli.LoadApplication(ctx, p)
+		c := newCLI(t, ctx)
+		app, err := c.LoadApplication(ctx, p)
 		if err != nil {
-			t.Errorf("LoadApplication(%s) = %v, want nil", p, err)
+			t.Errorf("c.LoadApplication(%s) = %v, want nil", p, err)
 		}
 		if diff := cmp.Diff(app, testApplication); diff != "" {
-			t.Errorf("LoadApplication(%s) mismatch (-want +got):\n%s", p, diff)
+			t.Errorf("c.LoadApplication(%s) mismatch (-want +got):\n%s", p, diff)
 		}
 	}
 }

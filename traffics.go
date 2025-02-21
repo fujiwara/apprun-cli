@@ -26,7 +26,7 @@ type TrafficsOption struct {
 
 func (c *CLI) runTraffics(ctx context.Context) error {
 	opt := c.Traffics
-	app, err := LoadApplication(ctx, c.Application)
+	app, err := c.LoadApplication(ctx, c.Application)
 	if err != nil {
 		return err
 	}

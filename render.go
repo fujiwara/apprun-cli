@@ -12,7 +12,7 @@ type RenderOption struct {
 
 func (c *CLI) runRender(ctx context.Context) error {
 	opt := c.Render
-	app, err := LoadApplication(ctx, c.Application)
+	app, err := c.LoadApplication(ctx, c.Application)
 	if err != nil {
 		return fmt.Errorf("failed to load application: %w", err)
 	}

@@ -3,10 +3,10 @@
     {
       "deploy_source": {
         "container_registry": {
-          "image": "debian:latest",
+          "image": "example.sakuracr.jp/debian:latest",
           "password": "password",
-          "server": "registry.example.com",
-          "username": "user"
+          "server": "example.sakuracr.jp",
+          "username": "apprun"
         }
       },
       "env": [

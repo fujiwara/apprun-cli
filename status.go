@@ -9,7 +9,7 @@ type StatusOption struct {
 }
 
 func (c *CLI) runStatus(ctx context.Context) error {
-	app, err := LoadApplication(ctx, c.Application)
+	app, err := c.LoadApplication(ctx, c.Application)
 	if err != nil {
 		return fmt.Errorf("failed to load application: %w", err)
 	}

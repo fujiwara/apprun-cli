@@ -19,7 +19,7 @@ type DiffOption struct {
 
 func (c *CLI) runDiff(ctx context.Context) error {
 	opt := c.Diff
-	local, err := LoadApplication(ctx, c.Application)
+	local, err := c.LoadApplication(ctx, c.Application)
 	if err != nil {
 		return err
 	}
