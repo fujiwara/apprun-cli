@@ -5,8 +5,8 @@
         "container_registry": {
           "image": "debian:latest",
           "password": "password",
-          "server": "registry.example.com",
-          "username": "user"
+          "server": "example.sakuracr.jp",
+          "username": "apprun"
         }
       },
       "env": [

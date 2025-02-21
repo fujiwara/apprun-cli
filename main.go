@@ -8,13 +8,9 @@ import (
 )
 
 func New(ctx context.Context) (*CLI, error) {
-	vm := jsonnet.MakeVM()
-	nativeFuncs := DefaultJsonnetNativeFuncs()
-	for _, f := range nativeFuncs {
-		vm.NativeFunction(f)
-	}
-	return &CLI{
+	c := &CLI{
 		client: &apprun.Client{},
-		vm:     vm,
-	}, nil
+		vm:     jsonnet.MakeVM(),
+	}
+	return c, nil
 }

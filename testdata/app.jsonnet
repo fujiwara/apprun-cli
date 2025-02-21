@@ -1,5 +1,6 @@
 local must_env = std.native('must_env');
 local env = std.native('env');
+local tfstate = std.native('tfstate');
 {
   components: [
     {
@@ -7,8 +8,8 @@ local env = std.native('env');
         container_registry: {
           image: 'debian:latest',
           password: must_env('REGISTRY_PASSWORD'),
-          server: 'registry.example.com',
-          username: 'user',
+          server: tfstate('sakuracloud_container_registry.myregistry.fqdn'),
+          username: tfstate('sakuracloud_container_registry.myregistry.user[0].name'),
         },
       },
       env: [
