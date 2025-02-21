@@ -9,7 +9,7 @@ builds:
     binary: apprun-cli
     ldflags:
       - -s -w
-      - -X main.Version={{.Version}}
+      - -X main.Version=v{{.Version}}
     goos:
       - linux
       - darwin
