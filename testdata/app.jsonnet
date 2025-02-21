@@ -6,7 +6,7 @@ local tfstate = std.native('tfstate');
     {
       deploy_source: {
         container_registry: {
-          image: 'debian:latest',
+          image: tfstate('sakuracloud_container_registry.myregistry.fqdn')+'/debian:latest',
           password: must_env('REGISTRY_PASSWORD'),
           server: tfstate('sakuracloud_container_registry.myregistry.fqdn'),
           username: tfstate('sakuracloud_container_registry.myregistry.user[0].name'),

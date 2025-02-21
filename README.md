@@ -12,9 +12,10 @@ See also https://manual.sakura.ad.jp/cloud/manual-sakura-apprun.html
 Usage: apprun-cli <command> [flags]
 
 Flags:
-  -h, --help          Show context-sensitive help.
-      --debug         Enable debug mode ($DEBUG)
-      --app=STRING    Name of the application definition file ($APPRUN_CLI_APP)
+  -h, --help              Show context-sensitive help.
+      --debug             Enable debug mode ($DEBUG)
+      --app=STRING        Name of the application definition file ($APPRUN_CLI_APP)
+      --tfstate=STRING    URL to terraform.tfstate ($APPRUN_CLI_TFSTATE)
 
 Commands:
   init --name=STRING [flags]
@@ -67,6 +68,8 @@ apprun-cli reads configuration from environment variables.
 
 - `SAKURACLOUD_ACCESS_TOKEN`
 - `SAKURACLOUD_ACCESS_TOKEN_SECRET`
+
+AppRun is a global resource, so you don't need to specify the zone or region.
 
 ## Examples
 
@@ -160,19 +163,21 @@ The following commands require the application definition file specified by `--a
 `apprun-cli deploy` deploys the application.
 
 We recommend to use Jsonnet format to read environment variables.
+See also [Jsonnet](#jsonnet)
 
 When the application is not found, `apprun-cli deploy` creates a new application.
 
 ```jsonnet
 local must_env = std.native('must_env');
+local tfs = std.native('tfstate');
 {
   components: [
     {
       deploy_source: {
         container_registry: {
-          image: 'example.sakuracr.jp/example:latest',
+          image: tfstate('sakuracloud_container_registry.example.fqdn') + '/debian:latest',
           password: must_env('REGISTRY_PASSWORD'),
-          server: 'example.sakuracr.jp',
+          server: tfstate('sakuracloud_container_registry.example.fqdn'),
           username: 'apprun',
         },
       },
@@ -314,6 +319,50 @@ Before using `apprun-cli`, you need to create a user only at once.
 
 - `apprun-cli user create` creates a new user.
 - `apprun-cli user read` confirms the user is created.
+
+## Jsonnet
+
+apprun-cli supports [Jsonnet](https://jsonnet.org) to read the application definition.
+
+### Lookup environment variables
+
+You can use Jsonnet to read environment variables from the environment using functions via `std.native`.
+
+```jsonnet
+local must_env = std.native('must_env');
+local env = std.native('env');
+{
+  foo: must_env('FOO'),
+  bar: env('BAR', 'default'),
+}
+```
+
+- `must_env` reads the environment variable and returns the value. If the environment variable is not set, it raises an error.
+- `env` reads the environment variable and returns the value. If the environment variable is not set, it returns the default value.
+
+### Lookup a Terraform state
+
+You can use Jsonnet to read the resource value in terraform.tfstate from the URL using functions via `std.native`.
+
+```jsonnet
+local tfstate = std.native('tfstate');
+{
+  server: tfstate('sakuracloud_container_registry.foo.fqdn'),
+}
+```
+
+- `tfstate` lookups the value from terraform.tfstate and returns the value.
+
+`--tfstate` flag or `APPRUN_CLI_TFSTATE` environment variable is required to specify the URL to terraform.tfstate.
+
+```console
+$ apprun-cli deploy --app app.jsonnet --tfstate https://example.com/terraform.tfstate
+```
+
+Supported URL schemes are `http`, `https`, `file`, `s3`(Amazon S3), `gs`(Google Cloud Storage), `remote`(Terraform Cloud) and `azurerm`(Azure Blob Storage).
+
+For more information, see [tfstate-lookup](https://github.com/fujiwara/tfstate-lookup).
+
 
 ## LICENSE
 

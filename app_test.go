@@ -27,7 +27,7 @@ var testApplication = &cli.Application{
 					Username: ptr("apprun"),
 					Password: ptr("password"),
 					Server:   ptr("example.sakuracr.jp"),
-					Image:    "debian:latest",
+					Image:    "example.sakuracr.jp/debian:latest",
 				},
 			},
 			Env: &[]v1.PostApplicationBodyComponentEnv{
