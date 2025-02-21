@@ -67,6 +67,7 @@ or download from [Releases](https://github.com/fujiwara/apprun-cli/releases)
 
 Action fujiwara/apprun-cli installs apprun-cli binary into /usr/local/bin. This action runs install only.
 
+```yaml
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -74,10 +75,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: fujiwara/apprun-cli@v0
         with:
-          version: v0.3.0
+          version: v0.3.2
           # version-file: .apprun-cli-version
       - run: |
           apprun-cli deploy --app app.jsonnet
+```
+
 Note:
 
 - `version` is not required, but it is recommended that the version be specified.
