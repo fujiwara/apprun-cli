@@ -16,6 +16,7 @@ Flags:
       --debug             Enable debug mode ($DEBUG)
       --app=STRING        Name of the application definition file ($APPRUN_CLI_APP)
       --tfstate=STRING    URL to terraform.tfstate ($APPRUN_CLI_TFSTATE)
+  -v, --version           Show version and exit.
 
 Commands:
   init --name=STRING [flags]

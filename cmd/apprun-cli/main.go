@@ -9,7 +9,10 @@ import (
 	cli "github.com/fujiwara/apprun-cli"
 )
 
+var Version = "current"
+
 func main() {
+	cli.Version = Version
 	ctx, stop := signal.NotifyContext(context.Background(), signals()...)
 	defer stop()
 	if err := run(ctx); err != nil {
