@@ -83,17 +83,13 @@ func ptr[T any](v T) *T {
 	return &v
 }
 
-func LoadApplication(ctx context.Context, name string) (*Application, error) {
+func (c *CLI) LoadApplication(ctx context.Context, name string) (*Application, error) {
 	if name == "" {
 		return nil, fmt.Errorf("application name is required. use --app flag or set APPRUN_CLI_APP environment variable")
 	}
 	slog.Info("loading application", "file", name)
-	vm := jsonnet.MakeVM()
-	nativeFuncs := DefaultJsonnetNativeFuncs()
-	for _, f := range nativeFuncs {
-		vm.NativeFunction(f)
-	}
-	jsonStr, err := vm.EvaluateFile(name)
+
+	jsonStr, err := c.vm.EvaluateFile(name)
 	if err != nil {
 		return nil, fmt.Errorf("failed to evaluate jsonnet file: %s", err)
 	}

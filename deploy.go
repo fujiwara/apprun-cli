@@ -14,7 +14,7 @@ type DeployOption struct {
 
 func (c *CLI) runDeploy(ctx context.Context) error {
 	opt := c.Deploy
-	app, err := LoadApplication(ctx, c.Application)
+	app, err := c.LoadApplication(ctx, c.Application)
 	if err != nil {
 		return err
 	}

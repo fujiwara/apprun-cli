@@ -18,7 +18,7 @@ type VersionsOption struct {
 
 func (c *CLI) runVersions(ctx context.Context) error {
 	opt := c.Versions
-	app, err := LoadApplication(ctx, c.Application)
+	app, err := c.LoadApplication(ctx, c.Application)
 	if err != nil {
 		return err
 	}

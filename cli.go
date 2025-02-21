@@ -6,6 +6,7 @@ import (
 	"log/slog"
 
 	"github.com/alecthomas/kong"
+	"github.com/google/go-jsonnet"
 	"github.com/sacloud/apprun-api-go"
 )
 
@@ -23,10 +24,13 @@ type CLI struct {
 	Traffics TrafficsOption `cmd:"" help:"Manage traffics of application"`
 	User     UserOption     `cmd:"" help:"Manage apprun user"`
 
-	Debug       bool   `help:"Enable debug mode" env:"DEBUG"`
-	Application string `name:"app" help:"Name of the application definition file" env:"APPRUN_CLI_APP"`
+	Debug           bool              `help:"Enable debug mode" env:"DEBUG"`
+	Application     string            `name:"app" help:"Name of the application definition file" env:"APPRUN_CLI_APP"`
+	TFState         *string           `name:"tfstate" help:"URL to terraform.tfstate" env:"APPRUN_CLI_TFSTATE"`
+	PrefixedTFState map[string]string `name:"prefixed-tfstate" help:"key value pair of the prefix for template function name and URL to terraform.tfstate" env:"APPRUN_CLI_PREFIXED_TFSTATE"`
 
 	client *apprun.Client
+	vm     *jsonnet.VM
 }
 
 func (c *CLI) Run(ctx context.Context) error {

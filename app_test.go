@@ -58,12 +58,16 @@ func TestLoadApplication(t *testing.T) {
 	ctx := context.Background() // TODO: use t.Context() after Go 1.24
 	t.Setenv("REGISTRY_PASSWORD", "password")
 	for _, p := range []string{"testdata/app.json", "testdata/app.jsonnet"} {
-		app, err := cli.LoadApplication(ctx, p)
+		c, err := cli.New(ctx)
 		if err != nil {
-			t.Errorf("LoadApplication(%s) = %v, want nil", p, err)
+			t.Fatalf("cli.New() = %v, want nil", err)
+		}
+		app, err := c.LoadApplication(ctx, p)
+		if err != nil {
+			t.Errorf("c.LoadApplication(%s) = %v, want nil", p, err)
 		}
 		if diff := cmp.Diff(app, testApplication); diff != "" {
-			t.Errorf("LoadApplication(%s) mismatch (-want +got):\n%s", p, diff)
+			t.Errorf("c.LoadApplication(%s) mismatch (-want +got):\n%s", p, diff)
 		}
 	}
 }
