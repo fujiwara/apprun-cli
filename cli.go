@@ -24,16 +24,17 @@ type CLI struct {
 	Traffics TrafficsOption `cmd:"" help:"Manage traffics of application"`
 	User     UserOption     `cmd:"" help:"Manage apprun user"`
 
-	Debug       bool   `help:"Enable debug mode" env:"DEBUG"`
-	Application string `name:"app" help:"Name of the application definition file" env:"APPRUN_CLI_APP"`
-	TFState     string `name:"tfstate" help:"URL to terraform.tfstate" env:"APPRUN_CLI_TFSTATE"`
+	Debug       bool             `help:"Enable debug mode" env:"DEBUG"`
+	Application string           `name:"app" help:"Name of the application definition file" env:"APPRUN_CLI_APP"`
+	TFState     string           `name:"tfstate" help:"URL to terraform.tfstate" env:"APPRUN_CLI_TFSTATE"`
+	Version     kong.VersionFlag `short:"v" help:"Show version and exit."`
 
 	client *apprun.Client
 	vm     *jsonnet.VM
 }
 
 func (c *CLI) Run(ctx context.Context) error {
-	k := kong.Parse(c)
+	k := kong.Parse(c, kong.Vars{"version": fmt.Sprintf("apprun-cli %s", Version)})
 	var err error
 	if c.Debug {
 		slog.SetLogLoggerLevel(slog.LevelDebug)

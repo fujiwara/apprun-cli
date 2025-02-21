@@ -7,6 +7,9 @@ builds:
       - CGO_ENABLED=0
     main: ./cmd/apprun-cli
     binary: apprun-cli
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
     goos:
       - linux
       - darwin

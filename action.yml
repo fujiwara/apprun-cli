@@ -1,0 +1,44 @@
+inputs:
+  version:
+    description: "A version to install apprun-cli"
+    default: "latest"
+    required: false
+  version-file:
+    description: "File name that contains the apprun-cli version."
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Set apprun-cli version
+      id: set-apprun-cli-version
+      run: |
+        VERSION=${{ inputs.version }}
+        if [ -n "${{ inputs.version-file }}" ]; then
+          VERSION=v$(cat ${{ inputs.version-file }})
+        fi
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+      shell: bash
+    - name: Set file name
+      id: set-filename
+      run: |
+        case "${{ runner.os }}" in
+          Linux) BIN_OS="linux" ;;
+          macOS) BIN_OS="darwin" ;;
+          *) BIN_OS="linux" ;;
+        esac
+
+        case "${{ runner.arch }}" in
+          X64) BIN_ARCH="amd64" ;;
+          ARM64) BIN_ARCH="arm64" ;;
+          *) BIN_ARCH="amd64" ;;
+        esac
+
+        FILENAME=apprun-cli_${{ steps.set-apprun-cli-version.outputs.VERSION }}_${BIN_OS}_${BIN_ARCH}.tar.gz
+        echo "FILENAME=$FILENAME" >> $GITHUB_OUTPUT
+      shell: bash
+    - run: |
+        mkdir -p /tmp/apprun-cli-${{ steps.set-apprun-cli-version.outputs.VERSION }}
+        cd /tmp/apprun-cli-${{ steps.set-apprun-cli-version.outputs.VERSION }}
+        curl -sL https://github.com/fujiwara/apprun-cli/releases/download/${{ steps.set-apprun-cli-version.outputs.VERSION }}/${{ steps.set-filename.outputs.FILENAME }} | tar zxvf -
+        sudo install apprun-cli /usr/local/bin
+      shell: bash
