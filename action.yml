@@ -1,8 +1,7 @@
 inputs:
   version:
     description: "A version to install apprun-cli"
-    default: "latest"
-    required: false
+    required: true
   version-file:
     description: "File name that contains the apprun-cli version."
     required: false
