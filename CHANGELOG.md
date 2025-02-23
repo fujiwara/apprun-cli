@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.3.3](https://github.com/fujiwara/apprun-cli/compare/v0.3.2...v0.3.3) - 2025-02-23
+- [Action] inputs.version is required. by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/30
+
 ## [v0.3.2](https://github.com/fujiwara/apprun-cli/compare/v0.3.1...v0.3.2) - 2025-02-21
 
 ## [v0.3.1](https://github.com/fujiwara/apprun-cli/compare/v0.3.0...v0.3.1) - 2025-02-21
