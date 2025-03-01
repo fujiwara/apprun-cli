@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/Songmu/prompter v0.5.1
-	github.com/aereal/jsondiff v0.4.0
+	github.com/aereal/jsondiff v0.4.1
 	github.com/alecthomas/kong v1.8.1
 	github.com/fatih/color v1.18.0
 	github.com/fujiwara/tfstate-lookup v1.5.0
