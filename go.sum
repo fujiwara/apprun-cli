@@ -269,8 +269,8 @@ github.com/rogpeppe/go-internal v1.12.0 h1:exVL4IDcn6na9z1rAb56Vxr+CgyK3nn3O+epU
 github.com/rogpeppe/go-internal v1.12.0/go.mod h1:E+RYuTGaKKdloAfM02xzb0FW3Paa99yedzYV+kq4uf4=
 github.com/sacloud/api-client-go v0.2.10 h1:+rv3jDohD+pkdYwOTBiB+jZsM0xK3AxadXRzhp3q66c=
 github.com/sacloud/api-client-go v0.2.10/go.mod h1:Jj3CTy2+O4bcMedVDXlbHuqqche85HEPuVXoQFhLaRc=
-github.com/sacloud/apprun-api-go v0.2.1 h1:ji5E3xjnXE3MjrOMK0+DXK22bYrGPDO0OETL/QniZFQ=
-github.com/sacloud/apprun-api-go v0.2.1/go.mod h1:XB88c3BsZ8TBKNqN6K5+t/sJK+cg1PRRh2a1g4KBAzc=
+github.com/sacloud/apprun-api-go v0.3.0 h1:KOV6NLDE97RZrB9cyFpAHZdHdPovdZAQB6970aHJSpM=
+github.com/sacloud/apprun-api-go v0.3.0/go.mod h1:exDPXQMJIShaelI5LtXI3Ns7HwRLnYI8QuGFMd+pESM=
 github.com/sacloud/go-http v0.1.8 h1:ynreWA/vnM8G2ksbMlmefBHsXURKPz49qlPRqQ9IQdw=
 github.com/sacloud/go-http v0.1.8/go.mod h1:7TL7TN1fnPKHsMifIqURDkGujnKViCgEz5Ei/LQdFK8=
 github.com/sacloud/packages-go v0.0.10 h1:UiQGjy8LretewkRhsuna1TBM9Vz/l9FoYpQx+D+AOck=
