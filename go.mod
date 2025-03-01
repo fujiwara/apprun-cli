@@ -13,7 +13,7 @@ require (
 	github.com/itchyny/gojq v0.12.17
 	github.com/sacloud/apprun-api-go v0.2.1
 	github.com/schollz/progressbar/v3 v3.18.0
-	golang.org/x/sys v0.29.0
+	golang.org/x/sys v0.30.0
 )
 
 require (
