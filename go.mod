@@ -1,6 +1,6 @@
 module github.com/fujiwara/apprun-cli
 
-go 1.23
+go 1.23.0
 
 require (
 	github.com/Songmu/prompter v0.5.1
@@ -13,7 +13,7 @@ require (
 	github.com/itchyny/gojq v0.12.17
 	github.com/sacloud/apprun-api-go v0.3.0
 	github.com/schollz/progressbar/v3 v3.18.0
-	golang.org/x/sys v0.30.0
+	golang.org/x/sys v0.35.0
 )
 
 require (
