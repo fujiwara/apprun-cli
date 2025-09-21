@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.4.0](https://github.com/fujiwara/apprun-cli/compare/v0.3.3...v0.4.0) - 2025-09-21
+- add an args input parameter. by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/51
+
 ## [v0.3.3](https://github.com/fujiwara/apprun-cli/compare/v0.3.2...v0.3.3) - 2025-09-21
 - [Action] inputs.version is required. by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/30
 - fix dependabot by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/31
