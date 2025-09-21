@@ -5,6 +5,9 @@ inputs:
   version-file:
     description: "File name that contains the apprun-cli version."
     required: false
+  args:
+    description: "Run arguments for apprun-cli"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -41,3 +44,10 @@ runs:
         curl -sL https://github.com/fujiwara/apprun-cli/releases/download/${{ steps.set-apprun-cli-version.outputs.VERSION }}/${{ steps.set-filename.outputs.FILENAME }} | tar zxvf -
         sudo install apprun-cli /usr/local/bin
       shell: bash
+
+    - name: Run apprun-cli
+      run: |
+        apprun-cli --version
+        apprun-cli ${{ inputs.args }}
+      shell: bash
+      if: ${{ inputs.args != '' }}

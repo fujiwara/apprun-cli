@@ -65,26 +65,45 @@ or download from [Releases](https://github.com/fujiwara/apprun-cli/releases)
 
 ### GitHub Actions
 
-Action fujiwara/apprun-cli installs apprun-cli binary into /usr/local/bin. This action runs install only.
+Action fujiwara/apprun-cli installs apprun-cli binary into /usr/local/bin. This action installs the specified version of apprun-cli.
+
+If `args` is specified, it runs `apprun-cli <args>` after installation.
 
 ```yaml
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: fujiwara/apprun-cli@v0
         with:
-          version: v0.3.2
+          version: v0.3.3
           # version-file: .apprun-cli-version
       - run: |
           apprun-cli deploy --app app.jsonnet
+```
+
+```yaml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: fujiwara/apprun-cli@v0
+        with:
+          version: v0.3.3
+          args: deploy
+        env:
+          APPRUN_CLI_APP: app.jsonnet
+          SAKURACLOUD_ACCESS_TOKEN: ${{ secrets.SAKURACLOUD_ACCESS_TOKEN }}
+          SAKURACLOUD_ACCESS_TOKEN_SECRET: ${{ secrets.SAKURACLOUD_ACCESS_TOKEN_SECRET }}
 ```
 
 Note:
 
 - `version` is not required, but it is recommended that the version be specified.
 - `version-file` can also specify the version by using the file containing the version without the `v` prefix (for example, `0.3.0`).
+- `args` is optional. If it is specified, it runs `apprun-cli <args>` after installation.
 
 ## Configuration
 
