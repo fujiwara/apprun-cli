@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.3.3](https://github.com/fujiwara/apprun-cli/compare/v0.3.2...v0.3.3) - 2025-09-21
+- [Action] inputs.version is required. by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/30
+- fix dependabot by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/31
+- Bump github.com/alecthomas/kong from 1.7.0 to 1.8.1 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/32
+- Bump golang.org/x/sys from 0.29.0 to 0.30.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/36
+- Bump github.com/sacloud/apprun-api-go from 0.2.1 to 0.3.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/35
+- Bump github.com/google/go-cmp from 0.6.0 to 0.7.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/34
+- Bump github.com/aereal/jsondiff from 0.4.0 to 0.4.1 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/33
+- Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/48
+- Immutable release by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/50
+
 ## [v0.3.2](https://github.com/fujiwara/apprun-cli/compare/v0.3.1...v0.3.2) - 2025-02-21
 
 ## [v0.3.1](https://github.com/fujiwara/apprun-cli/compare/v0.3.0...v0.3.1) - 2025-02-21
