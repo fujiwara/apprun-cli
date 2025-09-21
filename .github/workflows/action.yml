@@ -17,7 +17,7 @@ jobs:
     name: test action
     runs-on: ${{ matrix.env.runner }}
     steps:
-      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+      - uses: actions/checkout@v5
 
       # main branch
       - uses: fujiwara/apprun-cli@7eb1cc5276848b5aa724f8650a370df3af57fa27 # v0
