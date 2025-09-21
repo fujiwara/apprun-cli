@@ -31,7 +31,7 @@ jobs:
         with:
           version-file: .test-apprun-cli-version
       - run: |
-          apprun-cli --version 2>&1 | fgrep v0.3.3
+          apprun-cli --version 2>&1 | fgrep v0.3.2
           rm -f `which apprun-cli`
 
       # actions-test branch
