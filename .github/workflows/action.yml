@@ -17,17 +17,17 @@ jobs:
     name: test action
     runs-on: ${{ matrix.env.runner }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       # main branch
-      - uses: fujiwara/apprun-cli@v0
+      - uses: fujiwara/apprun-cli@7eb1cc5276848b5aa724f8650a370df3af57fa27 # v0
         with:
           version: v0.3.2
       - run: |
           apprun-cli --version 2>&1 | fgrep v0.3.2
           rm -f `which apprun-cli`
 
-      - uses: fujiwara/apprun-cli@v0
+      - uses: fujiwara/apprun-cli@7eb1cc5276848b5aa724f8650a370df3af57fa27 # v0
         with:
           version-file: .test-apprun-cli-version
       - run: |
@@ -35,14 +35,14 @@ jobs:
           rm -f `which apprun-cli`
 
       # actions-test branch
-      - uses: fujiwara/apprun-cli@actions-test
+      - uses: fujiwara/apprun-cli@189de78b89a5d1745eba6acf9445710a693ab9a2 # actions-test
         with:
           version: v0.3.2
       - run: |
           apprun-cli --version 2>&1 | fgrep v0.3.2
           rm -f `which apprun-cli`
 
-      - uses: fujiwara/apprun-cli@actions-test
+      - uses: fujiwara/apprun-cli@189de78b89a5d1745eba6acf9445710a693ab9a2 # actions-test
         with:
           version-file: .test-apprun-cli-version
       - run: |
