@@ -22,16 +22,16 @@ jobs:
       # main branch
       - uses: fujiwara/apprun-cli@7eb1cc5276848b5aa724f8650a370df3af57fa27 # v0
         with:
-          version: v0.3.2
+          version: v0.3.3
       - run: |
-          apprun-cli --version 2>&1 | fgrep v0.3.2
+          apprun-cli --version 2>&1 | fgrep v0.3.3
           rm -f `which apprun-cli`
 
       - uses: fujiwara/apprun-cli@7eb1cc5276848b5aa724f8650a370df3af57fa27 # v0
         with:
           version-file: .test-apprun-cli-version
       - run: |
-          apprun-cli --version 2>&1 | fgrep v0.3.2
+          apprun-cli --version 2>&1 | fgrep v0.3.3
           rm -f `which apprun-cli`
 
       # actions-test branch
@@ -48,3 +48,9 @@ jobs:
       - run: |
           apprun-cli --version 2>&1 | fgrep v0.3.2
           rm -f `which apprun-cli`
+
+      # with args
+      - uses: fujiwara/apprun-cli@86d05b8105120cd6f5e41bfce48c854706fb3dbf # v0.4.0
+        with:
+          version: v0.4.0
+          args: --version
