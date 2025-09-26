@@ -13,9 +13,33 @@ import (
 	v1 "github.com/sacloud/apprun-api-go/apis/v1"
 )
 
-type Application = v1.PostApplicationBody
+// Application represents an application definition
+// This is combined struct of v1.PostApplicationBody and v1.PatchPacketFilter
+type Application struct {
+	// same as v1.PostApplicationBody
+	Components     []v1.PostApplicationBodyComponent `json:"components"`
+	MaxScale       int                               `json:"max_scale"`
+	MinScale       int                               `json:"min_scale"`
+	Name           string                            `json:"name"`
+	Port           int                               `json:"port"`
+	TimeoutSeconds int                               `json:"timeout_seconds"`
+
+	PacketFilter v1.PatchPacketFilter `json:"packet_filter,omitempty"`
+}
 
 type ApplicationInfo = v1.HandlerListApplicationsData
+
+// PostApplicationBody returns v1.PostApplicationBody representation of Application
+func (app *Application) PostApplicationBody() *v1.PostApplicationBody {
+	return &v1.PostApplicationBody{
+		Components:     app.Components,
+		MaxScale:       app.MaxScale,
+		MinScale:       app.MinScale,
+		Name:           app.Name,
+		Port:           app.Port,
+		TimeoutSeconds: app.TimeoutSeconds,
+	}
+}
 
 func fromV1Application(v *v1.Application) *Application {
 	b, err := json.Marshal(v)
@@ -148,6 +172,13 @@ func (c *CLI) getApplicationByName(ctx context.Context, name string) (*Applicati
 			return nil, nil, fmt.Errorf("failed to read application: %s", err)
 		}
 		app := fromV1Application(v1app)
+
+		if pf, err := c.getPacketFilter(ctx, id); err != nil {
+			return nil, nil, fmt.Errorf("failed to get packet filter: %s", err)
+		} else if pf != nil {
+			app.PacketFilter = *pf
+		}
+
 		return data, app, nil
 	}
 	return nil, nil, ErrNotFound
