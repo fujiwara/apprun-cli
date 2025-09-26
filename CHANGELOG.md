@@ -1,5 +1,10 @@
 # Changelog
 
+## [v0.5.0](https://github.com/fujiwara/apprun-cli/compare/v0.4.0...v0.5.0) - 2025-09-26
+- update apprun-api-go v0.4.0 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/54
+- Add packet filter support by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/55
+- add url subcommand. by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/56
+
 ## [v0.4.0](https://github.com/fujiwara/apprun-cli/compare/v0.3.3...v0.4.0) - 2025-09-21
 - add an args input parameter. by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/51
 
