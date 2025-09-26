@@ -47,10 +47,10 @@ func (c *CLI) allApplications(ctx context.Context) func(func(*v1.HandlerListAppl
 				yield(nil, err)
 				return
 			}
-			if len(*res.Data) == 0 {
+			if len(res.Data) == 0 {
 				return
 			}
-			for _, data := range *res.Data {
+			for _, data := range res.Data {
 				if !yield(&data, nil) {
 					return
 				}

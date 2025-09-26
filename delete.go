@@ -10,7 +10,7 @@ import (
 )
 
 type DeleteOption struct {
-	Force       bool   `help:"Force delete without confirmation"`
+	Force bool `help:"Force delete without confirmation"`
 }
 
 func (c *CLI) runDelete(ctx context.Context) error {
@@ -23,8 +23,8 @@ func (c *CLI) runDelete(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("failed to get application: %w", err)
 	}
-	if opt.Force || prompter.YN(fmt.Sprintf("Do you really want to delete %s (id:%s)?", app.Name, v(info.Id)), false) {
-		return c.deleteApplication(ctx, v(info.Id))
+	if opt.Force || prompter.YN(fmt.Sprintf("Do you really want to delete %s (id:%s)?", app.Name, info.Id), false) {
+		return c.deleteApplication(ctx, info.Id)
 	} else {
 		slog.Info("canceled")
 	}

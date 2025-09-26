@@ -138,11 +138,11 @@ func (c *CLI) getApplicationByName(ctx context.Context, name string) (*Applicati
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to list applications: %s", err)
 		}
-		if v(data.Name) != name {
+		if data.Name != name {
 			continue
 		}
 		op := apprun.NewApplicationOp(c.client)
-		id := v(data.Id)
+		id := data.Id
 		v1app, err := op.Read(ctx, id)
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to read application: %s", err)

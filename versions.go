@@ -11,9 +11,9 @@ import (
 )
 
 type VersionsOption struct {
-	ID          string `help:"Show the detailed information of the specified version id"`
-	Delete      bool   `help:"Delete the specified version id"`
-	Force       bool   `help:"Force delete without confirmation"`
+	ID     string `help:"Show the detailed information of the specified version id"`
+	Delete bool   `help:"Delete the specified version id"`
+	Force  bool   `help:"Force delete without confirmation"`
 }
 
 func (c *CLI) runVersions(ctx context.Context) error {
@@ -31,7 +31,7 @@ func (c *CLI) runVersions(ctx context.Context) error {
 		return c.runVersionID(ctx, opt, info)
 	}
 
-	for version, err := range c.AllVersions(ctx, v(info.Id)) {
+	for version, err := range c.AllVersions(ctx, info.Id) {
 		if err != nil {
 			return err
 		}
@@ -43,19 +43,19 @@ func (c *CLI) runVersions(ctx context.Context) error {
 func (c *CLI) runVersionID(ctx context.Context, opt VersionsOption, info *ApplicationInfo) error {
 	op := apprun.NewVersionOp(c.client)
 	if opt.Delete {
-		if !opt.Force && !prompter.YN(fmt.Sprintf("Do you really want to delete version %s of application %s?", opt.ID, *info.Name), false) {
+		if !opt.Force && !prompter.YN(fmt.Sprintf("Do you really want to delete version %s of application %s?", opt.ID, info.Name), false) {
 			slog.Info("canceled")
 			return nil
 		}
-		slog.Info("deleting version", "id", opt.ID, "app", *info.Name)
-		err := op.Delete(ctx, v(info.Id), opt.ID)
+		slog.Info("deleting version", "id", opt.ID, "app", info.Name)
+		err := op.Delete(ctx, info.Id, opt.ID)
 		if err != nil {
 			return fmt.Errorf("failed to delete version: %w", err)
 		}
-		slog.Info("deleted version", "id", opt.ID, "app", *info.Name)
+		slog.Info("deleted version", "id", opt.ID, "app", info.Name)
 		return nil
 	}
-	res, err := op.Read(ctx, v(info.Id), opt.ID)
+	res, err := op.Read(ctx, info.Id, opt.ID)
 	if err != nil {
 		return fmt.Errorf("failed to read version: %w", err)
 	}
@@ -80,10 +80,10 @@ func (c *CLI) AllVersions(ctx context.Context, appId string) func(func(*v1.Versi
 				yield(nil, err)
 				return
 			}
-			if len(*res.Data) == 0 {
+			if len(res.Data) == 0 {
 				return
 			}
-			for _, data := range *res.Data {
+			for _, data := range res.Data {
 				if !yield(&data, nil) {
 					return
 				}
