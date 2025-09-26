@@ -191,7 +191,16 @@ $ apprun-cli init --name example
   "min_scale": 0,
   "name": "example",
   "port": 8080,
-  "timeout_seconds": 60
+  "timeout_seconds": 60,
+  "packet_filter": {
+    "is_enabled": true,
+    "settings": [
+      {
+        "from_ip": "192.0.2.0",
+        "from_ip_prefix_length": 24
+      }
+    ]
+  }
 }
 ```
 
@@ -246,6 +255,15 @@ local tfs = std.native('tfstate');
   name: 'example',
   port: 8080,
   timeout_seconds: 60,
+  packet_filter: {
+    is_enabled: true,
+    settings: [
+      {
+        from_ip: '192.0.2.0',
+        from_ip_prefix_length: 24,
+      },
+    ],
+  },
 }
 ```
 
