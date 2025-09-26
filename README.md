@@ -49,6 +49,9 @@ Commands:
   user <operation> [flags]
     Manage apprun user
 
+  url [flags]
+    Show application public URL
+
 Run "apprun-cli <command> --help" for more information on a command.
 ```
 
@@ -289,6 +292,8 @@ local tfs = std.native('tfstate');
 
 `apprun-cli render` shows the rendered application.
 
+`--jsonnet` flag enables Jsonnet format for rendering.
+
 #### Status
 
 `apprun-cli status` shows the status of the application.
@@ -301,6 +306,23 @@ local tfs = std.native('tfstate');
   "public_url": "https://app-e8e32d63-2260-4093-aef2-c277b375de4e.ingress.apprun.sakura.ne.jp",
   "status": "Success"
 }
+```
+
+### URL
+
+`apprun-cli url` shows the public URL of the application.
+
+```console
+$ apprun-cli url
+https://app-example-eacc-44ef-b92d-ab0f65fe8ed4.ingress.apprun.sakura.ne.jp
+```
+
+This URL is also shown in the `public_url` field of the `list` and `status` commands.
+
+This is useful to get the URL in scripts. For example:
+
+```console
+$ curl $(apprun-cli url)
 ```
 
 #### Delete

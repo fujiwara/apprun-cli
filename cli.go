@@ -23,6 +23,7 @@ type CLI struct {
 	Versions VersionsOption `cmd:"" help:"Manage versions of application"`
 	Traffics TrafficsOption `cmd:"" help:"Manage traffics of application"`
 	User     UserOption     `cmd:"" help:"Manage apprun user"`
+	URL      struct{}       `cmd:"" help:"Show application public URL"`
 
 	Debug       bool             `help:"Enable debug mode" env:"DEBUG"`
 	Application string           `name:"app" help:"Name of the application definition file" env:"APPRUN_CLI_APP"`
@@ -38,6 +39,9 @@ func (c *CLI) Run(ctx context.Context) error {
 	var err error
 	if c.Debug {
 		slog.SetLogLoggerLevel(slog.LevelDebug)
+	} else if k.Command() == "url" {
+		// suppress info logs for url command
+		slog.SetLogLoggerLevel(slog.LevelWarn)
 	}
 	if err := c.setupVM(ctx); err != nil {
 		return err
@@ -64,6 +68,8 @@ func (c *CLI) Run(ctx context.Context) error {
 		err = c.runVersions(ctx)
 	case "traffics":
 		err = c.runTraffics(ctx)
+	case "url":
+		err = c.runURL(ctx)
 	default:
 		err = fmt.Errorf("unknown command: %s", k.Command())
 	}
