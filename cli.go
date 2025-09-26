@@ -15,15 +15,14 @@ type CLI struct {
 
 	Init InitOption `cmd:"" help:"Initialize files from existing application"`
 
-	Deploy       DeployOption       `cmd:"" help:"Deploy an application"`
-	Diff         DiffOption         `cmd:"" help:"Show diff of applications"`
-	Render       RenderOption       `cmd:"" help:"Render application"`
-	Status       StatusOption       `cmd:"" help:"Show status of applications"`
-	Delete       DeleteOption       `cmd:"" help:"Delete the application"`
-	Versions     VersionsOption     `cmd:"" help:"Manage versions of application"`
-	Traffics     TrafficsOption     `cmd:"" help:"Manage traffics of application"`
-	PacketFilter PacketFilterOption `cmd:"" help:"Manage packet filter of application"`
-	User         UserOption         `cmd:"" help:"Manage apprun user"`
+	Deploy   DeployOption   `cmd:"" help:"Deploy an application"`
+	Diff     DiffOption     `cmd:"" help:"Show diff of applications"`
+	Render   RenderOption   `cmd:"" help:"Render application"`
+	Status   StatusOption   `cmd:"" help:"Show status of applications"`
+	Delete   DeleteOption   `cmd:"" help:"Delete the application"`
+	Versions VersionsOption `cmd:"" help:"Manage versions of application"`
+	Traffics TrafficsOption `cmd:"" help:"Manage traffics of application"`
+	User     UserOption     `cmd:"" help:"Manage apprun user"`
 
 	Debug       bool             `help:"Enable debug mode" env:"DEBUG"`
 	Application string           `name:"app" help:"Name of the application definition file" env:"APPRUN_CLI_APP"`
@@ -65,8 +64,6 @@ func (c *CLI) Run(ctx context.Context) error {
 		err = c.runVersions(ctx)
 	case "traffics":
 		err = c.runTraffics(ctx)
-	case "packet-filter":
-		err = c.runPacketFilter(ctx)
 	default:
 		err = fmt.Errorf("unknown command: %s", k.Command())
 	}

@@ -38,6 +38,10 @@ func (c *CLI) createApplication(ctx context.Context, app *Application) error {
 		return err
 	}
 	slog.Info("created", "id", created.Id)
+
+	if err := c.updatePacketFilter(ctx, created.Id, app.PacketFilter); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -48,5 +52,9 @@ func (c *CLI) updateApplication(ctx context.Context, id string, app *Application
 		return err
 	}
 	slog.Info("updated", "id", updated.Id)
+
+	if err := c.updatePacketFilter(ctx, id, app.PacketFilter); err != nil {
+		return err
+	}
 	return nil
 }
