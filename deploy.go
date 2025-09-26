@@ -28,7 +28,7 @@ func (c *CLI) runDeploy(ctx context.Context) error {
 		return c.createApplication(ctx, app)
 	}
 	slog.Info("updating", "app", app.Name)
-	return c.updateApplication(ctx, v(info.Id), app)
+	return c.updateApplication(ctx, info.Id, app)
 }
 
 func (c *CLI) createApplication(ctx context.Context, app *Application) error {
@@ -37,7 +37,7 @@ func (c *CLI) createApplication(ctx context.Context, app *Application) error {
 	if err != nil {
 		return err
 	}
-	slog.Info("created", "id", v(created.Id))
+	slog.Info("created", "id", created.Id)
 	return nil
 }
 
@@ -47,6 +47,6 @@ func (c *CLI) updateApplication(ctx context.Context, id string, app *Application
 	if err != nil {
 		return err
 	}
-	slog.Info("updated", "id", v(updated.Id))
+	slog.Info("updated", "id", updated.Id)
 	return nil
 }

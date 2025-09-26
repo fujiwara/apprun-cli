@@ -14,7 +14,7 @@ import (
 const DiffIgnoreDefault = ".components[].deploy_source.container_registry.password"
 
 type DiffOption struct {
-	Ignore      []string `help:"JQ queries to ignore specific fields"`
+	Ignore []string `help:"JQ queries to ignore specific fields"`
 }
 
 func (c *CLI) runDiff(ctx context.Context) error {
@@ -27,7 +27,7 @@ func (c *CLI) runDiff(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	id := v(info.Id)
+	id := info.Id
 	slog.Info("comparing", "local", c.Application, "remote", id)
 
 	opts := []jsondiff.Option{}
