@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.5.1](https://github.com/fujiwara/apprun-cli/compare/v0.5.0...v0.5.1) - 2025-09-28
+- use fujiwara/jsonnet-armed by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/57
+
 ## [v0.5.0](https://github.com/fujiwara/apprun-cli/compare/v0.4.0...v0.5.0) - 2025-09-26
 - update apprun-api-go v0.4.0 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/54
 - Add packet filter support by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/55
