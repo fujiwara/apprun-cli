@@ -18,8 +18,6 @@ func (c *CLI) setupVM(ctx context.Context) error {
 		nativeFuncs = append(nativeFuncs, lookup.JsonnetNativeFuncs(ctx)...)
 	}
 
-	for _, f := range nativeFuncs {
-		c.vm.NativeFunction(f)
-	}
+	c.loader.AddFunctions(nativeFuncs...)
 	return nil
 }

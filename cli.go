@@ -6,7 +6,7 @@ import (
 	"log/slog"
 
 	"github.com/alecthomas/kong"
-	"github.com/google/go-jsonnet"
+	armed "github.com/fujiwara/jsonnet-armed"
 	"github.com/sacloud/apprun-api-go"
 )
 
@@ -31,7 +31,7 @@ type CLI struct {
 	Version     kong.VersionFlag `short:"v" help:"Show version and exit."`
 
 	client *apprun.Client
-	vm     *jsonnet.VM
+	loader *armed.CLI
 }
 
 func (c *CLI) Run(ctx context.Context) error {

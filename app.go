@@ -1,14 +1,13 @@
 package cli
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"log/slog"
-	"os"
 
 	"github.com/google/go-jsonnet"
-	"github.com/google/go-jsonnet/ast"
 	"github.com/sacloud/apprun-api-go"
 	v1 "github.com/sacloud/apprun-api-go/apis/v1"
 )
@@ -113,48 +112,21 @@ func (c *CLI) LoadApplication(ctx context.Context, name string) (*Application, e
 	}
 	slog.Info("loading application", "file", name)
 
-	jsonStr, err := c.vm.EvaluateFile(name)
-	if err != nil {
+	var buf bytes.Buffer
+	c.loader.SetWriter(&buf)
+	c.loader.Filename = name
+	if err := c.loader.Run(ctx); err != nil {
 		return nil, fmt.Errorf("failed to evaluate jsonnet file: %s", err)
 	}
 	app := &Application{}
-	if err := json.Unmarshal([]byte(jsonStr), app); err != nil {
+	if err := json.Unmarshal(buf.Bytes(), app); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal jsonnet result: %s", err)
 	}
 	return app, nil
 }
 
 func DefaultJsonnetNativeFuncs() []*jsonnet.NativeFunction {
-	return []*jsonnet.NativeFunction{
-		{
-			Name:   "env",
-			Params: []ast.Identifier{"name", "default"},
-			Func: func(args []any) (any, error) {
-				key, ok := args[0].(string)
-				if !ok {
-					return nil, fmt.Errorf("env: name must be a string")
-				}
-				if v := os.Getenv(key); v != "" {
-					return v, nil
-				}
-				return args[1], nil
-			},
-		},
-		{
-			Name:   "must_env",
-			Params: []ast.Identifier{"name"},
-			Func: func(args []any) (any, error) {
-				key, ok := args[0].(string)
-				if !ok {
-					return nil, fmt.Errorf("must_env: name must be a string")
-				}
-				if v, ok := os.LookupEnv(key); ok {
-					return v, nil
-				}
-				return nil, fmt.Errorf("must_env: %s is not set", key)
-			},
-		},
-	}
+	return []*jsonnet.NativeFunction{}
 }
 
 func (c *CLI) getApplicationByName(ctx context.Context, name string) (*ApplicationInfo, *Application, error) {

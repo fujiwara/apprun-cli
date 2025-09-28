@@ -3,14 +3,14 @@ package cli
 import (
 	"context"
 
-	"github.com/google/go-jsonnet"
+	armed "github.com/fujiwara/jsonnet-armed"
 	"github.com/sacloud/apprun-api-go"
 )
 
 func New(ctx context.Context) (*CLI, error) {
 	c := &CLI{
 		client: &apprun.Client{},
-		vm:     jsonnet.MakeVM(),
+		loader: &armed.CLI{},
 	}
 	return c, nil
 }
