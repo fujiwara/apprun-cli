@@ -446,6 +446,33 @@ Supported URL schemes are `http`, `https`, `file`, `s3`(Amazon S3), `gs`(Google 
 
 For more information, see [tfstate-lookup](https://github.com/fujiwara/tfstate-lookup).
 
+### Lookup secrets from Secret Manager
+
+You can use Jsonnet to read secret values from Sakura Cloud Secret Manager using functions via `std.native`.
+
+```jsonnet
+local secret_value = std.native('secret_value');
+{
+  components: [
+    {
+      deploy_source: {
+        container_registry: {
+          password: secret_value('your-vault-id', 'registry-password', null),
+        },
+      },
+    },
+  ],
+}
+```
+
+- `secret_value(vault_id, secret_name, version)` reads the secret value from Secret Manager.
+  - `vault_id`: Resource ID of the Secret Manager Vault (string)
+  - `secret_name`: Name of the secret (string)
+  - `version`: Version number of the secret (number or `null` for the latest version)
+
+The Secret Manager API uses the same authentication credentials as AppRun API (`SAKURACLOUD_ACCESS_TOKEN` and `SAKURACLOUD_ACCESS_TOKEN_SECRET`).
+
+For more information about Secret Manager, see [Sakura Cloud Secret Manager Documentation](https://manual.sakura.ad.jp/cloud/appliance/secretsmanager/index.html).
 
 ## LICENSE
 
