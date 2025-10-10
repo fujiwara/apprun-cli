@@ -7,7 +7,7 @@ import (
 )
 
 type RenderOption struct {
-	Jsonnet     bool   `help:"Format as Jsonnet to render files"`
+	Jsonnet bool `help:"Format as Jsonnet to render files"`
 }
 
 func (c *CLI) runRender(ctx context.Context) error {
