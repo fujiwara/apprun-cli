@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.5.2](https://github.com/fujiwara/apprun-cli/compare/v0.5.1...v0.5.2) - 2025-10-10
+- Add Secret Manager integration by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/63
+
 ## [v0.5.1](https://github.com/fujiwara/apprun-cli/compare/v0.5.0...v0.5.1) - 2025-09-28
 - use fujiwara/jsonnet-armed by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/57
 
