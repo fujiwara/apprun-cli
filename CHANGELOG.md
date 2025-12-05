@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.6.0](https://github.com/fujiwara/apprun-cli/compare/v0.5.2...v0.6.0) - 2025-12-05
+- fix user command by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/70
+- Bump actions/checkout from 5.0.0 to 6.0.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/68
+- Bump actions/setup-go from 5.5.0 to 6.1.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/67
+- Bump golang.org/x/sys from 0.36.0 to 0.37.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/65
+- Bump github.com/alecthomas/kong from 1.8.1 to 1.12.1 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/46
+- Bump github.com/fujiwara/jsonnet-armed from 0.0.10 to 0.0.13 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/66
+- Bump Songmu/tagpr from 1.8.4 to 1.9.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/61
+- update go modules by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/72
+
 ## [v0.5.2](https://github.com/fujiwara/apprun-cli/compare/v0.5.1...v0.5.2) - 2025-10-10
 - Add Secret Manager integration by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/63
 
