@@ -15,7 +15,7 @@ require (
 	github.com/sacloud/apprun-api-go v0.4.0
 	github.com/sacloud/secretmanager-api-go v0.2.1
 	github.com/schollz/progressbar/v3 v3.18.0
-	golang.org/x/sys v0.36.0
+	golang.org/x/sys v0.37.0
 )
 
 require (
