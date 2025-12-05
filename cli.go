@@ -62,7 +62,7 @@ func (c *CLI) Run(ctx context.Context) error {
 		err = c.runStatus(ctx)
 	case "delete":
 		err = c.runDelete(ctx)
-	case "user":
+	case "user <operation>":
 		err = c.runUser(ctx)
 	case "versions":
 		err = c.runVersions(ctx)
