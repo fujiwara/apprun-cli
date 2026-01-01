@@ -1,6 +1,6 @@
 module github.com/fujiwara/apprun-cli
 
-go 1.24.0
+go 1.25.5
 
 require (
 	github.com/Songmu/prompter v0.5.1
@@ -13,7 +13,7 @@ require (
 	github.com/google/go-jsonnet v0.21.0
 	github.com/itchyny/gojq v0.12.17
 	github.com/sacloud/apprun-api-go v0.4.0
-	github.com/sacloud/secretmanager-api-go v0.2.1
+	github.com/sacloud/secretmanager-api-go v0.3.0
 	github.com/schollz/progressbar/v3 v3.18.0
 	golang.org/x/sys v0.38.0
 )
@@ -78,8 +78,9 @@ require (
 	github.com/go-playground/validator/v10 v10.27.0 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/goccy/go-yaml v1.18.0 // indirect
+	github.com/gofrs/flock v0.13.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.2 // indirect
-	github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
+	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
@@ -114,9 +115,10 @@ require (
 	github.com/quic-go/qpack v0.5.1 // indirect
 	github.com/quic-go/quic-go v0.54.1 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
-	github.com/sacloud/api-client-go v0.3.3 // indirect
+	github.com/sacloud/api-client-go v0.3.4 // indirect
 	github.com/sacloud/go-http v0.1.9 // indirect
-	github.com/sacloud/packages-go v0.0.11 // indirect
+	github.com/sacloud/packages-go v0.0.12 // indirect
+	github.com/sacloud/saclient-go v0.2.5 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.3.0 // indirect
