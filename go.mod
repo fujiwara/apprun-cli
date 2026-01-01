@@ -5,7 +5,7 @@ go 1.24.0
 require (
 	github.com/Songmu/prompter v0.5.1
 	github.com/aereal/jsondiff v0.4.1
-	github.com/alecthomas/kong v1.12.1
+	github.com/alecthomas/kong v1.13.0
 	github.com/fatih/color v1.18.0
 	github.com/fujiwara/jsonnet-armed v0.0.13
 	github.com/fujiwara/tfstate-lookup v1.8.0
