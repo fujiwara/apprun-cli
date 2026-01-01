@@ -14,7 +14,7 @@ require (
 	github.com/itchyny/gojq v0.12.17
 	github.com/sacloud/apprun-api-go v0.4.0
 	github.com/sacloud/secretmanager-api-go v0.2.1
-	github.com/schollz/progressbar/v3 v3.18.0
+	github.com/schollz/progressbar/v3 v3.19.0
 	golang.org/x/sys v0.38.0
 )
 
