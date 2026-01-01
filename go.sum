@@ -136,8 +136,8 @@ github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
 github.com/fujiwara/jsonnet-armed v0.0.13 h1:hdAPsAbmpNmYcKfqWZkrSSr5Y8tpzeUHl6UqLvcTIZQ=
 github.com/fujiwara/jsonnet-armed v0.0.13/go.mod h1:nhBKlAjxlGwrOr1/6HQiT3DohX5WRL1Qn2tYzJ7a+gE=
-github.com/fujiwara/tfstate-lookup v1.8.0 h1:HpyRnqJsaAtNAg9gNze7pQLtKm1vuxrtEmbVB+ycQzU=
-github.com/fujiwara/tfstate-lookup v1.8.0/go.mod h1:ma3QZCfX1tGcCRA6wq2wKBNLvOE+d1SRkIUkpYG+m6E=
+github.com/fujiwara/tfstate-lookup v1.8.1 h1:lCWRvhfmm+9PbgS9AhDRi9qQOTFXTIws+W+TC1DY77s=
+github.com/fujiwara/tfstate-lookup v1.8.1/go.mod h1:ma3QZCfX1tGcCRA6wq2wKBNLvOE+d1SRkIUkpYG+m6E=
 github.com/gabriel-vasile/mimetype v1.4.10 h1:zyueNbySn/z8mJZHLt6IPw0KoZsiQNszIpU+bX4+ZK0=
 github.com/gabriel-vasile/mimetype v1.4.10/go.mod h1:d+9Oxyo1wTzWdyVUPMmXFvp4F9tea18J8ufA774AB3s=
 github.com/ghodss/yaml v1.0.0 h1:wQHKEahhL6wmXdzwWG11gIVCkOv05bNOh+Rxn0yngAk=

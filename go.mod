@@ -8,7 +8,7 @@ require (
 	github.com/alecthomas/kong v1.12.1
 	github.com/fatih/color v1.18.0
 	github.com/fujiwara/jsonnet-armed v0.0.13
-	github.com/fujiwara/tfstate-lookup v1.8.0
+	github.com/fujiwara/tfstate-lookup v1.8.1
 	github.com/google/go-cmp v0.7.0
 	github.com/google/go-jsonnet v0.21.0
 	github.com/itchyny/gojq v0.12.17
