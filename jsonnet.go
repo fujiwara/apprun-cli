@@ -36,9 +36,6 @@ func (c *CLI) setupVM(ctx context.Context) error {
 
 func secretsManagerNativeFuncs(ctx context.Context) ([]*jsonnet.NativeFunction, error) {
 	var sa saclient.Client
-	if err := sa.Populate(); err != nil {
-		return nil, fmt.Errorf("failed to populate saclient: %w", err)
-	}
 	client, err := sm.NewClient(&sa)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create SecretManager client: %w", err)
