@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.7.0](https://github.com/fujiwara/apprun-cli/compare/v0.6.0...v0.7.0) - 2026-03-09
+- Update apprun-api-go v0.6.1 and dependencies by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/86
+- Bump goreleaser/goreleaser-action from 6.4.0 to 7.0.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/85
+- Bump actions/setup-go from 6.1.0 to 6.3.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/84
+- Bump Songmu/tagpr from 1.9.0 to 1.17.1 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/83
+- Bump actions/checkout from 6.0.0 to 6.0.2 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/80
+
 ## [v0.6.0](https://github.com/fujiwara/apprun-cli/compare/v0.5.2...v0.6.0) - 2025-12-05
 - fix user command by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/70
 - Bump actions/checkout from 5.0.0 to 6.0.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/68
