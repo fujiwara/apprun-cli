@@ -10,6 +10,8 @@ import (
 	"github.com/google/go-jsonnet"
 	"github.com/sacloud/apprun-api-go"
 	v1 "github.com/sacloud/apprun-api-go/apis/v1"
+	"slices"
+	"strings"
 )
 
 // Application represents an application definition
@@ -106,6 +108,22 @@ func ptr[T any](v T) *T {
 	return &v
 }
 
+func (app *Application) Validate() error {
+	var errs []string
+	for _, c := range app.Components {
+		if !slices.Contains(apprun.ApplicationMaxCPUs, string(c.MaxCpu)) {
+			errs = append(errs, fmt.Sprintf("component %q: invalid max_cpu %q (valid values: %s)", c.Name, c.MaxCpu, strings.Join(apprun.ApplicationMaxCPUs, ", ")))
+		}
+		if !slices.Contains(apprun.ApplicationMaxMemories, string(c.MaxMemory)) {
+			errs = append(errs, fmt.Sprintf("component %q: invalid max_memory %q (valid values: %s)", c.Name, c.MaxMemory, strings.Join(apprun.ApplicationMaxMemories, ", ")))
+		}
+	}
+	if len(errs) > 0 {
+		return fmt.Errorf("validation failed:\n  %s", strings.Join(errs, "\n  "))
+	}
+	return nil
+}
+
 func (c *CLI) LoadApplication(ctx context.Context, name string) (*Application, error) {
 	if name == "" {
 		return nil, fmt.Errorf("application name is required. use --app flag or set APPRUN_CLI_APP environment variable")
@@ -121,6 +139,9 @@ func (c *CLI) LoadApplication(ctx context.Context, name string) (*Application, e
 	app := &Application{}
 	if err := json.Unmarshal(buf.Bytes(), app); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal jsonnet result: %s", err)
+	}
+	if err := app.Validate(); err != nil {
+		return nil, err
 	}
 	return app, nil
 }
