@@ -67,7 +67,7 @@ func newCLI(t *testing.T, ctx context.Context) *cli.CLI {
 }
 
 func TestLoadApplication(t *testing.T) {
-	ctx := context.Background() // TODO: use t.Context() after Go 1.24
+	ctx := t.Context()
 	t.Setenv("REGISTRY_PASSWORD", "password")
 	for _, p := range []string{"testdata/app.json", "testdata/app.jsonnet"} {
 		c := newCLI(t, ctx)
@@ -78,5 +78,43 @@ func TestLoadApplication(t *testing.T) {
 		if diff := cmp.Diff(app, testApplication); diff != "" {
 			t.Errorf("c.LoadApplication(%s) mismatch (-want +got):\n%s", p, diff)
 		}
+	}
+}
+
+func TestValidate(t *testing.T) {
+	tests := []struct {
+		name    string
+		cpu     string
+		memory  string
+		wantErr bool
+	}{
+		{"valid 0.5/1Gi", "0.5", "1Gi", false},
+		{"valid 1/2Gi", "1", "2Gi", false},
+		{"valid 2/4Gi", "2", "4Gi", false},
+		{"invalid cpu", "0.1", "1Gi", true},
+		{"invalid memory", "0.5", "512Mi", true},
+		{"both invalid", "0.3", "256Mi", true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			app := &cli.Application{
+				Name:           "test",
+				Port:           80,
+				TimeoutSeconds: 10,
+				MinScale:       1,
+				MaxScale:       2,
+				Components: []v1.PostApplicationBodyComponent{
+					{
+						Name:      "test",
+						MaxCpu:    v1.PostApplicationBodyComponentMaxCpu(tt.cpu),
+						MaxMemory: v1.PostApplicationBodyComponentMaxMemory(tt.memory),
+					},
+				},
+			}
+			err := app.Validate()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
 	}
 }
