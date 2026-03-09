@@ -7,6 +7,7 @@ import (
 	"github.com/fujiwara/tfstate-lookup/tfstate"
 	"github.com/google/go-jsonnet"
 	"github.com/google/go-jsonnet/ast"
+	"github.com/sacloud/saclient-go"
 	sm "github.com/sacloud/secretmanager-api-go"
 	v1 "github.com/sacloud/secretmanager-api-go/apis/v1"
 )
@@ -34,7 +35,11 @@ func (c *CLI) setupVM(ctx context.Context) error {
 }
 
 func secretsManagerNativeFuncs(ctx context.Context) ([]*jsonnet.NativeFunction, error) {
-	client, err := sm.NewClient()
+	var sa saclient.Client
+	if err := sa.Populate(); err != nil {
+		return nil, fmt.Errorf("failed to populate saclient: %w", err)
+	}
+	client, err := sm.NewClient(&sa)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create SecretManager client: %w", err)
 	}

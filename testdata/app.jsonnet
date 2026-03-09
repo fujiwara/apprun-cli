@@ -18,7 +18,7 @@ local tfstate = std.native('tfstate');
           value: 'BAR',
         },
       ],
-      max_cpu: '0.1',
+      max_cpu: '0.5',
       max_memory: '1Gi',
       name: 'test',
       probe: {

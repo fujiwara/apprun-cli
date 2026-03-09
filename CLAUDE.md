@@ -8,24 +8,20 @@ apprun-cli is a command-line interface for managing applications on Sakura Cloud
 
 ## Development Commands
 
-### Build and Test
+- Go 1.24+ required
 - `make build` - Build the binary to `./apprun-cli`
 - `make test` or `go test -v ./...` - Run all tests
+- `go test -v -run TestLoadApplication ./...` - Run a single test
 - `go test -race ./...` - Run tests with race detector (used in CI)
 - `make install` - Install to `$GOPATH/bin`
 - `make dist` - Build release binaries with goreleaser
 
-### Testing with Real Application
-The binary accepts application definition files via `--app` flag or `APPRUN_CLI_APP` environment variable. Use `testdata/app.jsonnet` as a reference for testing.
-
 ## Architecture
 
 ### CLI Structure
-The project uses `alecthomas/kong` for CLI argument parsing. Main entry point is in `cmd/apprun-cli/main.go`, which calls `cli.CLI.Run()` in `cli.go:37`.
+The root package is `cli` (import path: `github.com/fujiwara/apprun-cli`). Main entry point is in `cmd/apprun-cli/main.go`, which calls `cli.CLI.Run()` in `cli.go:37`.
 
-All commands are defined as methods on the `CLI` struct:
-- `runList()`, `runInit()`, `runDeploy()`, `runDiff()`, etc.
-- Each command corresponds to a subcommand (list, init, deploy, etc.)
+The project uses `alecthomas/kong` for CLI argument parsing. All commands are defined as methods on the `CLI` struct (e.g., `runList()`, `runDeploy()`), with each subcommand's options in a separate `*Option` struct. Each command implementation lives in its own file (deploy.go, diff.go, etc.).
 
 ### Application Model
 The `Application` struct (app.go:17) is the core data model that combines:
@@ -38,18 +34,10 @@ This struct is used for:
 - Marshaling to JSON for output
 
 ### Jsonnet Integration
-The project uses `fujiwara/jsonnet-armed` for enhanced Jsonnet support with custom native functions:
-
-**Native Functions** (defined in jsonnet.go:14):
-- `must_env(key)` - Read environment variable (error if not set)
-- `env(key, default)` - Read environment variable with default
-- `tfstate(path)` - Lookup values from Terraform state (requires `--tfstate` flag)
-- `secret_value(vault_id, secret_name, version)` - Retrieve secrets from Sakura Cloud Secret Manager
-
-Setup happens in `setupVM()` (jsonnet.go:14), which:
-1. Initializes default native functions
-2. Adds Secret Manager functions
-3. Optionally adds tfstate lookup functions if `--tfstate` is specified
+The project uses `fujiwara/jsonnet-armed` for enhanced Jsonnet support with custom native functions defined in `jsonnet.go`. `setupVM()` initializes the Jsonnet VM with:
+1. Default native functions (`must_env`, `env` - from jsonnet-armed)
+2. Secret Manager function (`secret_value(vault_id, secret_name, version)`)
+3. Terraform state lookup (`tfstate(path)`) - only when `--tfstate` is specified
 
 ### API Client
 Uses `sacloud/apprun-api-go` for AppRun API interactions and `sacloud/secretmanager-api-go` for Secret Manager. The client is initialized with credentials from environment variables:
@@ -73,9 +61,8 @@ The codebase uses JSON marshaling/unmarshaling for type conversions between inte
 ### Error Handling
 Application lookup returns `ErrNotFound` when an application with the specified name doesn't exist. This allows differentiation between "not found" and other errors.
 
+### Iterator Pattern
+The codebase uses Go 1.23+ range-over-func iterators for paginated API results (e.g., `allApplications()`, `AllTraffics()` in traffics.go).
+
 ### Traffic Management
-Traffic shifting (`traffics.go`) supports gradual rollout with:
-- `--shift-to` - target version
-- `--rate` - percentage per period
-- `--period` - time interval
-- `--rollback-on-failure` - auto-rollback on failure
+Traffic shifting (`traffics.go`) supports gradual rollout with `--shift-to`, `--rate`, `--period`, and `--rollback-on-failure` flags.

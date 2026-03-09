@@ -36,7 +36,7 @@ var testApplication = &cli.Application{
 					Value: ptr("BAR"),
 				},
 			},
-			MaxCpu:    "0.1",
+			MaxCpu:    "0.5",
 			MaxMemory: "1Gi",
 			Probe: &v1.PostApplicationBodyComponentProbe{
 				HttpGet: &v1.PostApplicationBodyComponentProbeHttpGet{
