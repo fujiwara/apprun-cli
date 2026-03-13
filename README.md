@@ -1,10 +1,8 @@
 # apprun-cli
 
-apprun-cli is a command line interface for AppRun β Sakura Cloud.
+apprun-cli is a command line interface for [AppRun Shared (共用型)](https://manual.sakura.ad.jp/cloud/manual-sakura-apprun.html) on Sakura Cloud.
 
-This is an unofficial tool.
-
-See also https://manual.sakura.ad.jp/cloud/manual-sakura-apprun.html
+This is an unofficial tool. Note that AppRun Dedicated is a separate service with a different API and is not supported by this tool.
 
 ## Usage
 

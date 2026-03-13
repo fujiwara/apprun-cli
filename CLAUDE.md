@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-apprun-cli is a command-line interface for managing applications on Sakura Cloud's AppRun β service. It provides deployment, configuration management, and traffic control capabilities.
+apprun-cli is a command-line interface for managing applications on Sakura Cloud's AppRun Shared service. It provides deployment, configuration management, and traffic control capabilities. AppRun Dedicated is a separate service with a different API and is out of scope.
 
 ## Development Commands
 
