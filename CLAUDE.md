@@ -36,11 +36,11 @@ This struct is used for:
 ### Jsonnet Integration
 The project uses `fujiwara/jsonnet-armed` for enhanced Jsonnet support with custom native functions defined in `jsonnet.go`. `setupVM()` initializes the Jsonnet VM with:
 1. Default native functions (`must_env`, `env` - from jsonnet-armed)
-2. Secret Manager function (`secret_value(vault_id, secret_name, version)`)
+2. Secret Manager function (`secret(vault_id, name)` from sakura-secrets-cli, plus deprecated `secret_value` wrapper)
 3. Terraform state lookup (`tfstate(path)`) - only when `--tfstate` is specified
 
 ### API Client
-Uses `sacloud/apprun-api-go` for AppRun API interactions and `sacloud/secretmanager-api-go` for Secret Manager. The client is initialized with credentials from environment variables:
+Uses `sacloud/apprun-api-go` for AppRun API interactions and `fujiwara/sakura-secrets-cli` for Secret Manager integration. The client is initialized with credentials from environment variables:
 - `SAKURACLOUD_ACCESS_TOKEN`
 - `SAKURACLOUD_ACCESS_TOKEN_SECRET`
 

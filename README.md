@@ -449,15 +449,16 @@ For more information, see [tfstate-lookup](https://github.com/fujiwara/tfstate-l
 ### Lookup secrets from Secret Manager
 
 You can use Jsonnet to read secret values from Sakura Cloud Secret Manager using functions via `std.native`.
+This feature is powered by [sakura-secrets-cli](https://github.com/fujiwara/sakura-secrets-cli).
 
 ```jsonnet
-local secret_value = std.native('secret_value');
+local secret = std.native('secret');
 {
   components: [
     {
       deploy_source: {
         container_registry: {
-          password: secret_value('your-vault-id', 'registry-password', null),
+          password: secret('your-vault-id', 'registry-password'),
         },
       },
     },
@@ -465,10 +466,11 @@ local secret_value = std.native('secret_value');
 }
 ```
 
-- `secret_value(vault_id, secret_name, version)` reads the secret value from Secret Manager.
+- `secret(vault_id, name)` reads the secret value from Secret Manager.
   - `vault_id`: Resource ID of the Secret Manager Vault (string)
-  - `secret_name`: Name of the secret (string)
-  - `version`: Version number of the secret (number or `null` for the latest version)
+  - `name`: Name of the secret (string). To specify a version, use `"name:version"` format (e.g. `"registry-password:1"`)
+
+> **Note:** The legacy `secret_value(vault_id, secret_name, version)` function is still available for backward compatibility but is deprecated. Please migrate to `secret()`.
 
 The Secret Manager API uses the same authentication credentials as AppRun API (`SAKURACLOUD_ACCESS_TOKEN` and `SAKURACLOUD_ACCESS_TOKEN_SECRET`).
 
