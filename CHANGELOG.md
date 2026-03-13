@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.7.1](https://github.com/fujiwara/apprun-cli/compare/v0.7.0...v0.7.1) - 2026-03-13
+- Use sakura-secrets-cli for Secret Manager integration by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/88
+- Update CI Go version to 1.26 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/90
+- Update description: AppRun β to AppRun Shared by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/91
+- Update docs to use SAKURA_ACCESS_TOKEN env var by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/92
+
 ## [v0.7.0](https://github.com/fujiwara/apprun-cli/compare/v0.6.0...v0.7.0) - 2026-03-09
 - Update apprun-api-go v0.6.1 and dependencies by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/86
 - Bump goreleaser/goreleaser-action from 6.4.0 to 7.0.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/85
