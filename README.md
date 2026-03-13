@@ -1,10 +1,8 @@
 # apprun-cli
 
-apprun-cli is a command line interface for AppRun β Sakura Cloud.
+apprun-cli is a command line interface for [AppRun Shared (共用型)](https://manual.sakura.ad.jp/cloud/manual-sakura-apprun.html) on Sakura Cloud.
 
-This is an unofficial tool.
-
-See also https://manual.sakura.ad.jp/cloud/manual-sakura-apprun.html
+This is an unofficial tool. Note that AppRun Dedicated (専有型) is a separate service with a different API and is not supported by this tool.
 
 ## Usage
 
@@ -224,7 +222,7 @@ When the application is not found, `apprun-cli deploy` creates a new application
 
 ```jsonnet
 local must_env = std.native('must_env');
-local tfs = std.native('tfstate');
+local tfstate = std.native('tfstate');
 {
   components: [
     {
