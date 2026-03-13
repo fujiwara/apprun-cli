@@ -96,8 +96,8 @@ jobs:
           args: deploy
         env:
           APPRUN_CLI_APP: app.jsonnet
-          SAKURACLOUD_ACCESS_TOKEN: ${{ secrets.SAKURACLOUD_ACCESS_TOKEN }}
-          SAKURACLOUD_ACCESS_TOKEN_SECRET: ${{ secrets.SAKURACLOUD_ACCESS_TOKEN_SECRET }}
+          SAKURA_ACCESS_TOKEN: ${{ secrets.SAKURA_ACCESS_TOKEN }}
+          SAKURA_ACCESS_TOKEN_SECRET: ${{ secrets.SAKURA_ACCESS_TOKEN_SECRET }}
 ```
 
 Note:
@@ -110,8 +110,8 @@ Note:
 
 apprun-cli reads configuration from environment variables.
 
-- `SAKURACLOUD_ACCESS_TOKEN`
-- `SAKURACLOUD_ACCESS_TOKEN_SECRET`
+- `SAKURA_ACCESS_TOKEN` (or `SAKURACLOUD_ACCESS_TOKEN`)
+- `SAKURA_ACCESS_TOKEN_SECRET` (or `SAKURACLOUD_ACCESS_TOKEN_SECRET`)
 
 AppRun is a global resource, so you don't need to specify the zone or region.
 
@@ -470,7 +470,7 @@ local secret = std.native('secret');
 
 > **Note:** The legacy `secret_value(vault_id, secret_name, version)` function is still available for backward compatibility but is deprecated. Please migrate to `secret()`.
 
-The Secret Manager API uses the same authentication credentials as AppRun API (`SAKURACLOUD_ACCESS_TOKEN` and `SAKURACLOUD_ACCESS_TOKEN_SECRET`).
+The Secret Manager API uses the same authentication credentials as AppRun API (`SAKURA_ACCESS_TOKEN` and `SAKURA_ACCESS_TOKEN_SECRET`).
 
 For more information about Secret Manager, see [Sakura Cloud Secret Manager Documentation](https://manual.sakura.ad.jp/cloud/appliance/secretsmanager/index.html).
 
