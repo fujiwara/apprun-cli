@@ -41,8 +41,8 @@ The project uses `fujiwara/jsonnet-armed` for enhanced Jsonnet support with cust
 
 ### API Client
 Uses `sacloud/apprun-api-go` for AppRun API interactions and `fujiwara/sakura-secrets-cli` for Secret Manager integration. The client is initialized with credentials from environment variables:
-- `SAKURACLOUD_ACCESS_TOKEN`
-- `SAKURACLOUD_ACCESS_TOKEN_SECRET`
+- `SAKURA_ACCESS_TOKEN` (or `SAKURACLOUD_ACCESS_TOKEN`)
+- `SAKURA_ACCESS_TOKEN_SECRET` (or `SAKURACLOUD_ACCESS_TOKEN_SECRET`)
 
 ## Testing
 
