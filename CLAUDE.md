@@ -66,3 +66,7 @@ The codebase uses Go 1.23+ range-over-func iterators for paginated API results (
 
 ### Traffic Management
 Traffic shifting (`traffics.go`) supports gradual rollout with `--shift-to`, `--rate`, `--period`, and `--rollback-on-failure` flags.
+
+## TODO
+
+- Remove deprecated `secret_value()` Jsonnet function (`deprecatedSecretValueFunc` in jsonnet.go) when releasing v1.
