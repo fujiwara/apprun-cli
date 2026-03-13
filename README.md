@@ -222,7 +222,7 @@ When the application is not found, `apprun-cli deploy` creates a new application
 
 ```jsonnet
 local must_env = std.native('must_env');
-local tfs = std.native('tfstate');
+local tfstate = std.native('tfstate');
 {
   components: [
     {
