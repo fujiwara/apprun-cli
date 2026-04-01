@@ -11,7 +11,7 @@ require (
 	github.com/fujiwara/sakura-secrets-cli v0.3.0
 	github.com/fujiwara/tfstate-lookup v1.10.0
 	github.com/google/go-cmp v0.7.0
-	github.com/google/go-jsonnet v0.21.0
+	github.com/google/go-jsonnet v0.22.0
 	github.com/itchyny/gojq v0.12.18
 	github.com/sacloud/apprun-api-go v0.6.1
 	github.com/schollz/progressbar/v3 v3.19.0
