@@ -13,7 +13,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/go-jsonnet v0.21.0
 	github.com/itchyny/gojq v0.12.18
-	github.com/sacloud/apprun-api-go v0.6.1
+	github.com/sacloud/apprun-api-go v0.7.0
 	github.com/schollz/progressbar/v3 v3.19.0
 	golang.org/x/sys v0.42.0
 )
