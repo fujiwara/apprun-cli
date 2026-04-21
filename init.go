@@ -21,7 +21,7 @@ func (c *CLI) runInit(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("failed to get application: %w", err)
 	}
-	slog.Info("found", "id", info.Id)
+	slog.Info("found", "id", info.ID)
 	b, err := json.MarshalIndent(app, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to marshal application data: %s", err)

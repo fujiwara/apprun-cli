@@ -27,7 +27,7 @@ func (c *CLI) runDiff(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	id := info.Id
+	id := info.ID
 	slog.Info("comparing", "local", c.Application, "remote", id)
 
 	opts := []jsondiff.Option{}

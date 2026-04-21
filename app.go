@@ -8,7 +8,7 @@ import (
 	"log/slog"
 
 	"github.com/google/go-jsonnet"
-	"github.com/sacloud/apprun-api-go"
+	apprun "github.com/sacloud/apprun-api-go"
 	v1 "github.com/sacloud/apprun-api-go/apis/v1"
 	"slices"
 	"strings"
@@ -18,17 +18,17 @@ import (
 // This is combined struct of v1.PostApplicationBody and v1.PatchPacketFilter
 type Application struct {
 	// same as v1.PostApplicationBody
-	Components     []v1.PostApplicationBodyComponent `json:"components"`
-	MaxScale       int                               `json:"max_scale"`
-	MinScale       int                               `json:"min_scale"`
-	Name           string                            `json:"name"`
-	Port           int                               `json:"port"`
-	TimeoutSeconds int                               `json:"timeout_seconds"`
+	Components     []v1.PostApplicationBodyComponentsItem `json:"components"`
+	MaxScale       int                                    `json:"max_scale"`
+	MinScale       int                                    `json:"min_scale"`
+	Name           string                                 `json:"name"`
+	Port           int                                    `json:"port"`
+	TimeoutSeconds int                                    `json:"timeout_seconds"`
 
 	PacketFilter v1.PatchPacketFilter `json:"packet_filter"`
 }
 
-type ApplicationInfo = v1.HandlerListApplicationsData
+type ApplicationInfo = v1.HandlerListApplicationsDataItem
 
 // PostApplicationBody returns v1.PostApplicationBody representation of Application
 func (app *Application) PostApplicationBody() *v1.PostApplicationBody {
@@ -42,7 +42,7 @@ func (app *Application) PostApplicationBody() *v1.PostApplicationBody {
 	}
 }
 
-func fromV1Application(v *v1.Application) *Application {
+func fromV1Application(v *v1.HandlerGetApplication) *Application {
 	b, err := json.Marshal(v)
 	if err != nil {
 		panic(err)
@@ -63,7 +63,11 @@ func toUpdateV1Application(app *Application, allTraffic bool) *v1.PatchApplicati
 	if err := json.Unmarshal(b, &v); err != nil {
 		panic(err)
 	}
-	v.AllTrafficAvailable = ptr(allTraffic)
+	v.TimeoutSeconds = v1.NewOptInt(app.TimeoutSeconds)
+	v.Port = v1.NewOptInt(app.Port)
+	v.MinScale = v1.NewOptInt(app.MinScale)
+	v.MaxScale = v1.NewOptInt(app.MaxScale)
+	v.AllTrafficAvailable = v1.NewOptBool(allTraffic)
 	slog.Debug("toUpdateV1Application", "body", toJSON(v))
 	return &v
 }
@@ -96,23 +100,11 @@ func toMap(v any) map[string]any {
 	return m
 }
 
-func v[T any](v *T) T {
-	if v == nil {
-		var zero T
-		return zero
-	}
-	return *v
-}
-
-func ptr[T any](v T) *T {
-	return &v
-}
-
 func (app *Application) Validate() error {
 	var errs []string
 	for _, c := range app.Components {
-		if !slices.Contains(apprun.ApplicationMaxCPUs, string(c.MaxCpu)) {
-			errs = append(errs, fmt.Sprintf("component %q: invalid max_cpu %q (valid values: %s)", c.Name, c.MaxCpu, strings.Join(apprun.ApplicationMaxCPUs, ", ")))
+		if !slices.Contains(apprun.ApplicationMaxCPUs, string(c.MaxCPU)) {
+			errs = append(errs, fmt.Sprintf("component %q: invalid max_cpu %q (valid values: %s)", c.Name, c.MaxCPU, strings.Join(apprun.ApplicationMaxCPUs, ", ")))
 		}
 		if !slices.Contains(apprun.ApplicationMaxMemories, string(c.MaxMemory)) {
 			errs = append(errs, fmt.Sprintf("component %q: invalid max_memory %q (valid values: %s)", c.Name, c.MaxMemory, strings.Join(apprun.ApplicationMaxMemories, ", ")))
@@ -159,7 +151,7 @@ func (c *CLI) getApplicationByName(ctx context.Context, name string) (*Applicati
 			continue
 		}
 		op := apprun.NewApplicationOp(c.client)
-		id := data.Id
+		id := data.ID
 		v1app, err := op.Read(ctx, id)
 		if err != nil {
 			return nil, nil, fmt.Errorf("failed to read application: %s", err)

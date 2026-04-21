@@ -14,6 +14,6 @@ func (c *CLI) runURL(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("failed to get application: %w", err)
 	}
-	fmt.Println(info.PublicUrl)
+	fmt.Println(info.PublicURL)
 	return nil
 }

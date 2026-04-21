@@ -28,7 +28,7 @@ func (c *CLI) runDeploy(ctx context.Context) error {
 		return c.createApplication(ctx, app)
 	}
 	slog.Info("updating", "app", app.Name)
-	return c.updateApplication(ctx, info.Id, app)
+	return c.updateApplication(ctx, info.ID, app)
 }
 
 func (c *CLI) createApplication(ctx context.Context, app *Application) error {
@@ -37,9 +37,9 @@ func (c *CLI) createApplication(ctx context.Context, app *Application) error {
 	if err != nil {
 		return err
 	}
-	slog.Info("created", "id", created.Id)
+	slog.Info("created", "id", created.ID)
 
-	if err := c.updatePacketFilter(ctx, created.Id, app.PacketFilter); err != nil {
+	if err := c.updatePacketFilter(ctx, created.ID, app.PacketFilter); err != nil {
 		return err
 	}
 	return nil
@@ -51,7 +51,7 @@ func (c *CLI) updateApplication(ctx context.Context, id string, app *Application
 	if err != nil {
 		return err
 	}
-	slog.Info("updated", "id", updated.Id)
+	slog.Info("updated", "id", updated.ID)
 
 	if err := c.updatePacketFilter(ctx, id, app.PacketFilter); err != nil {
 		return err

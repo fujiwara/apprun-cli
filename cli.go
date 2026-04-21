@@ -7,7 +7,7 @@ import (
 
 	"github.com/alecthomas/kong"
 	armed "github.com/fujiwara/jsonnet-armed"
-	"github.com/sacloud/apprun-api-go"
+	v1 "github.com/sacloud/apprun-api-go/apis/v1"
 )
 
 type CLI struct {
@@ -30,7 +30,7 @@ type CLI struct {
 	TFState     string           `name:"tfstate" help:"URL to terraform.tfstate" env:"APPRUN_CLI_TFSTATE"`
 	Version     kong.VersionFlag `short:"v" help:"Show version and exit."`
 
-	client *apprun.Client
+	client *v1.Client
 	loader *armed.CLI
 }
 
