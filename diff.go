@@ -55,7 +55,7 @@ func (c *CLI) runDiff(ctx context.Context) error {
 
 func coloredDiff(src string) string {
 	var b strings.Builder
-	for _, line := range strings.Split(src, "\n") {
+	for line := range strings.SplitSeq(src, "\n") {
 		if strings.HasPrefix(line, "-") {
 			b.WriteString(color.RedString(line) + "\n")
 		} else if strings.HasPrefix(line, "+") {

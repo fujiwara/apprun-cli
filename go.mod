@@ -6,14 +6,14 @@ require (
 	github.com/Songmu/prompter v0.5.1
 	github.com/aereal/jsondiff v0.4.1
 	github.com/alecthomas/kong v1.14.0
-	github.com/fatih/color v1.18.0
+	github.com/fatih/color v1.19.0
 	github.com/fujiwara/jsonnet-armed v0.1.1
 	github.com/fujiwara/sakura-secrets-cli v0.3.0
 	github.com/fujiwara/tfstate-lookup v1.10.0
 	github.com/google/go-cmp v0.7.0
-	github.com/google/go-jsonnet v0.21.0
+	github.com/google/go-jsonnet v0.22.0
 	github.com/itchyny/gojq v0.12.18
-	github.com/sacloud/apprun-api-go v0.6.1
+	github.com/sacloud/apprun-api-go v0.7.0
 	github.com/schollz/progressbar/v3 v3.19.0
 	golang.org/x/sys v0.42.0
 )

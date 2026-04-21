@@ -25,7 +25,7 @@ type Application struct {
 	Port           int                               `json:"port"`
 	TimeoutSeconds int                               `json:"timeout_seconds"`
 
-	PacketFilter v1.PatchPacketFilter `json:"packet_filter,omitempty"`
+	PacketFilter v1.PatchPacketFilter `json:"packet_filter"`
 }
 
 type ApplicationInfo = v1.HandlerListApplicationsData
@@ -68,7 +68,7 @@ func toUpdateV1Application(app *Application, allTraffic bool) *v1.PatchApplicati
 	return &v
 }
 
-func toJSON(v interface{}) string {
+func toJSON(v any) string {
 	b, err := json.Marshal(v)
 	if err != nil {
 		panic(err)
@@ -76,7 +76,7 @@ func toJSON(v interface{}) string {
 	return string(b)
 }
 
-func toJSONIndent(v interface{}) string {
+func toJSONIndent(v any) string {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
 		panic(err)
