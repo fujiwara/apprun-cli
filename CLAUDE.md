@@ -40,7 +40,7 @@ The project uses `fujiwara/jsonnet-armed` for enhanced Jsonnet support with cust
 3. Terraform state lookup (`tfstate(path)`) - only when `--tfstate` is specified
 
 ### API Client
-Uses `sacloud/apprun-api-go` for AppRun API interactions and `fujiwara/sakura-secrets-cli` for Secret Manager integration. The client is initialized with credentials from environment variables:
+Uses `sacloud/apprun-api-go` (v0.8+, ogen-generated) for AppRun API interactions and `fujiwara/sakura-secrets-cli` for Secret Manager integration. `cli.New` constructs a `saclient.Client` (from `sacloud/saclient-go`), which reads credentials from `usacloud` profiles or environment variables, then wraps it via `apprun.NewClient` to get a `*v1.Client`. Relevant environment variables:
 - `SAKURA_ACCESS_TOKEN` (or `SAKURACLOUD_ACCESS_TOKEN`)
 - `SAKURA_ACCESS_TOKEN_SECRET` (or `SAKURACLOUD_ACCESS_TOKEN_SECRET`)
 

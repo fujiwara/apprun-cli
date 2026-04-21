@@ -6,7 +6,7 @@ import (
 	"log/slog"
 
 	"github.com/Songmu/prompter"
-	"github.com/sacloud/apprun-api-go"
+	apprun "github.com/sacloud/apprun-api-go"
 	v1 "github.com/sacloud/apprun-api-go/apis/v1"
 )
 
@@ -31,7 +31,7 @@ func (c *CLI) runVersions(ctx context.Context) error {
 		return c.runVersionID(ctx, opt, info)
 	}
 
-	for version, err := range c.AllVersions(ctx, info.Id) {
+	for version, err := range c.AllVersions(ctx, info.ID) {
 		if err != nil {
 			return err
 		}
@@ -48,14 +48,14 @@ func (c *CLI) runVersionID(ctx context.Context, opt VersionsOption, info *Applic
 			return nil
 		}
 		slog.Info("deleting version", "id", opt.ID, "app", info.Name)
-		err := op.Delete(ctx, info.Id, opt.ID)
+		err := op.Delete(ctx, info.ID, opt.ID)
 		if err != nil {
 			return fmt.Errorf("failed to delete version: %w", err)
 		}
 		slog.Info("deleted version", "id", opt.ID, "app", info.Name)
 		return nil
 	}
-	res, err := op.Read(ctx, info.Id, opt.ID)
+	res, err := op.Read(ctx, info.ID, opt.ID)
 	if err != nil {
 		return fmt.Errorf("failed to read version: %w", err)
 	}
@@ -63,17 +63,17 @@ func (c *CLI) runVersionID(ctx context.Context, opt VersionsOption, info *Applic
 	return nil
 }
 
-func (c *CLI) AllVersions(ctx context.Context, appId string) func(func(*v1.Version, error) bool) {
+func (c *CLI) AllVersions(ctx context.Context, appId string) func(func(*v1.HandlerListVersionsDataItem, error) bool) {
 	op := apprun.NewVersionOp(c.client)
 	param := &v1.ListApplicationVersionsParams{
-		SortOrder: ptr(v1.ListApplicationVersionsParamsSortOrder(v1.ListApplicationVersionsParamsSortOrderAsc)),
-		PageSize:  ptr(100),
+		SortOrder: v1.NewOptListApplicationVersionsSortOrder(v1.ListApplicationVersionsSortOrderAsc),
+		PageSize:  v1.NewOptInt(100),
 	}
 	var page int
-	return func(yield func(*v1.Version, error) bool) {
+	return func(yield func(*v1.HandlerListVersionsDataItem, error) bool) {
 		for {
 			page++
-			param.PageNum = ptr(page)
+			param.PageNum = v1.NewOptInt(page)
 			slog.Debug("fetching list versions", "app_id", appId, "page", page)
 			res, err := op.List(ctx, appId, param)
 			if err != nil {

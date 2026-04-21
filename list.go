@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/sacloud/apprun-api-go"
+	apprun "github.com/sacloud/apprun-api-go"
 	v1 "github.com/sacloud/apprun-api-go/apis/v1"
 )
 
@@ -29,18 +29,18 @@ func (c *CLI) runList(ctx context.Context) error {
 
 var ErrNotFound = fmt.Errorf("not found")
 
-func (c *CLI) allApplications(ctx context.Context) func(func(*v1.HandlerListApplicationsData, error) bool) {
+func (c *CLI) allApplications(ctx context.Context) func(func(*v1.HandlerListApplicationsDataItem, error) bool) {
 	op := apprun.NewApplicationOp(c.client)
 	param := &v1.ListApplicationsParams{
-		SortField: ptr("name"),
-		SortOrder: ptr(v1.ListApplicationsParamsSortOrder(v1.HandlerListApplicationsMetaSortOrderAsc)),
-		PageSize:  ptr(100),
+		SortField: v1.NewOptString("name"),
+		SortOrder: v1.NewOptListApplicationsSortOrder(v1.ListApplicationsSortOrderAsc),
+		PageSize:  v1.NewOptInt(100),
 	}
 	var page int
-	return func(yield func(*v1.HandlerListApplicationsData, error) bool) {
+	return func(yield func(*v1.HandlerListApplicationsDataItem, error) bool) {
 		for {
 			page++
-			param.PageNum = ptr(page)
+			param.PageNum = v1.NewOptInt(page)
 			slog.Debug("fetching list applications", "page", page)
 			res, err := op.List(ctx, param)
 			if err != nil {
