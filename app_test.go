@@ -9,47 +9,51 @@ import (
 	v1 "github.com/sacloud/apprun-api-go/apis/v1"
 )
 
-func ptr[T any](v T) *T {
-	return &v
-}
-
 var testApplication = &cli.Application{
 	MaxScale:       2,
 	MinScale:       1,
 	Name:           "test",
 	Port:           80,
 	TimeoutSeconds: 10,
-	Components: []v1.PostApplicationBodyComponent{
+	Components: []v1.PostApplicationBodyComponentsItem{
 		{
 			Name: "test",
-			DeploySource: v1.PostApplicationBodyComponentDeploySource{
-				ContainerRegistry: &v1.PostApplicationBodyComponentDeploySourceContainerRegistry{
-					Username: ptr("apprun"),
-					Password: ptr("password"),
-					Server:   ptr("example.sakuracr.jp"),
-					Image:    "example.sakuracr.jp/debian:latest",
-				},
-			},
-			Env: &[]v1.PostApplicationBodyComponentEnv{
-				{
-					Key:   ptr("FOO"),
-					Value: ptr("BAR"),
-				},
-			},
-			MaxCpu:    "0.5",
-			MaxMemory: "1Gi",
-			Probe: &v1.PostApplicationBodyComponentProbe{
-				HttpGet: &v1.PostApplicationBodyComponentProbeHttpGet{
-					Headers: &[]v1.PostApplicationBodyComponentProbeHttpGetHeader{
-						{
-							Name:  ptr("X-Test"),
-							Value: ptr("test"),
-						},
+			DeploySource: v1.PostApplicationBodyComponentsItemDeploySource{
+				ContainerRegistry: v1.NewOptPostApplicationBodyComponentsItemDeploySourceContainerRegistry(
+					v1.PostApplicationBodyComponentsItemDeploySourceContainerRegistry{
+						Username: v1.NewOptNilString("apprun"),
+						Password: v1.NewOptNilString("password"),
+						Server:   v1.NewOptNilString("example.sakuracr.jp"),
+						Image:    "example.sakuracr.jp/debian:latest",
 					},
-					Path: "/",
-					Port: 80,
-				},
+				),
 			},
+			Env: v1.NewOptNilPostApplicationBodyComponentsItemEnvItemArray(
+				[]v1.PostApplicationBodyComponentsItemEnvItem{
+					{
+						Key:   v1.NewOptString("FOO"),
+						Value: v1.NewOptString("BAR"),
+					},
+				},
+			),
+			MaxCPU:    "0.5",
+			MaxMemory: "1Gi",
+			Probe: v1.NewOptNilPostApplicationBodyComponentsItemProbe(
+				v1.PostApplicationBodyComponentsItemProbe{
+					HTTPGet: v1.NewOptNilPostApplicationBodyComponentsItemProbeHTTPGet(
+						v1.PostApplicationBodyComponentsItemProbeHTTPGet{
+							Headers: []v1.PostApplicationBodyComponentsItemProbeHTTPGetHeadersItem{
+								{
+									Name:  v1.NewOptString("X-Test"),
+									Value: v1.NewOptString("test"),
+								},
+							},
+							Path: "/",
+							Port: 80,
+						},
+					),
+				},
+			),
 		},
 	},
 }
@@ -103,11 +107,11 @@ func TestValidate(t *testing.T) {
 				TimeoutSeconds: 10,
 				MinScale:       1,
 				MaxScale:       2,
-				Components: []v1.PostApplicationBodyComponent{
+				Components: []v1.PostApplicationBodyComponentsItem{
 					{
 						Name:      "test",
-						MaxCpu:    v1.PostApplicationBodyComponentMaxCpu(tt.cpu),
-						MaxMemory: v1.PostApplicationBodyComponentMaxMemory(tt.memory),
+						MaxCPU:    v1.PostApplicationBodyComponentsItemMaxCPU(tt.cpu),
+						MaxMemory: v1.PostApplicationBodyComponentsItemMaxMemory(tt.memory),
 					},
 				},
 			}
