@@ -12,7 +12,7 @@ require (
 	github.com/fujiwara/tfstate-lookup v1.10.0
 	github.com/google/go-cmp v0.7.0
 	github.com/google/go-jsonnet v0.22.0
-	github.com/itchyny/gojq v0.12.18
+	github.com/itchyny/gojq v0.12.19
 	github.com/sacloud/apprun-api-go v0.8.0
 	github.com/sacloud/saclient-go v0.3.7
 	github.com/schollz/progressbar/v3 v3.19.0
@@ -94,7 +94,7 @@ require (
 	github.com/hashicorp/go-version v1.7.0 // indirect
 	github.com/hashicorp/jsonapi v1.4.3-0.20250220162346-81a76b606f3e // indirect
 	github.com/hexops/gotextdiff v1.0.3 // indirect
-	github.com/itchyny/timefmt-go v0.1.7 // indirect
+	github.com/itchyny/timefmt-go v0.1.8 // indirect
 	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
