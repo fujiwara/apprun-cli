@@ -5,10 +5,10 @@ go 1.25.5
 require (
 	github.com/Songmu/prompter v0.5.1
 	github.com/aereal/jsondiff v0.4.1
-	github.com/alecthomas/kong v1.14.0
+	github.com/alecthomas/kong v1.15.0
 	github.com/fatih/color v1.19.0
 	github.com/fujiwara/jsonnet-armed v0.1.1
-	github.com/fujiwara/sakura-secrets-cli v0.3.0
+	github.com/fujiwara/sakura-secrets-cli v0.3.1
 	github.com/fujiwara/tfstate-lookup v1.10.0
 	github.com/google/go-cmp v0.7.0
 	github.com/google/go-jsonnet v0.22.0
@@ -108,7 +108,7 @@ require (
 	github.com/sacloud/api-client-go v0.3.5 // indirect
 	github.com/sacloud/go-http v0.1.9 // indirect
 	github.com/sacloud/packages-go v0.0.12 // indirect
-	github.com/sacloud/secretmanager-api-go v0.3.1 // indirect
+	github.com/sacloud/secretmanager-api-go v0.4.1 // indirect
 	github.com/segmentio/asm v1.2.1 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spiffe/go-spiffe/v2 v2.5.0 // indirect

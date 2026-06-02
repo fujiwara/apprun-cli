@@ -68,8 +68,8 @@ github.com/aereal/jsondiff v0.4.1 h1:tCm2iINE5bbMeZqvFkWWNQTe3Q7zCZs3cH7Oi8lYWwk
 github.com/aereal/jsondiff v0.4.1/go.mod h1:MnSLklf25ZHqNwYmRS0W9HwvBAe9Q5aLooxh5IB+bzU=
 github.com/alecthomas/assert/v2 v2.11.0 h1:2Q9r3ki8+JYXvGsDyBXwH3LcJ+WK5D0gc5E8vS6K3D0=
 github.com/alecthomas/assert/v2 v2.11.0/go.mod h1:Bze95FyfUr7x34QZrjL+XP+0qgp/zg8yS+TtBj1WA3k=
-github.com/alecthomas/kong v1.14.0 h1:gFgEUZWu2ZmZ+UhyZ1bDhuutbKN1nTtJTwh19Wsn21s=
-github.com/alecthomas/kong v1.14.0/go.mod h1:wrlbXem1CWqUV5Vbmss5ISYhsVPkBb1Yo7YKJghju2I=
+github.com/alecthomas/kong v1.15.0 h1:BVJstKbpO73zKpmIu+m/aLRrNmWwxXPIGTNin9VmLVI=
+github.com/alecthomas/kong v1.15.0/go.mod h1:wrlbXem1CWqUV5Vbmss5ISYhsVPkBb1Yo7YKJghju2I=
 github.com/alecthomas/repr v0.5.2 h1:SU73FTI9D1P5UNtvseffFSGmdNci/O6RsqzeXJtP0Qs=
 github.com/alecthomas/repr v0.5.2/go.mod h1:Fr0507jx4eOXV7AlPV6AVZLYrLIuIeSOWtW57eE/O/4=
 github.com/aws/aws-sdk-go-v2 v1.41.1 h1:ABlyEARCDLN034NhxlRUSZr4l71mh+T5KAeGh6cerhU=
@@ -144,8 +144,8 @@ github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
 github.com/fujiwara/jsonnet-armed v0.1.1 h1:Lq65mAKzhdVWFLjQowYb4t4RS/1AMA5sXiGWb6HaskM=
 github.com/fujiwara/jsonnet-armed v0.1.1/go.mod h1:MyGurW7aiBjqaRuXb1GsHGr43CbRkMJ8rg0zyYLd2CU=
-github.com/fujiwara/sakura-secrets-cli v0.3.0 h1:dIwj2u+c16ZsSh/DjA2octkW3EHBF61B/5MJnwe48N8=
-github.com/fujiwara/sakura-secrets-cli v0.3.0/go.mod h1:u7wdFkMXan+O8WZO89hA3zZ3DABjKiZZja/nsDsFUfg=
+github.com/fujiwara/sakura-secrets-cli v0.3.1 h1:V+FjHYbrz5NmYnfm+czEItDhSYQog8L7AoHy1eRTDYw=
+github.com/fujiwara/sakura-secrets-cli v0.3.1/go.mod h1:Dg/hYNwxATSUSKtJ4AT5XV94L89IKJ9Ie2RrN0Vg7zQ=
 github.com/fujiwara/tfstate-lookup v1.10.0 h1:RtVV1PUO+C7hqmRKhecS/ed6XOZ4KDiJmbHPFvX7ZJE=
 github.com/fujiwara/tfstate-lookup v1.10.0/go.mod h1:hBwXB7lKy4kPEM+szko7rzAq04TGpBzzNY8Wm8hG6UE=
 github.com/ghodss/yaml v1.0.0 h1:wQHKEahhL6wmXdzwWG11gIVCkOv05bNOh+Rxn0yngAk=
@@ -264,8 +264,10 @@ github.com/sacloud/packages-go v0.0.12 h1:MKeZNN3FQn1heqUSRBrbZw89YusZA1n4kammjM
 github.com/sacloud/packages-go v0.0.12/go.mod h1:XNF5MCTWcHo9NiqWnYctVbASSSZR3ZOmmQORIzcurJ8=
 github.com/sacloud/saclient-go v0.3.7 h1:LAkOHStYxIKoypiaarhNOwm/JPuubgoKuOSXZWEerbc=
 github.com/sacloud/saclient-go v0.3.7/go.mod h1:h8ATHi9AnQhOxYNm8mbVWyM9/2569PPESIGwAc2SNg4=
-github.com/sacloud/secretmanager-api-go v0.3.1 h1:71Bxt/WxtYfilkj35pD5pauy9zYYEQkF09bturYq1jM=
-github.com/sacloud/secretmanager-api-go v0.3.1/go.mod h1:eSMKWniJrPbaOWWv66AJgubXOoR6ZAOt8uIZo/5BJF8=
+github.com/sacloud/sakumock/secretmanager v0.0.2 h1:C9mNIcBlmzjG1uDg74AuNOJdZE1bo7UyjPF4b2EwFac=
+github.com/sacloud/sakumock/secretmanager v0.0.2/go.mod h1:w30AV16pLBnOviLYThkFfjs36j/jS4C/4UMUphbasp0=
+github.com/sacloud/secretmanager-api-go v0.4.1 h1:uvQExqhbsdRmp5oTk9BNg9Vu2rzM2OaexFuEOKU9oJQ=
+github.com/sacloud/secretmanager-api-go v0.4.1/go.mod h1:9ONYBiZmRoG42N6ka6iwy5zRtjwHbH4bl9P6zL4Ei5A=
 github.com/schollz/progressbar/v3 v3.19.0 h1:Ea18xuIRQXLAUidVDox3AbwfUhD0/1IvohyTutOIFoc=
 github.com/schollz/progressbar/v3 v3.19.0/go.mod h1:IsO3lpbaGuzh8zIMzgY3+J8l4C8GjO0Y9S69eFvNsec=
 github.com/segmentio/asm v1.2.1 h1:DTNbBqs57ioxAD4PrArqftgypG4/qNpXoJx8TVXxPR0=
