@@ -68,14 +68,14 @@ func toUpdateV1Application(app *Application, allTraffic bool) *v1.PatchApplicati
 	v.MinScale = v1.NewOptInt(app.MinScale)
 	v.MaxScale = v1.NewOptInt(app.MaxScale)
 	v.AllTrafficAvailable = v1.NewOptBool(allTraffic)
-	slog.Debug("toUpdateV1Application", "body", toJSON(v))
+	slog.Debug("toUpdateV1Application", "body", toJSON(app), "allTraffic", allTraffic)
 	return &v
 }
 
 func toJSON(v any) string {
 	b, err := json.Marshal(v)
 	if err != nil {
-		panic(err)
+		return fmt.Sprintf("<json marshal error: %s>", err)
 	}
 	return string(b)
 }
@@ -83,7 +83,7 @@ func toJSON(v any) string {
 func toJSONIndent(v any) string {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
-		panic(err)
+		return fmt.Sprintf("<json marshal error: %s>", err)
 	}
 	return string(b)
 }
