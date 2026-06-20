@@ -113,7 +113,7 @@ apprun-cli reads configuration from environment variables.
 - `SAKURA_ACCESS_TOKEN` (or `SAKURACLOUD_ACCESS_TOKEN`)
 - `SAKURA_ACCESS_TOKEN_SECRET` (or `SAKURACLOUD_ACCESS_TOKEN_SECRET`)
 
-Credentials are loaded through [saclient-go](https://github.com/sacloud/saclient-go), so `usacloud` profiles (via `SAKURACLOUD_PROFILE`) are also supported.
+Credentials are loaded through [sacloud-sdk-go](https://github.com/sacloud/sacloud-sdk-go), so `usacloud` profiles (via `SAKURACLOUD_PROFILE`) are also supported.
 
 AppRun is a global resource, so you don't need to specify the zone or region.
 

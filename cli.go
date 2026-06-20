@@ -7,7 +7,7 @@ import (
 
 	"github.com/alecthomas/kong"
 	armed "github.com/fujiwara/jsonnet-armed"
-	v1 "github.com/sacloud/apprun-api-go/apis/v1"
+	v1 "github.com/sacloud/sacloud-sdk-go/api/apprun/apis/v1"
 )
 
 type CLI struct {

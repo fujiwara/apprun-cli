@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	armed "github.com/fujiwara/jsonnet-armed"
-	apprun "github.com/sacloud/apprun-api-go"
-	"github.com/sacloud/saclient-go"
+	apprun "github.com/sacloud/sacloud-sdk-go/api/apprun"
+	"github.com/sacloud/sacloud-sdk-go/common/saclient"
 )
 
 func New(ctx context.Context) (*CLI, error) {

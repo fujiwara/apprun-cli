@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	apprun "github.com/sacloud/apprun-api-go"
+	apprun "github.com/sacloud/sacloud-sdk-go/api/apprun"
 )
 
 type UserOption struct {

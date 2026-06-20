@@ -5,7 +5,7 @@ import (
 	"errors"
 	"log/slog"
 
-	"github.com/sacloud/apprun-api-go"
+	"github.com/sacloud/sacloud-sdk-go/api/apprun"
 )
 
 type DeployOption struct {
