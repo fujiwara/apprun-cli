@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.7.1](https://github.com/fujiwara/apprun-cli/compare/v0.7.0...v0.7.1) - 2026-06-20
+## [v0.8.0](https://github.com/fujiwara/apprun-cli/compare/v0.7.0...v0.8.0) - 2026-06-20
 
 - Use sakura-secrets-cli for Secret Manager integration by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/88
 - Update CI Go version to 1.26 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/90
