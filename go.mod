@@ -8,7 +8,7 @@ require (
 	github.com/alecthomas/kong v1.15.0
 	github.com/fatih/color v1.19.0
 	github.com/fujiwara/jsonnet-armed v0.1.1
-	github.com/fujiwara/sakura-secrets-cli v0.3.1
+	github.com/fujiwara/sakura-secrets-cli v0.3.2
 	github.com/fujiwara/tfstate-lookup v1.12.1
 	github.com/google/go-cmp v0.7.0
 	github.com/google/go-jsonnet v0.22.0
@@ -102,11 +102,6 @@ require (
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
-	github.com/sacloud/api-client-go v0.3.5 // indirect
-	github.com/sacloud/go-http v0.1.9 // indirect
-	github.com/sacloud/packages-go v0.0.12 // indirect
-	github.com/sacloud/saclient-go v0.3.7 // indirect
-	github.com/sacloud/secretmanager-api-go v0.4.1 // indirect
 	github.com/segmentio/asm v1.2.1 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spiffe/go-spiffe/v2 v2.6.0 // indirect
