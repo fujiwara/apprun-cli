@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.8.0](https://github.com/fujiwara/apprun-cli/compare/v0.7.0...v0.8.0) - 2026-06-20
+
+- Use sakura-secrets-cli for Secret Manager integration by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/88
+- Update CI Go version to 1.26 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/90
+- Update description: AppRun β to AppRun Shared by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/91
+- Update docs to use SAKURA_ACCESS_TOKEN env var by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/92
+- Release for v0.7.1 by @github-actions[bot] in https://github.com/fujiwara/apprun-cli/pull/89
+- Add link to apprun-dedicated-cli in README by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/94
+- Bump dependencies (consolidated dependabot PRs) by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/99
+- Migrate to apprun-api-go v0.8.0 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/100
+- Bump dependencies (consolidated dependabot PRs) by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/112
+- Migrate from individual SDKs to sacloud/sacloud-sdk-go by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/113
+- Exclude GCS and Azure backends from tfstate-lookup by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/114
+- Remove GCS and Azure backends from supported tfstate URL schemes in README by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/115
+- Fix panic in toJSON when marshaling ogen-generated types by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/116
+
 ## [v0.7.1](https://github.com/fujiwara/apprun-cli/compare/v0.7.0...v0.7.1) - 2026-03-13
 - Use sakura-secrets-cli for Secret Manager integration by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/88
 - Update CI Go version to 1.26 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/90
