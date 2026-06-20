@@ -442,7 +442,7 @@ local tfstate = std.native('tfstate');
 $ apprun-cli deploy --app app.jsonnet --tfstate https://example.com/terraform.tfstate
 ```
 
-Supported URL schemes are `http`, `https`, `file`, `s3`(Amazon S3), `gs`(Google Cloud Storage), `remote`(Terraform Cloud) and `azurerm`(Azure Blob Storage).
+Supported URL schemes are `http`, `https`, `file`, `s3`(Amazon S3), and `remote`(Terraform Cloud).
 
 For more information, see [tfstate-lookup](https://github.com/fujiwara/tfstate-lookup).
 
