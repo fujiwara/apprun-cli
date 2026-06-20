@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.8.1](https://github.com/fujiwara/apprun-cli/compare/v0.8.0...v0.8.1) - 2026-06-20
+
+- update to github.com/fujiwara/sakura-secrets-cli@v0.3.2 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/117
+
 ## [v0.8.0](https://github.com/fujiwara/apprun-cli/compare/v0.7.0...v0.8.0) - 2026-06-20
 
 - Use sakura-secrets-cli for Secret Manager integration by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/88
