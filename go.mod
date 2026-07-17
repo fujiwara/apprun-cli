@@ -15,7 +15,7 @@ require (
 	github.com/itchyny/gojq v0.12.19
 	github.com/sacloud/sacloud-sdk-go v0.0.1-beta.2
 	github.com/schollz/progressbar/v3 v3.19.0
-	golang.org/x/sys v0.45.0
+	golang.org/x/sys v0.46.0
 )
 
 require (
