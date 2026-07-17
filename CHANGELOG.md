@@ -1,5 +1,11 @@
 # Changelog
 
+## [v0.8.1](https://github.com/fujiwara/apprun-cli/compare/v0.8.0...v0.8.1) - 2026-07-17
+
+- update to github.com/fujiwara/sakura-secrets-cli@v0.3.2 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/117
+- Bump sakura-secrets-cli from 0.3.2 to 0.3.3 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/124
+- Bump golang.org/x/sys from 0.45.0 to 0.46.0 by @dependabot[bot] in https://github.com/fujiwara/apprun-cli/pull/123
+
 ## [v0.8.0](https://github.com/fujiwara/apprun-cli/compare/v0.7.0...v0.8.0) - 2026-06-20
 
 - Use sakura-secrets-cli for Secret Manager integration by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/88
