@@ -20,6 +20,7 @@ func newMockCLI(t *testing.T, ctx context.Context) (*cli.CLI, *apprun.Server) {
 	t.Setenv("SAKURA_ENDPOINTS_APPRUN_SHARED", srv.TestURL())
 	t.Setenv("SAKURA_ACCESS_TOKEN", "dummy")
 	t.Setenv("SAKURA_ACCESS_TOKEN_SECRET", "dummy")
+	t.Setenv("SAKURA_RATE_LIMIT", "1000") // saclient limits requests to 5 req/s by default
 
 	c, err := cli.New(ctx)
 	if err != nil {
