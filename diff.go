@@ -11,6 +11,7 @@ import (
 	"github.com/itchyny/gojq"
 )
 
+// DiffIgnoreDefault ignores fields that the API never returns.
 const DiffIgnoreDefault = ".components[].deploy_source.container_registry.password"
 
 type DiffOption struct {
@@ -30,27 +31,33 @@ func (c *CLI) runDiff(ctx context.Context) error {
 	id := info.ID
 	slog.Info("comparing", "local", c.Application, "remote", id)
 
-	opts := []jsondiff.Option{}
-	ignores := []string{}
-	ignores = append(ignores, DiffIgnoreDefault)
-	ignores = append(ignores, opt.Ignore...)
-	ignore := strings.Join(ignores, " or ")
-	if p, err := gojq.Parse(ignore); err != nil {
-		return fmt.Errorf("failed to parse ignore query: %s %w", ignore, err)
-	} else {
-		opts = append(opts, jsondiff.Ignore(p))
+	diff, err := diffApplications(id, remote, c.Application, local, opt.Ignore)
+	if err != nil {
+		return err
 	}
-
-	if diff, err := jsondiff.Diff(
-		&jsondiff.Input{Name: id, X: toMap(remote)},
-		&jsondiff.Input{Name: c.Application, X: toMap(local)},
-		opts...,
-	); err != nil {
-		return fmt.Errorf("failed to diff: %w", err)
-	} else if diff != "" {
+	if diff != "" {
 		fmt.Print(coloredDiff(diff))
 	}
 	return nil
+}
+
+func diffApplications(remoteName string, remote *Application, localName string, local *Application, extraIgnores []string) (string, error) {
+	ignores := []string{DiffIgnoreDefault}
+	ignores = append(ignores, extraIgnores...)
+	ignore := strings.Join(ignores, ", ") // to be passed to del()
+	p, err := gojq.Parse(ignore)
+	if err != nil {
+		return "", fmt.Errorf("failed to parse ignore query: %s %w", ignore, err)
+	}
+	diff, err := jsondiff.Diff(
+		&jsondiff.Input{Name: remoteName, X: toMap(remote)},
+		&jsondiff.Input{Name: localName, X: toMap(local)},
+		jsondiff.Ignore(p),
+	)
+	if err != nil {
+		return "", fmt.Errorf("failed to diff: %w", err)
+	}
+	return diff, nil
 }
 
 func coloredDiff(src string) string {
