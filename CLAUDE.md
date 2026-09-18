@@ -25,7 +25,7 @@ The project uses `alecthomas/kong` for CLI argument parsing. All commands are de
 
 ### Application Model
 The `Application` struct (app.go:17) is the core data model that combines:
-- `v1.CreateApplicationBody` - application configuration
+- `v1.CreateApplicationBody` - application configuration (`Components` uses `v1.PatchApplicationBodyComponentsItem`, whose secret values are optional, so that it can also hold API responses and keep-as-is secrets)
 - `v1.PatchPacketFilterBody` - packet filter settings
 
 This struct is used for:
@@ -50,6 +50,7 @@ Tests are in `*_test.go` files. The project uses:
 - Standard `testing` package
 - `google/go-cmp` for deep equality comparisons
 - `testdata/` directory for test fixtures
+- `sacloud/sakumock` (`apprun.NewTestServer`) as a mock AppRun API for integration tests (integration_test.go). Point the client at it with `SAKURA_ENDPOINTS_APPRUN_SHARED`
 
 Use `export_test.go` to export internal functions for testing (Go testing pattern).
 

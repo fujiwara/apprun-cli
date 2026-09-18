@@ -18,6 +18,15 @@ local tfstate = std.native('tfstate');
           value: 'BAR',
         },
       ],
+      secret: [
+        {
+          key: 'SECRET_FOO',
+          value: 'secret',
+        },
+        {
+          key: 'SECRET_KEEP',
+        },
+      ],
       max_cpu: '0.5',
       max_memory: '1Gi',
       name: 'test',

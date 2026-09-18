@@ -17,13 +17,15 @@ import (
 // Application represents an application definition
 // This is combined struct of v1.CreateApplicationBody and v1.PatchPacketFilterBody
 type Application struct {
-	// same as v1.CreateApplicationBody
-	Components     []v1.CreateApplicationBodyComponentsItem `json:"components"`
-	MaxScale       int                                      `json:"max_scale"`
-	MinScale       int                                      `json:"min_scale"`
-	Name           string                                   `json:"name"`
-	Port           int                                      `json:"port"`
-	TimeoutSeconds int                                      `json:"timeout_seconds"`
+	// Components uses the patch type because it is a superset of the create type:
+	// secret values are optional (the API never returns them, and omitting a value
+	// on update keeps the one stored in the latest version).
+	Components     []v1.PatchApplicationBodyComponentsItem `json:"components"`
+	MaxScale       int                                     `json:"max_scale"`
+	MinScale       int                                     `json:"min_scale"`
+	Name           string                                  `json:"name"`
+	Port           int                                     `json:"port"`
+	TimeoutSeconds int                                     `json:"timeout_seconds"`
 
 	PacketFilter v1.PatchPacketFilterBody `json:"packet_filter"`
 }
@@ -31,15 +33,30 @@ type Application struct {
 type ApplicationInfo = v1.HandlerListApplicationsDataItem
 
 // CreateApplicationBody returns v1.CreateApplicationBody representation of Application
-func (app *Application) CreateApplicationBody() *v1.CreateApplicationBody {
+func (app *Application) CreateApplicationBody() (*v1.CreateApplicationBody, error) {
+	for _, c := range app.Components {
+		for _, s := range c.Secret.Value {
+			if !s.Value.Set {
+				return nil, fmt.Errorf("component %q: secret %q requires a value to create an application", c.Name, s.Key)
+			}
+		}
+	}
+	b, err := json.Marshal(app.Components)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal components: %w", err)
+	}
+	var components []v1.CreateApplicationBodyComponentsItem
+	if err := json.Unmarshal(b, &components); err != nil {
+		return nil, fmt.Errorf("failed to convert components: %w", err)
+	}
 	return &v1.CreateApplicationBody{
-		Components:     app.Components,
+		Components:     components,
 		MaxScale:       app.MaxScale,
 		MinScale:       app.MinScale,
 		Name:           app.Name,
 		Port:           app.Port,
 		TimeoutSeconds: app.TimeoutSeconds,
-	}
+	}, nil
 }
 
 func fromV1Application(v *v1.HandlerReadApplication) *Application {
@@ -50,6 +67,12 @@ func fromV1Application(v *v1.HandlerReadApplication) *Application {
 	var app Application
 	if err := json.Unmarshal(b, &app); err != nil {
 		panic(err)
+	}
+	for i := range app.Components {
+		// action is a request-only field. The decoder fills it with the default value, so reset it.
+		if cr := &app.Components[i].DeploySource.ContainerRegistry; cr.Set {
+			cr.Value.Action.Reset()
+		}
 	}
 	return &app
 }
