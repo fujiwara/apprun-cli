@@ -50,6 +50,7 @@ Tests are in `*_test.go` files. The project uses:
 - Standard `testing` package
 - `google/go-cmp` for deep equality comparisons
 - `testdata/` directory for test fixtures
+- `sacloud/sakumock` (`apprun.NewTestServer`) as a mock AppRun API for integration tests (integration_test.go). Point the client at it with `SAKURA_ENDPOINTS_APPRUN_SHARED`
 
 Use `export_test.go` to export internal functions for testing (Go testing pattern).
 
