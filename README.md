@@ -147,7 +147,7 @@ $ apprun-cli list
 
 You can save the output to a file and edit it to deploy the application.
 
-Note: The password is not set in the output.
+Note: The password and the values of `secret` are not set in the output, because the API never returns them.
 
 ```
 Usage: apprun-cli init --name=STRING [flags]
@@ -270,9 +270,33 @@ local tfstate = std.native('tfstate');
 }
 ```
 
+##### Secret environment variables
+
+`secret` in a component defines environment variables for sensitive values. The format is the same as `env`.
+
+```jsonnet
+      secret: [
+        {
+          key: 'API_TOKEN',
+          value: must_env('API_TOKEN'),
+        },
+        {
+          key: 'KEEP_AS_IS',  // without value
+        },
+      ],
+```
+
+- The API never returns the values of `secret`, so `diff` compares only the keys.
+- When `value` is omitted, the value stored in the latest version is kept. `value` is required for all secrets when creating a new application.
+- The values can be read from Secret Manager. See [Lookup secrets from Secret Manager](#lookup-secrets-from-secret-manager).
+
+`deploy_source.container_registry.action: 'keep'` keeps the registry credentials stored in the latest version, instead of the ones in the definition file (default: `'new'`).
+
 #### Diff
 
 `apprun-cli diff` shows the difference between the current application and the definition file.
+
+The fields that the API never returns (`container_registry.password`, `container_registry.action` and the values of `secret`) are ignored. `--ignore` accepts additional jq queries to ignore specific fields (e.g. `--ignore '.components[].env'`).
 
 ```diff
 --- 0b523faa-b0de-4c26-bc42-a3ff500b9367

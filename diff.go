@@ -12,7 +12,9 @@ import (
 )
 
 // DiffIgnoreDefault ignores fields that the API never returns.
-const DiffIgnoreDefault = ".components[].deploy_source.container_registry.password"
+const DiffIgnoreDefault = ".components[].deploy_source.container_registry.password" +
+	", .components[].deploy_source.container_registry.action" +
+	", .components[].secret[]?.value"
 
 type DiffOption struct {
 	Ignore []string `help:"JQ queries to ignore specific fields"`

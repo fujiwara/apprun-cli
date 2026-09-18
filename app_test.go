@@ -15,16 +15,17 @@ var testApplication = &cli.Application{
 	Name:           "test",
 	Port:           80,
 	TimeoutSeconds: 10,
-	Components: []v1.CreateApplicationBodyComponentsItem{
+	Components: []v1.PatchApplicationBodyComponentsItem{
 		{
 			Name: "test",
-			DeploySource: v1.CreateApplicationBodyComponentsItemDeploySource{
-				ContainerRegistry: v1.NewOptCreateApplicationBodyComponentsItemDeploySourceContainerRegistry(
-					v1.CreateApplicationBodyComponentsItemDeploySourceContainerRegistry{
+			DeploySource: v1.PatchApplicationBodyComponentsItemDeploySource{
+				ContainerRegistry: v1.NewOptPatchApplicationBodyComponentsItemDeploySourceContainerRegistry(
+					v1.PatchApplicationBodyComponentsItemDeploySourceContainerRegistry{
 						Username: v1.NewOptNilString("apprun"),
 						Password: v1.NewOptNilString("password"),
 						Server:   v1.NewOptNilString("example.sakuracr.jp"),
 						Image:    "example.sakuracr.jp/debian:latest",
+						Action:   v1.NewOptNilContainerRegistryAction(v1.ContainerRegistryActionNew), // default
 					},
 				),
 			},
@@ -36,13 +37,24 @@ var testApplication = &cli.Application{
 					},
 				},
 			),
+			Secret: v1.NewOptNilPatchApplicationBodyComponentsItemSecretItemArray(
+				[]v1.PatchApplicationBodyComponentsItemSecretItem{
+					{
+						Key:   "SECRET_FOO",
+						Value: v1.NewOptString("secret"),
+					},
+					{
+						Key: "SECRET_KEEP",
+					},
+				},
+			),
 			MaxCPU:    "0.5",
 			MaxMemory: "1Gi",
-			Probe: v1.NewOptNilCreateApplicationBodyComponentsItemProbe(
-				v1.CreateApplicationBodyComponentsItemProbe{
-					HTTPGet: v1.NewOptNilCreateApplicationBodyComponentsItemProbeHTTPGet(
-						v1.CreateApplicationBodyComponentsItemProbeHTTPGet{
-							Headers: []v1.CreateApplicationBodyComponentsItemProbeHTTPGetHeadersItem{
+			Probe: v1.NewOptNilPatchApplicationBodyComponentsItemProbe(
+				v1.PatchApplicationBodyComponentsItemProbe{
+					HTTPGet: v1.NewOptNilPatchApplicationBodyComponentsItemProbeHTTPGet(
+						v1.PatchApplicationBodyComponentsItemProbeHTTPGet{
+							Headers: []v1.PatchApplicationBodyComponentsItemProbeHTTPGetHeadersItem{
 								{
 									Name:  v1.NewOptString("X-Test"),
 									Value: v1.NewOptString("test"),
@@ -107,11 +119,11 @@ func TestValidate(t *testing.T) {
 				TimeoutSeconds: 10,
 				MinScale:       1,
 				MaxScale:       2,
-				Components: []v1.CreateApplicationBodyComponentsItem{
+				Components: []v1.PatchApplicationBodyComponentsItem{
 					{
 						Name:      "test",
-						MaxCPU:    v1.CreateApplicationBodyComponentsItemMaxCPU(tt.cpu),
-						MaxMemory: v1.CreateApplicationBodyComponentsItemMaxMemory(tt.memory),
+						MaxCPU:    v1.PatchApplicationBodyComponentsItemMaxCPU(tt.cpu),
+						MaxMemory: v1.PatchApplicationBodyComponentsItemMaxMemory(tt.memory),
 					},
 				},
 			}
@@ -120,5 +132,70 @@ func TestValidate(t *testing.T) {
 				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
+	}
+}
+
+func TestCreateApplicationBody(t *testing.T) {
+	newApp := func(secrets ...v1.PatchApplicationBodyComponentsItemSecretItem) *cli.Application {
+		return &cli.Application{
+			Name: "test",
+			Components: []v1.PatchApplicationBodyComponentsItem{
+				{
+					Name:      "test",
+					MaxCPU:    "0.5",
+					MaxMemory: "1Gi",
+					Secret:    v1.NewOptNilPatchApplicationBodyComponentsItemSecretItemArray(secrets),
+				},
+			},
+		}
+	}
+
+	t.Run("secret with value", func(t *testing.T) {
+		app := newApp(v1.PatchApplicationBodyComponentsItemSecretItem{Key: "FOO", Value: v1.NewOptString("secret")})
+		body, err := app.CreateApplicationBody()
+		if err != nil {
+			t.Fatalf("CreateApplicationBody() = %v, want nil", err)
+		}
+		want := []v1.CreateApplicationBodyComponentsItemSecretItem{{Key: "FOO", Value: "secret"}}
+		if diff := cmp.Diff(want, body.Components[0].Secret.Value); diff != "" {
+			t.Errorf("secret mismatch (-want +got):\n%s", diff)
+		}
+	})
+
+	t.Run("secret without value", func(t *testing.T) {
+		app := newApp(v1.PatchApplicationBodyComponentsItemSecretItem{Key: "FOO"})
+		if _, err := app.CreateApplicationBody(); err == nil {
+			t.Error("CreateApplicationBody() = nil, want error")
+		}
+	})
+}
+
+func TestFromV1ApplicationWithSecret(t *testing.T) {
+	remote := &v1.HandlerReadApplication{
+		Name: "test",
+		Components: []v1.HandlerReadApplicationComponentsItem{
+			{
+				Name:      "test",
+				MaxCPU:    "0.5",
+				MaxMemory: "1Gi",
+				DeploySource: v1.HandlerReadApplicationComponentsItemDeploySource{
+					ContainerRegistry: v1.NewOptHandlerReadApplicationComponentsItemDeploySourceContainerRegistry(
+						v1.HandlerReadApplicationComponentsItemDeploySourceContainerRegistry{
+							Image: "example.sakuracr.jp/debian:latest",
+						},
+					),
+				},
+				Secret: v1.ResponseSecret{{Key: "FOO"}},
+			},
+		},
+	}
+	app := cli.FromV1Application(remote)
+	c := app.Components[0]
+	want := []v1.PatchApplicationBodyComponentsItemSecretItem{{Key: "FOO"}}
+	if diff := cmp.Diff(want, c.Secret.Value); diff != "" {
+		t.Errorf("secret mismatch (-want +got):\n%s", diff)
+	}
+	if c.DeploySource.ContainerRegistry.Value.Action.Set {
+		t.Error("container_registry.action must not be set for the application read from API")
 	}
 }

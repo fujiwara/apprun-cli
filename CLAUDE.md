@@ -25,7 +25,7 @@ The project uses `alecthomas/kong` for CLI argument parsing. All commands are de
 
 ### Application Model
 The `Application` struct (app.go:17) is the core data model that combines:
-- `v1.CreateApplicationBody` - application configuration
+- `v1.CreateApplicationBody` - application configuration (`Components` uses `v1.PatchApplicationBodyComponentsItem`, whose secret values are optional, so that it can also hold API responses and keep-as-is secrets)
 - `v1.PatchPacketFilterBody` - packet filter settings
 
 This struct is used for:
