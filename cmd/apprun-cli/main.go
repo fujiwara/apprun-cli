@@ -23,5 +23,5 @@ func run(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	return c.Run(ctx)
+	return c.Execute(ctx)
 }

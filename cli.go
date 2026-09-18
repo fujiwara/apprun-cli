@@ -34,7 +34,11 @@ type CLI struct {
 	loader *armed.CLI
 }
 
-func (c *CLI) Run(ctx context.Context) error {
+// Execute parses the command line arguments and runs the command.
+//
+// Do not name this method "Run". kong treats a Run() method of a command struct specially:
+// kong v1.16+ does not require a subcommand for a struct that has it.
+func (c *CLI) Execute(ctx context.Context) error {
 	k := kong.Parse(c, kong.Vars{"version": fmt.Sprintf("apprun-cli %s", Version)})
 	var err error
 	if c.Debug {

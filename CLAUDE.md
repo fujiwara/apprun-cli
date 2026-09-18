@@ -19,7 +19,7 @@ apprun-cli is a command-line interface for managing applications on Sakura Cloud
 ## Architecture
 
 ### CLI Structure
-The root package is `cli` (import path: `github.com/fujiwara/apprun-cli`). Main entry point is in `cmd/apprun-cli/main.go`, which calls `cli.CLI.Run()` in `cli.go:37`.
+The root package is `cli` (import path: `github.com/fujiwara/apprun-cli`). Main entry point is in `cmd/apprun-cli/main.go`, which calls `cli.CLI.Execute()` in `cli.go`. Do not define a method named `Run` on structs used as kong commands (`CLI` and `*Option`): kong treats `Run()` specially, and kong v1.16+ does not require a subcommand for a struct that has it.
 
 The project uses `alecthomas/kong` for CLI argument parsing. All commands are defined as methods on the `CLI` struct (e.g., `runList()`, `runDeploy()`), with each subcommand's options in a separate `*Option` struct. Each command implementation lives in its own file (deploy.go, diff.go, etc.).
 
