@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/Songmu/prompter v0.5.1
 	github.com/aereal/jsondiff v0.4.1
-	github.com/alecthomas/kong v1.15.0
+	github.com/alecthomas/kong v1.16.1
 	github.com/fatih/color v1.19.0
 	github.com/fujiwara/jsonnet-armed v0.1.1
 	github.com/fujiwara/sakura-secrets-cli v0.3.3
@@ -15,8 +15,8 @@ require (
 	github.com/itchyny/gojq v0.12.19
 	github.com/sacloud/sacloud-sdk-go v0.2.0
 	github.com/sacloud/sakumock v0.11.0
-	github.com/schollz/progressbar/v3 v3.19.0
-	golang.org/x/sys v0.47.0
+	github.com/schollz/progressbar/v3 v3.19.1
+	golang.org/x/sys v0.48.0
 )
 
 require (
