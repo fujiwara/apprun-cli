@@ -33,7 +33,7 @@ func (c *CLI) runDeploy(ctx context.Context) error {
 
 func (c *CLI) createApplication(ctx context.Context, app *Application) error {
 	op := apprun.NewApplicationOp(c.client)
-	created, err := op.Create(ctx, app.PostApplicationBody())
+	created, err := op.Create(ctx, app.CreateApplicationBody())
 	if err != nil {
 		return err
 	}
