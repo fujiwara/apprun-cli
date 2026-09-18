@@ -140,8 +140,8 @@ github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
 github.com/fujiwara/jsonnet-armed v0.1.1 h1:Lq65mAKzhdVWFLjQowYb4t4RS/1AMA5sXiGWb6HaskM=
 github.com/fujiwara/jsonnet-armed v0.1.1/go.mod h1:MyGurW7aiBjqaRuXb1GsHGr43CbRkMJ8rg0zyYLd2CU=
-github.com/fujiwara/sakura-secrets-cli v0.3.3 h1:HvodeXD3BTNoPJ4fctINkurH5O8uG4f0a+lzsm2PRVY=
-github.com/fujiwara/sakura-secrets-cli v0.3.3/go.mod h1:pQFzlX41C6916WOelLwV51zKuejvEj1RQNZj27/YZmQ=
+github.com/fujiwara/sakura-secrets-cli v0.3.4 h1:e3AybkuwF+jHqfMr0Yp17T23WbgeTuGhlGEgHWsNRG4=
+github.com/fujiwara/sakura-secrets-cli v0.3.4/go.mod h1:yqtUV7dkjHOM451qC5vLygDMxysooavx4QspcS1Qrg0=
 github.com/fujiwara/tfstate-lookup v1.12.1 h1:WQ0/+wYDm5yeiQtfejriKHonIXH6DSGkCJXEX8cV3hw=
 github.com/fujiwara/tfstate-lookup v1.12.1/go.mod h1:c7Nd3ZdQ2UljabuWzhgDaseKZhdXfgs6YLFarGbXyDs=
 github.com/ghodss/yaml v1.0.0 h1:wQHKEahhL6wmXdzwWG11gIVCkOv05bNOh+Rxn0yngAk=
