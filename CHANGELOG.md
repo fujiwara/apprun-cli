@@ -1,5 +1,12 @@
 # Changelog
 
+## [v0.9.0](https://github.com/fujiwara/apprun-cli/compare/v0.8.1...v0.9.0) - 2026-09-18
+
+- Update sacloud-sdk-go to v0.2.0 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/133
+- Support secret environment variables of components by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/135
+- Bump dependencies by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/136
+- Rename CLI.Run to CLI.Execute to avoid kong's special treatment of Run() by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/137
+
 ## [v0.8.1](https://github.com/fujiwara/apprun-cli/compare/v0.8.0...v0.8.1) - 2026-07-17
 
 - update to github.com/fujiwara/sakura-secrets-cli@v0.3.2 by @fujiwara in https://github.com/fujiwara/apprun-cli/pull/117
