@@ -9,32 +9,32 @@ import (
 	v1 "github.com/sacloud/sacloud-sdk-go/api/apprun/apis/v1"
 )
 
-func (c *CLI) getPacketFilter(ctx context.Context, appID string) (*v1.PatchPacketFilter, error) {
+func (c *CLI) getPacketFilter(ctx context.Context, appID string) (*v1.PatchPacketFilterBody, error) {
 	// packet filter
 	pfOp := apprun.NewPacketFilterOp(c.client)
 	pf, err := pfOp.Read(ctx, appID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read packet filter: %s", err)
 	}
-	settings := make([]v1.PatchPacketFilterSettingsItem, 0, len(pf.Settings))
+	settings := make([]v1.PatchPacketFilterBodySettingsItem, 0, len(pf.Settings))
 	for _, s := range pf.Settings {
-		settings = append(settings, v1.PatchPacketFilterSettingsItem{
+		settings = append(settings, v1.PatchPacketFilterBodySettingsItem{
 			FromIP:             s.FromIP,
 			FromIPPrefixLength: s.FromIPPrefixLength,
 		})
 	}
-	return &v1.PatchPacketFilter{
+	return &v1.PatchPacketFilterBody{
 		IsEnabled: v1.NewOptBool(pf.IsEnabled),
 		Settings:  settings,
 	}, nil
 }
 
-func (c *CLI) updatePacketFilter(ctx context.Context, appID string, pf v1.PatchPacketFilter) error {
+func (c *CLI) updatePacketFilter(ctx context.Context, appID string, pf v1.PatchPacketFilterBody) error {
 	if !pf.IsEnabled.Set {
 		pf.IsEnabled = v1.NewOptBool(false)
 	}
 	if pf.Settings == nil {
-		pf.Settings = []v1.PatchPacketFilterSettingsItem{}
+		pf.Settings = []v1.PatchPacketFilterBodySettingsItem{}
 	}
 	slog.Debug("updating packet filter", "patch", toJSON(pf))
 

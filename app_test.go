@@ -15,12 +15,12 @@ var testApplication = &cli.Application{
 	Name:           "test",
 	Port:           80,
 	TimeoutSeconds: 10,
-	Components: []v1.PostApplicationBodyComponentsItem{
+	Components: []v1.CreateApplicationBodyComponentsItem{
 		{
 			Name: "test",
-			DeploySource: v1.PostApplicationBodyComponentsItemDeploySource{
-				ContainerRegistry: v1.NewOptPostApplicationBodyComponentsItemDeploySourceContainerRegistry(
-					v1.PostApplicationBodyComponentsItemDeploySourceContainerRegistry{
+			DeploySource: v1.CreateApplicationBodyComponentsItemDeploySource{
+				ContainerRegistry: v1.NewOptCreateApplicationBodyComponentsItemDeploySourceContainerRegistry(
+					v1.CreateApplicationBodyComponentsItemDeploySourceContainerRegistry{
 						Username: v1.NewOptNilString("apprun"),
 						Password: v1.NewOptNilString("password"),
 						Server:   v1.NewOptNilString("example.sakuracr.jp"),
@@ -28,21 +28,21 @@ var testApplication = &cli.Application{
 					},
 				),
 			},
-			Env: v1.NewOptNilPostApplicationBodyComponentsItemEnvItemArray(
-				[]v1.PostApplicationBodyComponentsItemEnvItem{
+			Env: v1.NewOptNilRequestEnv(
+				v1.RequestEnv{
 					{
-						Key:   v1.NewOptString("FOO"),
-						Value: v1.NewOptString("BAR"),
+						Key:   "FOO",
+						Value: "BAR",
 					},
 				},
 			),
 			MaxCPU:    "0.5",
 			MaxMemory: "1Gi",
-			Probe: v1.NewOptNilPostApplicationBodyComponentsItemProbe(
-				v1.PostApplicationBodyComponentsItemProbe{
-					HTTPGet: v1.NewOptNilPostApplicationBodyComponentsItemProbeHTTPGet(
-						v1.PostApplicationBodyComponentsItemProbeHTTPGet{
-							Headers: []v1.PostApplicationBodyComponentsItemProbeHTTPGetHeadersItem{
+			Probe: v1.NewOptNilCreateApplicationBodyComponentsItemProbe(
+				v1.CreateApplicationBodyComponentsItemProbe{
+					HTTPGet: v1.NewOptNilCreateApplicationBodyComponentsItemProbeHTTPGet(
+						v1.CreateApplicationBodyComponentsItemProbeHTTPGet{
+							Headers: []v1.CreateApplicationBodyComponentsItemProbeHTTPGetHeadersItem{
 								{
 									Name:  v1.NewOptString("X-Test"),
 									Value: v1.NewOptString("test"),
@@ -107,11 +107,11 @@ func TestValidate(t *testing.T) {
 				TimeoutSeconds: 10,
 				MinScale:       1,
 				MaxScale:       2,
-				Components: []v1.PostApplicationBodyComponentsItem{
+				Components: []v1.CreateApplicationBodyComponentsItem{
 					{
 						Name:      "test",
-						MaxCPU:    v1.PostApplicationBodyComponentsItemMaxCPU(tt.cpu),
-						MaxMemory: v1.PostApplicationBodyComponentsItemMaxMemory(tt.memory),
+						MaxCPU:    v1.CreateApplicationBodyComponentsItemMaxCPU(tt.cpu),
+						MaxMemory: v1.CreateApplicationBodyComponentsItemMaxMemory(tt.memory),
 					},
 				},
 			}

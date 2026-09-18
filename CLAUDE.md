@@ -8,7 +8,7 @@ apprun-cli is a command-line interface for managing applications on Sakura Cloud
 
 ## Development Commands
 
-- Go 1.24+ required
+- Go 1.26+ required
 - `make build` - Build the binary to `./apprun-cli`
 - `make test` or `go test -v ./...` - Run all tests
 - `go test -v -run TestLoadApplication ./...` - Run a single test
@@ -25,12 +25,12 @@ The project uses `alecthomas/kong` for CLI argument parsing. All commands are de
 
 ### Application Model
 The `Application` struct (app.go:17) is the core data model that combines:
-- `v1.PostApplicationBody` - application configuration
-- `v1.PatchPacketFilter` - packet filter settings
+- `v1.CreateApplicationBody` - application configuration
+- `v1.PatchPacketFilterBody` - packet filter settings
 
 This struct is used for:
 - Loading from Jsonnet/JSON files via `LoadApplication()` (app.go:109)
-- Converting to API request bodies via `PostApplicationBody()` and `toUpdateV1Application()`
+- Converting to API request bodies via `CreateApplicationBody()` and `toUpdateV1Application()`
 - Marshaling to JSON for output
 
 ### Jsonnet Integration

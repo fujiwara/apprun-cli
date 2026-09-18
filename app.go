@@ -15,24 +15,24 @@ import (
 )
 
 // Application represents an application definition
-// This is combined struct of v1.PostApplicationBody and v1.PatchPacketFilter
+// This is combined struct of v1.CreateApplicationBody and v1.PatchPacketFilterBody
 type Application struct {
-	// same as v1.PostApplicationBody
-	Components     []v1.PostApplicationBodyComponentsItem `json:"components"`
-	MaxScale       int                                    `json:"max_scale"`
-	MinScale       int                                    `json:"min_scale"`
-	Name           string                                 `json:"name"`
-	Port           int                                    `json:"port"`
-	TimeoutSeconds int                                    `json:"timeout_seconds"`
+	// same as v1.CreateApplicationBody
+	Components     []v1.CreateApplicationBodyComponentsItem `json:"components"`
+	MaxScale       int                                      `json:"max_scale"`
+	MinScale       int                                      `json:"min_scale"`
+	Name           string                                   `json:"name"`
+	Port           int                                      `json:"port"`
+	TimeoutSeconds int                                      `json:"timeout_seconds"`
 
-	PacketFilter v1.PatchPacketFilter `json:"packet_filter"`
+	PacketFilter v1.PatchPacketFilterBody `json:"packet_filter"`
 }
 
 type ApplicationInfo = v1.HandlerListApplicationsDataItem
 
-// PostApplicationBody returns v1.PostApplicationBody representation of Application
-func (app *Application) PostApplicationBody() *v1.PostApplicationBody {
-	return &v1.PostApplicationBody{
+// CreateApplicationBody returns v1.CreateApplicationBody representation of Application
+func (app *Application) CreateApplicationBody() *v1.CreateApplicationBody {
+	return &v1.CreateApplicationBody{
 		Components:     app.Components,
 		MaxScale:       app.MaxScale,
 		MinScale:       app.MinScale,
@@ -42,7 +42,7 @@ func (app *Application) PostApplicationBody() *v1.PostApplicationBody {
 	}
 }
 
-func fromV1Application(v *v1.HandlerGetApplication) *Application {
+func fromV1Application(v *v1.HandlerReadApplication) *Application {
 	b, err := json.Marshal(v)
 	if err != nil {
 		panic(err)

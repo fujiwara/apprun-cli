@@ -52,9 +52,9 @@ func (c *CLI) runTraffics(ctx context.Context) error {
 	return nil
 }
 
-func (c *CLI) AllTraffics(ctx context.Context, appId string) func(func(*v1.HandlerListTrafficsDataItem, error) bool) {
+func (c *CLI) AllTraffics(ctx context.Context, appId string) func(func(*v1.HandlerListTrafficDataItem, error) bool) {
 	op := apprun.NewTrafficOp(c.client)
-	return func(yield func(*v1.HandlerListTrafficsDataItem, error) bool) {
+	return func(yield func(*v1.HandlerListTrafficDataItem, error) bool) {
 		for {
 			res, err := op.List(ctx, appId)
 			if err != nil {
@@ -74,8 +74,8 @@ func (c *CLI) AllTraffics(ctx context.Context, appId string) func(func(*v1.Handl
 	}
 }
 
-func trafficByVersionName(versionName string, percent int) v1.PutTrafficsBodyItem {
-	return v1.NewPutTrafficsBodyItem1PutTrafficsBodyItem(v1.PutTrafficsBodyItem1{
+func trafficByVersionName(versionName string, percent int) v1.UpdateTrafficBodyItem {
+	return v1.NewUpdateTrafficBodyItem1UpdateTrafficBodyItem(v1.UpdateTrafficBodyItem1{
 		VersionName: versionName,
 		Percent:     percent,
 	})
@@ -84,7 +84,7 @@ func trafficByVersionName(versionName string, percent int) v1.PutTrafficsBodyIte
 func (c *CLI) updateTraffics(ctx context.Context, appId string, versions TrafficPercentageByVersion) error {
 	slog.Info("updating traffics", "app", appId, "traffics", toJSON(versions))
 	op := apprun.NewTrafficOp(c.client)
-	b := v1.PutTrafficsBody{}
+	b := v1.UpdateTrafficBody{}
 	for version, percentage := range versions {
 		b = append(b, trafficByVersionName(version, percentage))
 	}
@@ -162,7 +162,7 @@ func (c *CLI) shiftTraffics(ctx context.Context, appId string, versionName strin
 		if shiftedRate >= 100 {
 			shiftedRate = 100
 		}
-		b := v1.PutTrafficsBody{trafficByVersionName(versionName, shiftedRate)}
+		b := v1.UpdateTrafficBody{trafficByVersionName(versionName, shiftedRate)}
 		if shiftedRate < 100 {
 			// Percent == 0 is not allowed...
 			b = append(b, trafficByVersionName(currentVersionName, 100-shiftedRate))
