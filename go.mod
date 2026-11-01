@@ -3,7 +3,7 @@ module github.com/fujiwara/apprun-cli
 go 1.26.0
 
 require (
-	github.com/Songmu/prompter v0.5.1
+	github.com/Songmu/prompter v1.0.0
 	github.com/aereal/jsondiff v0.4.1
 	github.com/alecthomas/kong v1.16.1
 	github.com/fatih/color v1.19.0
@@ -16,7 +16,7 @@ require (
 	github.com/sacloud/sacloud-sdk-go v0.2.0
 	github.com/sacloud/sakumock v0.11.0
 	github.com/schollz/progressbar/v3 v3.19.1
-	golang.org/x/sys v0.48.0
+	golang.org/x/sys v0.49.0
 )
 
 require (
@@ -131,7 +131,7 @@ require (
 	golang.org/x/net v0.58.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
 	golang.org/x/sync v0.22.0 // indirect
-	golang.org/x/term v0.45.0 // indirect
+	golang.org/x/term v0.47.0 // indirect
 	golang.org/x/text v0.41.0 // indirect
 	golang.org/x/time v0.15.0 // indirect
 	golang.org/x/tools v0.48.0 // indirect
