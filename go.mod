@@ -13,7 +13,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/go-jsonnet v0.22.0
 	github.com/itchyny/gojq v0.12.19
-	github.com/sacloud/sacloud-sdk-go v0.2.0
+	github.com/sacloud/sacloud-sdk-go v0.4.0
 	github.com/sacloud/sakumock v0.11.0
 	github.com/schollz/progressbar/v3 v3.19.1
 	golang.org/x/sys v0.48.0
@@ -77,7 +77,8 @@ require (
 	github.com/go-jose/go-jose/v4 v4.1.4 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/gofrs/flock v0.13.0 // indirect
+	github.com/goccy/go-yaml v1.19.2 // indirect
+	github.com/gofrs/flock v0.13.1 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.2 // indirect
 	github.com/golang-jwt/jwt/v5 v5.3.1 // indirect
 	github.com/google/go-querystring v1.2.0 // indirect
@@ -125,16 +126,16 @@ require (
 	go.uber.org/ratelimit v0.3.1 // indirect
 	go.uber.org/zap v1.28.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
-	golang.org/x/crypto v0.55.0 // indirect
+	golang.org/x/crypto v0.57.0 // indirect
 	golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f // indirect
-	golang.org/x/mod v0.38.0 // indirect
-	golang.org/x/net v0.58.0 // indirect
+	golang.org/x/mod v0.41.0 // indirect
+	golang.org/x/net v0.59.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
-	golang.org/x/sync v0.22.0 // indirect
-	golang.org/x/term v0.45.0 // indirect
-	golang.org/x/text v0.41.0 // indirect
+	golang.org/x/sync v0.23.0 // indirect
+	golang.org/x/term v0.46.0 // indirect
+	golang.org/x/text v0.42.0 // indirect
 	golang.org/x/time v0.15.0 // indirect
-	golang.org/x/tools v0.48.0 // indirect
+	golang.org/x/tools v0.49.0 // indirect
 	google.golang.org/api v0.277.0 // indirect
 	google.golang.org/genproto v0.0.0-20260319201613-d00831a3d3e7 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260526163538-3dc84a4a5aaa // indirect
