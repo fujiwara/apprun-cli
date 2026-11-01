@@ -16,7 +16,7 @@ require (
 	github.com/sacloud/sacloud-sdk-go v0.2.0
 	github.com/sacloud/sakumock v0.11.0
 	github.com/schollz/progressbar/v3 v3.19.1
-	golang.org/x/sys v0.48.0
+	golang.org/x/sys v0.49.0
 )
 
 require (
